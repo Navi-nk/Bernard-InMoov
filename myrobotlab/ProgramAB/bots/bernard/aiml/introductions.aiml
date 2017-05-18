@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+<category>
+<pattern>*</pattern>
+<template>Sorry. I cannot comprehend what you are saying</template>
+</category>
+
+<category>
+<pattern>HELLO HOW ARE YOU *</pattern>
+<template>I am fine thank you how are you?</template>
+</category>
+
+<category>
+<pattern>HELLO</pattern>
+<template>
+<random>
+<li>Hi.Nice to meet you</li>
+<li>Hello.</li>
+<li>Hi.</li>
+</random>
+</template>
+</category>
+
+<category>
+   <pattern>HELLO *</pattern>
+   <template>
+      <srai>HELLO</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>BYE</pattern>
+   <template>
+   <condition name="name">
+  <li value="*">Good Bye <get name="name"/>! Hope I will see you soon.</li>
+  <li>Good Bye! Hope I will see you soon.</li>
+</condition>
+</template>
+</category>
+
+<category>
+   <pattern>BYE *</pattern>
+   <template>
+      <srai>BYE</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>WHAT IS YOUR NAME</pattern>
+   <template>
+    My name is BERNARD.
+   </template>
+</category>
+
+   
+<category>
+   <pattern>_ NAME IS *</pattern>
+   <template>
+    Hello <set name = "name"> <star index = "2"/>. Nice to meet you. </set>
+   </template>
+</category>
+   
+<category>
+<pattern>WHAT IS MY NAME</pattern>
+<template>
+<condition name="name">
+  <li value="*">Your name is <get name="name"/>.</li>
+  <li>You have not yet told me your name.</li>
+</condition>
+</template>
+</category>
+</aiml>
