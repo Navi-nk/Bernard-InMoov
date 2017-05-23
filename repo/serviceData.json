@@ -1,0 +1,1464 @@
+{
+  "serviceTypes": {
+    "org.myrobotlab.service.AcapelaSpeech": {
+      "name": "org.myrobotlab.service.AcapelaSpeech",
+      "description": "Acapela group speech syntesis service.",
+      "peers": {
+        "audioFile": "org.myrobotlab.service.AudioFile"
+      }
+    },
+    "org.myrobotlab.service.Adafruit16CServoDriver": {
+      "name": "org.myrobotlab.service.Adafruit16CServoDriver",
+      "description": "Adafruit Motor Shield Service",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino"
+      }
+    },
+    "org.myrobotlab.service.AdafruitMotorShield": {
+      "name": "org.myrobotlab.service.AdafruitMotorShield",
+      "description": "Adafruit Motor Shield Service",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino"
+      }
+    },
+    "org.myrobotlab.service.Agent": {
+      "name": "org.myrobotlab.service.Agent",
+      "description": "Agent (Smith) - responsible for creating the environment and maintaining, tracking and terminating all processes"
+    },
+    "org.myrobotlab.service.Android": {
+      "name": "org.myrobotlab.service.Android",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.AndroidSpeechRecognition": {
+      "name": "org.myrobotlab.service.AndroidSpeechRecognition",
+      "description": "utilizing Android's Speech Recognition"
+    },
+    "org.myrobotlab.service.Arduino": {
+      "name": "org.myrobotlab.service.Arduino",
+      "description": "This service interfaces with an Arduino micro-controller.",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.Arm": {
+      "name": "org.myrobotlab.service.Arm",
+      "description": "robot arm service"
+    },
+    "org.myrobotlab.service.AudioCapture": {
+      "name": "org.myrobotlab.service.AudioCapture",
+      "description": "captures and stores audio from microphone"
+    },
+    "org.myrobotlab.service.AudioFile": {
+      "name": "org.myrobotlab.service.AudioFile",
+      "description": "Plays back audio file. Can block or multi-thread play",
+      "dependencies": [
+        "javazoom.spi",
+        "javazoom.jl.player",
+        "org.tritonus.share.sampled.floatsamplebuffer"
+      ]
+    },
+    "org.myrobotlab.service.BeagleBoardBlack": {
+      "name": "org.myrobotlab.service.BeagleBoardBlack",
+      "description": "service to access the beagle board black hardware"
+    },
+    "org.myrobotlab.service.Blender": {
+      "name": "org.myrobotlab.service.Blender",
+      "description": "used as a general blender"
+    },
+    "org.myrobotlab.service.CSVConnector": {
+      "name": "org.myrobotlab.service.CSVConnector",
+      "description": "This service crawls a csv file and publishes each row as a document."
+    },
+    "org.myrobotlab.service.ChessGame": {
+      "name": "org.myrobotlab.service.ChessGame",
+      "description": "used to generate pulses",
+      "dependencies": [
+        "org.op.chess"
+      ]
+    },
+    "org.myrobotlab.service.ChessGameManager": {
+      "name": "org.myrobotlab.service.ChessGameManager",
+      "description": "used as a general template",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial",
+        "speech": "org.myrobotlab.service.Speech",
+        "webgui": "org.myrobotlab.service.WebGui"
+      }
+    },
+    "org.myrobotlab.service.CleverBot": {
+      "name": "org.myrobotlab.service.CleverBot",
+      "description": "used as a general template",
+      "dependencies": [
+        "com.googlecode.chatterbot"
+      ]
+    },
+    "org.myrobotlab.service.Cli": {
+      "name": "org.myrobotlab.service.Cli",
+      "description": "used as a general cli"
+    },
+    "org.myrobotlab.service.Clock": {
+      "name": "org.myrobotlab.service.Clock",
+      "description": "used to generate pulses"
+    },
+    "org.myrobotlab.service.Cron": {
+      "name": "org.myrobotlab.service.Cron",
+      "description": "A Cron like service capable of scheduling future actions",
+      "dependencies": [
+        "it.sauronsoftware.cron4j"
+      ]
+    },
+    "org.myrobotlab.service.DatabaseConnector": {
+      "name": "org.myrobotlab.service.DatabaseConnector",
+      "description": "This service will run a select statement against a database and return the rows as documents to be published."
+    },
+    "org.myrobotlab.service.DocumentPipeline": {
+      "name": "org.myrobotlab.service.DocumentPipeline",
+      "description": "This service will pass a document through a document processing pipeline made up of transformers."
+    },
+    "org.myrobotlab.service.EddieControlBoard": {
+      "name": "org.myrobotlab.service.EddieControlBoard",
+      "description": "used as a general template",
+      "peers": {
+        "joystick": "org.myrobotlab.service.Joystick",
+        "keyboard": "org.myrobotlab.service.Keyboard",
+        "remote": "org.myrobotlab.service.RemoteAdapter",
+        "serial": "org.myrobotlab.service.Serial",
+        "webgui": "org.myrobotlab.service.WebGui"
+      }
+    },
+    "org.myrobotlab.service.Esp8266": {
+      "name": "org.myrobotlab.service.Esp8266",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.FileConnector": {
+      "name": "org.myrobotlab.service.FileConnector",
+      "description": "This connector will scan all the files in a directory and production documents."
+    },
+    "org.myrobotlab.service.GoPro": {
+      "name": "org.myrobotlab.service.GoPro",
+      "description": "Service to control a GoPro Camera",
+      "peers": {
+        "http": "org.myrobotlab.service.HttpClient"
+      }
+    },
+    "org.myrobotlab.service.GPS": {
+      "name": "org.myrobotlab.service.GPS",
+      "description": "The GPS service",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.GUIService": {
+      "name": "org.myrobotlab.service.GUIService",
+      "description": "Service used to graphically display and control other services",
+      "dependencies": [
+        "org.fife.autocomplete",
+        "org.fife.rsyntaxtextarea",
+        "com.mxgraph.jgraph"
+      ]
+    },
+    "org.myrobotlab.service.HtmlFilter": {
+      "name": "org.myrobotlab.service.HtmlFilter",
+      "description": "This service will strip html markup from the input text."
+    },
+    "org.myrobotlab.service.HttpClient": {
+      "name": "org.myrobotlab.service.HttpClient",
+      "description": "an HTTP client, used to fetch information on the web",
+      "dependencies": [
+        "org.apache.commons.httpclient"
+      ]
+    },
+    "org.myrobotlab.service.IPCamera": {
+      "name": "org.myrobotlab.service.IPCamera",
+      "description": "used as a general template",
+      "dependencies": [
+        "org.bytedeco.javacv"
+      ]
+    },
+    "org.myrobotlab.service.ImageDisplay": {
+      "name": "org.myrobotlab.service.ImageDisplay",
+      "description": "Service to Display Images"
+    },
+    "org.myrobotlab.service.ImapEmailConnector": {
+      "name": "org.myrobotlab.service.ImapEmailConnector",
+      "description": "This connector will connect to an IMAP based email server and crawl the emails."
+    },
+    "org.myrobotlab.service.InMoov": {
+      "name": "org.myrobotlab.service.InMoov",
+      "description": "The InMoov service",
+      "peers": {
+        "ear": "org.myrobotlab.service.Sphinx",
+        "eyesTracking": "org.myrobotlab.service.Tracking",
+        "eyesTracking.arduino": "org.myrobotlab.service.Arduino",
+        "eyesTracking.opencv": "org.myrobotlab.service.OpenCV",
+        "eyesTracking.x": "org.myrobotlab.service.Servo",
+        "eyesTracking.y": "org.myrobotlab.service.Servo",
+        "head": "org.myrobotlab.service.InMoovHead",
+        "head.arduino": "org.myrobotlab.service.Arduino",
+        "headTracking": "org.myrobotlab.service.Tracking",
+        "headTracking.arduino": "org.myrobotlab.service.Arduino",
+        "headTracking.opencv": "org.myrobotlab.service.OpenCV",
+        "headTracking.x": "org.myrobotlab.service.Servo",
+        "headTracking.y": "org.myrobotlab.service.Servo",
+        "leftArm": "org.myrobotlab.service.InMoovArm",
+        "leftArm.arduino": "org.myrobotlab.service.Arduino",
+        "leftHand": "org.myrobotlab.service.InMoovHand",
+        "leftHand.arduino": "org.myrobotlab.service.Arduino",
+        "mouth": "org.myrobotlab.service.AcapelaSpeech",
+        "mouthControl": "org.myrobotlab.service.MouthControl",
+        "mouthControl.arduino": "org.myrobotlab.service.Arduino",
+        "mouthControl.jaw": "org.myrobotlab.service.Servo",
+        "mouthControl.mouth": "org.myrobotlab.service.AcapelaSpeech",
+        "opencv": "org.myrobotlab.service.OpenCV",
+        "openni": "org.myrobotlab.service.OpenNI",
+        "pid": "org.myrobotlab.service.PID2",
+        "python": "org.myrobotlab.service.Python",
+        "rightArm": "org.myrobotlab.service.InMoovArm",
+        "rightArm.arduino": "org.myrobotlab.service.Arduino",
+        "rightHand": "org.myrobotlab.service.InMoovHand",
+        "rightHand.arduino": "org.myrobotlab.service.Arduino",
+        "torso": "org.myrobotlab.service.InMoovTorso",
+        "torso.arduino": "org.myrobotlab.service.Arduino"
+      }
+    },
+    "org.myrobotlab.service.InMoovArm": {
+      "name": "org.myrobotlab.service.InMoovArm",
+      "description": "the InMoov Arm Service",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "bicep": "org.myrobotlab.service.Servo",
+        "omoplate": "org.myrobotlab.service.Servo",
+        "rotate": "org.myrobotlab.service.Servo",
+        "shoulder": "org.myrobotlab.service.Servo"
+      }
+    },
+    "org.myrobotlab.service.InMoovGestureCreator": {
+      "name": "org.myrobotlab.service.InMoovGestureCreator",
+      "description": "an easier way to create gestures for InMoov"
+    },
+    "org.myrobotlab.service.InMoovHand": {
+      "name": "org.myrobotlab.service.InMoovHand",
+      "description": "hand service for inmoov",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "index": "org.myrobotlab.service.Servo",
+        "leap": "org.myrobotlab.service.LeapMotion2",
+        "majeure": "org.myrobotlab.service.Servo",
+        "pinky": "org.myrobotlab.service.Servo",
+        "ringFinger": "org.myrobotlab.service.Servo",
+        "thumb": "org.myrobotlab.service.Servo",
+        "wrist": "org.myrobotlab.service.Servo"
+      }
+    },
+    "org.myrobotlab.service.InMoovHead": {
+      "name": "org.myrobotlab.service.InMoovHead",
+      "description": "InMoov Head Service",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "eyeX": "org.myrobotlab.service.Servo",
+        "eyeY": "org.myrobotlab.service.Servo",
+        "jaw": "org.myrobotlab.service.Servo",
+        "neck": "org.myrobotlab.service.Servo",
+        "rothead": "org.myrobotlab.service.Servo"
+      }
+    },
+    "org.myrobotlab.service.InMoovTorso": {
+      "name": "org.myrobotlab.service.InMoovTorso",
+      "description": "the InMoov Arm Service",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "lowStom": "org.myrobotlab.service.Servo",
+        "midStom": "org.myrobotlab.service.Servo",
+        "topStom": "org.myrobotlab.service.Servo"
+      }
+    },
+    "org.myrobotlab.service.Incubator": {
+      "name": "org.myrobotlab.service.Incubator",
+      "description": "used as a general template",
+      "peers": {
+        "python": "org.myrobotlab.service.Python",
+        "xmpp": "org.myrobotlab.service.XMPP"
+      }
+    },
+    "org.myrobotlab.service.InverseKinematics": {
+      "name": "org.myrobotlab.service.InverseKinematics",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.InverseKinematics3D": {
+      "name": "org.myrobotlab.service.InverseKinematics3D",
+      "description": "a 3D kinematics service supporting D-H parameters"
+    },
+    "org.myrobotlab.service.JFugue": {
+      "name": "org.myrobotlab.service.JFugue",
+      "description": "service wrapping Jfugue - http://www.jfugue.org/ used for music and sound generation",
+      "dependencies": [
+        "org.jfugue.music"
+      ]
+    },
+    "org.myrobotlab.service.Joystick": {
+      "name": "org.myrobotlab.service.Joystick",
+      "description": "used for interfacing with a Joystick",
+      "dependencies": [
+        "net.java.games.jinput"
+      ]
+    },
+    "org.myrobotlab.service.Keyboard": {
+      "name": "org.myrobotlab.service.Keyboard",
+      "description": "keyboard"
+    },
+    "org.myrobotlab.service.LeapMotion": {
+      "name": "org.myrobotlab.service.LeapMotion",
+      "description": "used as a general template",
+      "dependencies": [
+        "com.leapmotion"
+      ]
+    },
+    "org.myrobotlab.service.Lidar": {
+      "name": "org.myrobotlab.service.Lidar",
+      "description": "The Lidar service"
+    },
+    "org.myrobotlab.service.Log": {
+      "name": "org.myrobotlab.service.Log",
+      "description": "logging service"
+    },
+    "org.myrobotlab.service.MPU6050": {
+      "name": "org.myrobotlab.service.MPU6050",
+      "description": "used as a general mpu6050",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.MQTT": {
+      "name": "org.myrobotlab.service.MQTT",
+      "description": "This is an MQTT client based on the Paho MQTT client library. MQTT is a machine-to-machine (M2M)/'Internet of Things' connectivity protocol. See http://mqtt.org",
+      "dependencies": [
+        "org.eclipse.paho"
+      ]
+    },
+    "org.myrobotlab.service.Maestro": {
+      "name": "org.myrobotlab.service.Maestro",
+      "description": "used as a general template",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.Mail": {
+      "name": "org.myrobotlab.service.Mail",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.MarySpeech": {
+      "name": "org.myrobotlab.service.MarySpeech",
+      "description": "Speech synthesis based on MaryTTS",
+      "dependencies": [
+        "marytts"
+      ]
+    },
+    "org.myrobotlab.service.Motor": {
+      "name": "org.myrobotlab.service.Motor",
+      "description": "general motor service"
+    },
+    "org.myrobotlab.service.MultiWii": {
+      "name": "org.myrobotlab.service.MultiWii",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.MyoThalmic": {
+      "name": "org.myrobotlab.service.MyoThalmic",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.OculusDIY": {
+      "name": "org.myrobotlab.service.OculusDIY",
+      "description": "Service to receive and compute data from a DIY Oculus",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino"
+      }
+    },
+    "org.myrobotlab.service.OculusRift": {
+      "name": "org.myrobotlab.service.OculusRift",
+      "description": "The Oculus Rift Head Tracking Service",
+      "dependencies": [
+        "org.saintandreas.jovr"
+      ],
+      "peers": {
+        "leftOpenCV": "org.myrobotlab.service.OpenCV",
+        "rightOpenCV": "org.myrobotlab.service.OpenCV"
+      }
+    },
+    "org.myrobotlab.service.OpenCV": {
+      "name": "org.myrobotlab.service.OpenCV",
+      "description": "OpenCV (computer vision) service wrapping many of the functions and filters of OpenCV. ",
+      "dependencies": [
+        "org.bytedeco.javacv"
+      ],
+      "peers": {
+        "streamer": "org.myrobotlab.service.VideoStreamer"
+      }
+    },
+    "org.myrobotlab.service.OpenNI": {
+      "name": "org.myrobotlab.service.OpenNI",
+      "description": "OpenNI Service",
+      "dependencies": [
+        "com.googlecode.simpleopenni"
+      ]
+    },
+    "org.myrobotlab.service.PICAXE": {
+      "name": "org.myrobotlab.service.PICAXE",
+      "description": "(not implemented yet) used to interface PICAXE"
+    },
+    "org.myrobotlab.service.PID": {
+      "name": "org.myrobotlab.service.PID",
+      "description": "<html>a PID control service from<br>http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-introduction/</html>"
+    },
+    "org.myrobotlab.service.PID2": {
+      "name": "org.myrobotlab.service.PID2",
+      "description": "<html>a PID2 control service from<br>http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-introduction/</html>"
+    },
+    "org.myrobotlab.service.PickToLight": {
+      "name": "org.myrobotlab.service.PickToLight",
+      "description": "Pick to light system",
+      "dependencies": [
+        "org.apache.commons.httpclient"
+      ],
+      "peers": {
+        "raspi": "org.myrobotlab.service.RasPi",
+        "webgui": "org.myrobotlab.service.WebGui"
+      }
+    },
+    "org.myrobotlab.service.Pingdar": {
+      "name": "org.myrobotlab.service.Pingdar",
+      "description": "used as a ultra sonic radar",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "sensor": "org.myrobotlab.service.UltrasonicSensor",
+        "servo": "org.myrobotlab.service.Servo"
+      }
+    },
+    "org.myrobotlab.service.Plantoid": {
+      "name": "org.myrobotlab.service.Plantoid",
+      "description": "the plantoid service",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "audioFile": "org.myrobotlab.service.AudioFile",
+        "jFugue": "org.myrobotlab.service.JFugue",
+        "leg1": "org.myrobotlab.service.Servo",
+        "leg2": "org.myrobotlab.service.Servo",
+        "leg3": "org.myrobotlab.service.Servo",
+        "leg4": "org.myrobotlab.service.Servo",
+        "opencv": "org.myrobotlab.service.OpenCV",
+        "pan": "org.myrobotlab.service.Servo",
+        "streamer": "org.myrobotlab.service.VideoStreamer",
+        "tilt": "org.myrobotlab.service.Servo",
+        "tracking": "org.myrobotlab.service.Tracking",
+        "webgui": "org.myrobotlab.service.WebGui",
+        "xmpp": "org.myrobotlab.service.XMPP"
+      }
+    },
+    "org.myrobotlab.service.ProgramAB": {
+      "name": "org.myrobotlab.service.ProgramAB",
+      "description": "AIML 2.0 Reference interpreter based on Program AB",
+      "dependencies": [
+        "org.alicebot.ab"
+      ]
+    },
+    "org.myrobotlab.service.Proxy": {
+      "name": "org.myrobotlab.service.Proxy",
+      "description": "A proxy service to proxy messages"
+    },
+    "org.myrobotlab.service.Python": {
+      "name": "org.myrobotlab.service.Python",
+      "description": "Python IDE",
+      "dependencies": [
+        "org.python.core"
+      ]
+    },
+    "org.myrobotlab.service.ROS": {
+      "name": "org.myrobotlab.service.ROS",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.RSSConnector": {
+      "name": "org.myrobotlab.service.RSSConnector",
+      "description": "This will crawl an rss feed at the given url and break apart the page into Documents"
+    },
+    "org.myrobotlab.service.RasPi": {
+      "name": "org.myrobotlab.service.RasPi",
+      "description": "Raspberry Pi service used for accessing specific RasPi hardware such as I2C",
+      "dependencies": [
+        "com.pi4j.pi4j"
+      ]
+    },
+    "org.myrobotlab.service.RecorderPlayer": {
+      "name": "org.myrobotlab.service.RecorderPlayer",
+      "description": "<html>service for recording and playing back messages (not fully implemented)</html>"
+    },
+    "org.myrobotlab.service.Red5": {
+      "name": "org.myrobotlab.service.Red5",
+      "description": "Red5 video/audio streaming service"
+    },
+    "org.myrobotlab.service.RemoteAdapter": {
+      "name": "org.myrobotlab.service.RemoteAdapter",
+      "description": "allows remote communication between applets, or remote instances of myrobotlab"
+    },
+    "org.myrobotlab.service.RobotPlatform": {
+      "name": "org.myrobotlab.service.RobotPlatform",
+      "description": "<html>used to encapsulate many of the functions and formulas regarding 2 motor platforms.<br>encoders and other feedback mechanisms can be added to provide heading, location and other information</html>"
+    },
+    "org.myrobotlab.service.Roomba": {
+      "name": "org.myrobotlab.service.Roomba",
+      "description": "used as a general template",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.Runtime": {
+      "name": "org.myrobotlab.service.Runtime",
+      "description": "Runtime singleton service",
+      "peers": {
+        "cli": "org.myrobotlab.service.Cli"
+      }
+    },
+    "org.myrobotlab.service.SLAMBad": {
+      "name": "org.myrobotlab.service.SLAMBad",
+      "description": "used as a general template",
+      "dependencies": [
+        "javax.vecmath",
+        "com.sun.java3d"
+      ]
+    },
+    "org.myrobotlab.service.Sabertooth": {
+      "name": "org.myrobotlab.service.Sabertooth",
+      "description": "used as a general template",
+      "peers": {
+        "serial": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.Security": {
+      "name": "org.myrobotlab.service.Security",
+      "description": "security service"
+    },
+    "org.myrobotlab.service.SensorMonitor": {
+      "name": "org.myrobotlab.service.SensorMonitor",
+      "description": "<html>sensor monitor - capable of displaying sensor information in a crude oscilliscope fasion</html>"
+    },
+    "org.myrobotlab.service.Serial": {
+      "name": "org.myrobotlab.service.Serial",
+      "description": "reads and writes serial data",
+      "dependencies": [
+        "gnu.io.rxtx",
+        "com.googlecode.jssc"
+      ]
+    },
+    "org.myrobotlab.service.Servo": {
+      "name": "org.myrobotlab.service.Servo",
+      "description": "basic servo service"
+    },
+    "org.myrobotlab.service.ServoOrchestrator": {
+      "name": "org.myrobotlab.service.ServoOrchestrator",
+      "description": "organize your Servo-movements"
+    },
+    "org.myrobotlab.service.Shoutbox": {
+      "name": "org.myrobotlab.service.Shoutbox",
+      "description": "shoutbox server for myrobotlab"
+    },
+    "org.myrobotlab.service.Solr": {
+      "name": "org.myrobotlab.service.Solr",
+      "description": "Solr Service - Open source search engine.",
+      "dependencies": [
+        "org.apache.solr"
+      ]
+    },
+    "org.myrobotlab.service.Sphinx": {
+      "name": "org.myrobotlab.service.Sphinx",
+      "description": "<html>speech recoginition service wrapping Sphinx 4</html>",
+      "dependencies": [
+        "javax.speech.recognition",
+        "edu.cmu.sphinx"
+      ]
+    },
+    "org.myrobotlab.service.Sprinkler": {
+      "name": "org.myrobotlab.service.Sprinkler",
+      "description": "uber sprinkler system",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "cron": "org.myrobotlab.service.Cron",
+        "webgui": "org.myrobotlab.service.WebGui"
+      }
+    },
+    "org.myrobotlab.service.Sweety": {
+      "name": "org.myrobotlab.service.Sweety",
+      "description": "Service for the robot Sweety",
+      "peers": {
+        "USback": "org.myrobotlab.service.UltrasonicSensor",
+        "USbackLeft": "org.myrobotlab.service.UltrasonicSensor",
+        "USbackRight": "org.myrobotlab.service.UltrasonicSensor",
+        "USfront": "org.myrobotlab.service.UltrasonicSensor",
+        "USfrontLeft": "org.myrobotlab.service.UltrasonicSensor",
+        "USfrontRight": "org.myrobotlab.service.UltrasonicSensor",
+        "arduino": "org.myrobotlab.service.Arduino",
+        "chatBot": "org.myrobotlab.service.ProgramAB",
+        "ear": "org.myrobotlab.service.WebkitSpeechRecognition",
+        "htmlFilter": "org.myrobotlab.service.HtmlFilter",
+        "leftArm": "org.myrobotlab.service.Servo",
+        "leftEye": "org.myrobotlab.service.Servo",
+        "leftForearm": "org.myrobotlab.service.Servo",
+        "leftHand": "org.myrobotlab.service.Servo",
+        "leftShoulder": "org.myrobotlab.service.Servo",
+        "leftTracker": "org.myrobotlab.service.Tracking",
+        "leftWrist": "org.myrobotlab.service.Servo",
+        "mouth": "org.myrobotlab.service.AcapelaSpeech",
+        "neck": "org.myrobotlab.service.Servo",
+        "openni": "org.myrobotlab.service.OpenNI",
+        "pid": "org.myrobotlab.service.PID",
+        "rightArm": "org.myrobotlab.service.Servo",
+        "rightEye": "org.myrobotlab.service.Servo",
+        "rightForearm": "org.myrobotlab.service.Servo",
+        "rightHand": "org.myrobotlab.service.Servo",
+        "rightShoulder": "org.myrobotlab.service.Servo",
+        "rightTracker": "org.myrobotlab.service.Tracking",
+        "rightWrist": "org.myrobotlab.service.Servo",
+        "webGui": "org.myrobotlab.service.WebGui"
+      }
+    },
+    "org.myrobotlab.service.TesseractOCR": {
+      "name": "org.myrobotlab.service.TesseractOCR",
+      "description": "Tesseract OCR Engine",
+      "dependencies": [
+        "net.sourceforge.tess4j",
+        "com.sun.jna"
+      ]
+    },
+    "org.myrobotlab.service.Test": {
+      "name": "org.myrobotlab.service.Test",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.TestCatcher": {
+      "name": "org.myrobotlab.service.TestCatcher",
+      "description": "service for junit tests"
+    },
+    "org.myrobotlab.service.TestThrower": {
+      "name": "org.myrobotlab.service.TestThrower",
+      "description": "service for test message sending"
+    },
+    "org.myrobotlab.service.TextTransform": {
+      "name": "org.myrobotlab.service.TextTransform",
+      "description": "used as a general textual transform - can be pipelined together"
+    },
+    "org.myrobotlab.service.ThingSpeak": {
+      "name": "org.myrobotlab.service.ThingSpeak",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.TopCodes": {
+      "name": "org.myrobotlab.service.TopCodes",
+      "description": "used as a general topcodes",
+      "dependencies": [
+        "edu.northwestern.topcodes"
+      ]
+    },
+    "org.myrobotlab.service.Tracking": {
+      "name": "org.myrobotlab.service.Tracking",
+      "description": "proportional control, tracking, and translation",
+      "peers": {
+        "arduino": "org.myrobotlab.service.Arduino",
+        "opencv": "org.myrobotlab.service.OpenCV",
+        "pid": "org.myrobotlab.service.PID2",
+        "x": "org.myrobotlab.service.Servo",
+        "y": "org.myrobotlab.service.Servo"
+      }
+    },
+    "org.myrobotlab.service.Twitter": {
+      "name": "org.myrobotlab.service.Twitter",
+      "description": "used as a general template",
+      "dependencies": [
+        "org.twitter4j.twitter"
+      ]
+    },
+    "org.myrobotlab.service.UltrasonicSensor": {
+      "name": "org.myrobotlab.service.UltrasonicSensor",
+      "description": "used as a general template",
+      "peers": {
+        "controller": "org.myrobotlab.service.Arduino"
+      }
+    },
+    "org.myrobotlab.service.VideoStreamer": {
+      "name": "org.myrobotlab.service.VideoStreamer",
+      "description": "used as a general template"
+    },
+    "org.myrobotlab.service.VirtualDevice": {
+      "name": "org.myrobotlab.service.VirtualDevice",
+      "description": "the virtual Arduino",
+      "peers": {
+        "logic": "org.myrobotlab.service.Python",
+        "uart": "org.myrobotlab.service.Serial"
+      }
+    },
+    "org.myrobotlab.service.WebGui": {
+      "name": "org.myrobotlab.service.WebGui",
+      "description": "web enabled gui",
+      "dependencies": [
+        "io.netty",
+        "org.atmosphere.nettosphere"
+      ]
+    },
+    "org.myrobotlab.service.WebkitSpeechRecognition": {
+      "name": "org.myrobotlab.service.WebkitSpeechRecognition",
+      "description": "Google Chrome webkit speech"
+    },
+    "org.myrobotlab.service.Wii": {
+      "name": "org.myrobotlab.service.Wii",
+      "description": "<html>wrapper service for wiiusej</html>",
+      "dependencies": [
+        "wiiuse.wiimote"
+      ]
+    },
+    "org.myrobotlab.service.WiiBot": {
+      "name": "org.myrobotlab.service.WiiBot",
+      "description": "(not implemented) - robot utilizing the wii mote and wiidar"
+    },
+    "org.myrobotlab.service.WiiDAR": {
+      "name": "org.myrobotlab.service.WiiDAR",
+      "description": "<html>service used in conjection with a wii camera a laser for inexpensive WiiDAR, a Lidar like system<br>see http://myrobotlab.org/node/1"
+    },
+    "org.myrobotlab.service.WikiDataFetcher": {
+      "name": "org.myrobotlab.service.WikiDataFetcher",
+      "description": "Used to collect datas from wikidata",
+      "dependencies": [
+        "org.wikidata.wdtk"
+      ]
+    },
+    "org.myrobotlab.service.WolframAlpha": {
+      "name": "org.myrobotlab.service.WolframAlpha",
+      "description": "Wolfram Alpha Service",
+      "dependencies": [
+        "com.wolfram.alpha",
+        "org.apache.commons.httpclient"
+      ]
+    },
+    "org.myrobotlab.service.XMLConnector": {
+      "name": "org.myrobotlab.service.XMLConnector",
+      "description": "This is an XML Connector that will parse a large xml file into many small xml documents."
+    },
+    "org.myrobotlab.service.XMPP": {
+      "name": "org.myrobotlab.service.XMPP",
+      "description": "xmpp service to access the jabber network",
+      "dependencies": [
+        "org.jivesoftware.smack"
+      ]
+    },
+    "org.myrobotlab.service._TemplateService": {
+      "name": "org.myrobotlab.service._TemplateService",
+      "description": "used as a general template"
+    }
+  },
+  "categoryTypes": {
+    "bridge": {
+      "name": "bridge",
+      "serviceTypes": [
+        "org.myrobotlab.service.ROS"
+      ]
+    },
+    "cloud": {
+      "name": "cloud",
+      "serviceTypes": [
+        "org.myrobotlab.service.MQTT",
+        "org.myrobotlab.service.ThingSpeak"
+      ]
+    },
+    "connectivity": {
+      "name": "connectivity",
+      "serviceTypes": [
+        "org.myrobotlab.service.HttpClient",
+        "org.myrobotlab.service.Mail",
+        "org.myrobotlab.service.RemoteAdapter",
+        "org.myrobotlab.service.Shoutbox",
+        "org.myrobotlab.service.Twitter",
+        "org.myrobotlab.service.WolframAlpha",
+        "org.myrobotlab.service.XMPP"
+      ]
+    },
+    "control": {
+      "name": "control",
+      "serviceTypes": [
+        "org.myrobotlab.service.InverseKinematics",
+        "org.myrobotlab.service.InverseKinematics3D",
+        "org.myrobotlab.service.Joystick",
+        "org.myrobotlab.service.Keyboard",
+        "org.myrobotlab.service.MultiWii",
+        "org.myrobotlab.service.OculusDIY",
+        "org.myrobotlab.service.OculusRift",
+        "org.myrobotlab.service.PID",
+        "org.myrobotlab.service.PID2",
+        "org.myrobotlab.service.Python",
+        "org.myrobotlab.service.RasPi",
+        "org.myrobotlab.service.RobotPlatform",
+        "org.myrobotlab.service.Sabertooth",
+        "org.myrobotlab.service.Serial",
+        "org.myrobotlab.service.Servo",
+        "org.myrobotlab.service.ServoOrchestrator",
+        "org.myrobotlab.service.Sphinx",
+        "org.myrobotlab.service.Sprinkler",
+        "org.myrobotlab.service.Tracking",
+        "org.myrobotlab.service.XMPP"
+      ]
+    },
+    "data": {
+      "name": "data",
+      "serviceTypes": [
+        "org.myrobotlab.service.CSVConnector",
+        "org.myrobotlab.service.DatabaseConnector",
+        "org.myrobotlab.service.DocumentPipeline",
+        "org.myrobotlab.service.FileConnector",
+        "org.myrobotlab.service.HtmlFilter",
+        "org.myrobotlab.service.ImapEmailConnector",
+        "org.myrobotlab.service.MQTT",
+        "org.myrobotlab.service.RSSConnector",
+        "org.myrobotlab.service.Solr",
+        "org.myrobotlab.service.TextTransform",
+        "org.myrobotlab.service.ThingSpeak",
+        "org.myrobotlab.service.WolframAlpha",
+        "org.myrobotlab.service.XMLConnector"
+      ]
+    },
+    "display": {
+      "name": "display",
+      "serviceTypes": [
+        "org.myrobotlab.service.Blender",
+        "org.myrobotlab.service.GUIService",
+        "org.myrobotlab.service.Pingdar",
+        "org.myrobotlab.service.Plantoid",
+        "org.myrobotlab.service.SensorMonitor",
+        "org.myrobotlab.service.ServoOrchestrator",
+        "org.myrobotlab.service.SLAMBad",
+        "org.myrobotlab.service.WebGui",
+        "org.myrobotlab.service.WiiDAR"
+      ]
+    },
+    "filter": {
+      "name": "filter",
+      "serviceTypes": [
+        "org.myrobotlab.service.HtmlFilter",
+        "org.myrobotlab.service.TextTransform"
+      ]
+    },
+    "framework": {
+      "name": "framework",
+      "serviceTypes": [
+        "org.myrobotlab.service.Agent",
+        "org.myrobotlab.service.Cli",
+        "org.myrobotlab.service.Proxy",
+        "org.myrobotlab.service.RecorderPlayer",
+        "org.myrobotlab.service.RemoteAdapter",
+        "org.myrobotlab.service.Runtime",
+        "org.myrobotlab.service.Security",
+        "org.myrobotlab.service.Test",
+        "org.myrobotlab.service.TestCatcher",
+        "org.myrobotlab.service.TestThrower"
+      ]
+    },
+    "game": {
+      "name": "game",
+      "serviceTypes": [
+        "org.myrobotlab.service.ChessGame",
+        "org.myrobotlab.service.ChessGameManager"
+      ]
+    },
+    "general": {
+      "name": "general",
+      "serviceTypes": [
+        "org.myrobotlab.service._TemplateService",
+        "org.myrobotlab.service.Android",
+        "org.myrobotlab.service.Esp8266",
+        "org.myrobotlab.service.ImageDisplay",
+        "org.myrobotlab.service.MyoThalmic"
+      ]
+    },
+    "home automation": {
+      "name": "home automation",
+      "serviceTypes": [
+        "org.myrobotlab.service.Sprinkler"
+      ]
+    },
+    "i2c": {
+      "name": "i2c",
+      "serviceTypes": [
+        "org.myrobotlab.service.RasPi"
+      ]
+    },
+    "industrial": {
+      "name": "industrial",
+      "serviceTypes": [
+        "org.myrobotlab.service.PickToLight"
+      ]
+    },
+    "intellegence": {
+      "name": "intellegence",
+      "serviceTypes": [
+        "org.myrobotlab.service.CleverBot",
+        "org.myrobotlab.service.ProgramAB"
+      ]
+    },
+    "location": {
+      "name": "location",
+      "serviceTypes": [
+        "org.myrobotlab.service.GPS"
+      ]
+    },
+    "microcontroller": {
+      "name": "microcontroller",
+      "serviceTypes": [
+        "org.myrobotlab.service.Arduino",
+        "org.myrobotlab.service.BeagleBoardBlack",
+        "org.myrobotlab.service.EddieControlBoard",
+        "org.myrobotlab.service.Maestro",
+        "org.myrobotlab.service.MPU6050",
+        "org.myrobotlab.service.PICAXE",
+        "org.myrobotlab.service.Serial"
+      ]
+    },
+    "motor": {
+      "name": "motor",
+      "serviceTypes": [
+        "org.myrobotlab.service.Adafruit16CServoDriver",
+        "org.myrobotlab.service.AdafruitMotorShield",
+        "org.myrobotlab.service.Motor",
+        "org.myrobotlab.service.Sabertooth",
+        "org.myrobotlab.service.Servo",
+        "org.myrobotlab.service.ServoOrchestrator"
+      ]
+    },
+    "ocr": {
+      "name": "ocr",
+      "serviceTypes": [
+        "org.myrobotlab.service.TesseractOCR"
+      ]
+    },
+    "programming": {
+      "name": "programming",
+      "serviceTypes": [
+        "org.myrobotlab.service.Python"
+      ]
+    },
+    "robot": {
+      "name": "robot",
+      "serviceTypes": [
+        "org.myrobotlab.service.Arm",
+        "org.myrobotlab.service.InMoov",
+        "org.myrobotlab.service.InMoovArm",
+        "org.myrobotlab.service.InMoovGestureCreator",
+        "org.myrobotlab.service.InMoovHand",
+        "org.myrobotlab.service.InMoovHead",
+        "org.myrobotlab.service.InMoovTorso",
+        "org.myrobotlab.service.InverseKinematics",
+        "org.myrobotlab.service.InverseKinematics3D",
+        "org.myrobotlab.service.RobotPlatform",
+        "org.myrobotlab.service.Roomba",
+        "org.myrobotlab.service.Sweety",
+        "org.myrobotlab.service.WiiBot"
+      ]
+    },
+    "scheduling": {
+      "name": "scheduling",
+      "serviceTypes": [
+        "org.myrobotlab.service.Clock",
+        "org.myrobotlab.service.Cron"
+      ]
+    },
+    "search": {
+      "name": "search",
+      "serviceTypes": [
+        "org.myrobotlab.service.Solr"
+      ]
+    },
+    "security": {
+      "name": "security",
+      "serviceTypes": [
+        "org.myrobotlab.service.Security"
+      ]
+    },
+    "sensor": {
+      "name": "sensor",
+      "serviceTypes": [
+        "org.myrobotlab.service.GPS",
+        "org.myrobotlab.service.LeapMotion",
+        "org.myrobotlab.service.Lidar",
+        "org.myrobotlab.service.OculusDIY",
+        "org.myrobotlab.service.OculusRift",
+        "org.myrobotlab.service.OpenCV",
+        "org.myrobotlab.service.OpenNI",
+        "org.myrobotlab.service.Pingdar",
+        "org.myrobotlab.service.Plantoid",
+        "org.myrobotlab.service.SensorMonitor",
+        "org.myrobotlab.service.Serial",
+        "org.myrobotlab.service.TopCodes",
+        "org.myrobotlab.service.UltrasonicSensor",
+        "org.myrobotlab.service.VideoStreamer",
+        "org.myrobotlab.service.Wii",
+        "org.myrobotlab.service.WiiBot",
+        "org.myrobotlab.service.WiiDAR"
+      ]
+    },
+    "shield": {
+      "name": "shield",
+      "serviceTypes": [
+        "org.myrobotlab.service.Adafruit16CServoDriver",
+        "org.myrobotlab.service.AdafruitMotorShield"
+      ]
+    },
+    "simulator": {
+      "name": "simulator",
+      "serviceTypes": [
+        "org.myrobotlab.service.Blender",
+        "org.myrobotlab.service.SLAMBad"
+      ]
+    },
+    "sound": {
+      "name": "sound",
+      "serviceTypes": [
+        "org.myrobotlab.service.AudioCapture",
+        "org.myrobotlab.service.AudioFile",
+        "org.myrobotlab.service.JFugue",
+        "org.myrobotlab.service.MarySpeech"
+      ]
+    },
+    "speech": {
+      "name": "speech",
+      "serviceTypes": [
+        "org.myrobotlab.service.AcapelaSpeech",
+        "org.myrobotlab.service.MarySpeech"
+      ]
+    },
+    "speech recognition": {
+      "name": "speech recognition",
+      "serviceTypes": [
+        "org.myrobotlab.service.AndroidSpeechRecognition",
+        "org.myrobotlab.service.Sphinx",
+        "org.myrobotlab.service.WebkitSpeechRecognition"
+      ]
+    },
+    "testing": {
+      "name": "testing",
+      "serviceTypes": [
+        "org.myrobotlab.service.Incubator",
+        "org.myrobotlab.service.Log",
+        "org.myrobotlab.service.Test",
+        "org.myrobotlab.service.TestCatcher",
+        "org.myrobotlab.service.TestThrower",
+        "org.myrobotlab.service.VirtualDevice"
+      ]
+    },
+    "tracking": {
+      "name": "tracking",
+      "serviceTypes": [
+        "org.myrobotlab.service.Tracking"
+      ]
+    },
+    "video": {
+      "name": "video",
+      "serviceTypes": [
+        "org.myrobotlab.service.IPCamera",
+        "org.myrobotlab.service.OculusDIY",
+        "org.myrobotlab.service.OculusRift",
+        "org.myrobotlab.service.OpenCV",
+        "org.myrobotlab.service.OpenNI",
+        "org.myrobotlab.service.Red5",
+        "org.myrobotlab.service.TopCodes",
+        "org.myrobotlab.service.Tracking",
+        "org.myrobotlab.service.VideoStreamer"
+      ]
+    }
+  },
+  "dependencyTypes": {
+    "be.hogent.tarsos": {
+      "org": "be.hogent.tarsos",
+      "revision": "1.7",
+      "installed": false
+    },
+    "cc.arduino": {
+      "org": "cc.arduino",
+      "revision": "1.0",
+      "installed": false
+    },
+    "com.adafruit.motorshield": {
+      "org": "com.adafruit.motorshield",
+      "revision": "1.0",
+      "installed": false
+    },
+    "com.adafruit.servodriver": {
+      "org": "com.adafruit.servodriver",
+      "revision": "1.0",
+      "installed": false
+    },
+    "com.coobird.thumbnail": {
+      "org": "com.coobird.thumbnail",
+      "revision": "0.4.2",
+      "installed": false
+    },
+    "com.getflourish.googlestt": {
+      "org": "com.getflourish.googlestt",
+      "revision": "1.0",
+      "installed": false
+    },
+    "com.github.recognito": {
+      "org": "com.github.recognito",
+      "revision": "0.1.0",
+      "installed": false
+    },
+    "com.goodrobots": {
+      "org": "com.goodrobots",
+      "revision": "1.0.2-SNAPSHOT",
+      "installed": false
+    },
+    "com.google.gson": {
+      "org": "com.google.gson",
+      "revision": "2.2.4",
+      "installed": false
+    },
+    "com.googlecode.chatterbot": {
+      "org": "com.googlecode.chatterbot",
+      "revision": "1.2.1",
+      "installed": false
+    },
+    "com.googlecode.javacv": {
+      "org": "com.googlecode.javacv",
+      "revision": "0.6",
+      "installed": false
+    },
+    "com.googlecode.jssc": {
+      "org": "com.googlecode.jssc",
+      "revision": "2.8.0",
+      "installed": false
+    },
+    "com.googlecode.simpleopenni": {
+      "org": "com.googlecode.simpleopenni",
+      "revision": "1.96",
+      "installed": false
+    },
+    "com.leapmotion": {
+      "org": "com.leapmotion",
+      "revision": "2.1.3",
+      "installed": false
+    },
+    "com.mxgraph.jgraph": {
+      "org": "com.mxgraph.jgraph",
+      "revision": "1.6.1.2",
+      "installed": false
+    },
+    "com.pi4j.pi4j": {
+      "org": "com.pi4j.pi4j",
+      "revision": "0.0.5",
+      "installed": false
+    },
+    "com.strobel.decompiler": {
+      "org": "com.strobel.decompiler",
+      "revision": "0.3.2",
+      "installed": false
+    },
+    "com.sun.java3d": {
+      "org": "com.sun.java3d",
+      "revision": "1.5.1",
+      "installed": false
+    },
+    "com.sun.jna": {
+      "org": "com.sun.jna",
+      "revision": "3.2.2",
+      "installed": false
+    },
+    "com.sun.mail": {
+      "org": "com.sun.mail",
+      "revision": "1.4.5",
+      "installed": false
+    },
+    "com.sun.speech.freetts": {
+      "org": "com.sun.speech.freetts",
+      "revision": "1.2",
+      "installed": false
+    },
+    "com.thalmic.myo": {
+      "org": "com.thalmic.myo",
+      "revision": "0.9.0",
+      "installed": false
+    },
+    "com.thoughtworks.xstream": {
+      "org": "com.thoughtworks.xstream",
+      "revision": "1.4.7",
+      "installed": false
+    },
+    "com.wolfram.alpha": {
+      "org": "com.wolfram.alpha",
+      "revision": "1.1",
+      "installed": false
+    },
+    "com.xuggle.xuggler": {
+      "org": "com.xuggle.xuggler",
+      "revision": "5.4",
+      "installed": false
+    },
+    "edu.cmu.sphinx": {
+      "org": "edu.cmu.sphinx",
+      "revision": "4-1.0beta6",
+      "installed": false
+    },
+    "edu.northwestern.topcodes": {
+      "org": "edu.northwestern.topcodes",
+      "revision": "1.0",
+      "installed": false
+    },
+    "feed4j": {
+      "org": "feed4j",
+      "revision": "1.0",
+      "installed": false
+    },
+    "gnu.io.rxtx": {
+      "org": "gnu.io.rxtx",
+      "revision": "2.1-7r2",
+      "installed": false
+    },
+    "io.netty": {
+      "org": "io.netty",
+      "revision": "3.10.0",
+      "installed": false
+    },
+    "it.sauronsoftware.cron4j": {
+      "org": "it.sauronsoftware.cron4j",
+      "revision": "2.2.5",
+      "installed": false
+    },
+    "javaFlacEncoder.FLAC_FileEncoder": {
+      "org": "javaFlacEncoder.FLAC_FileEncoder",
+      "revision": "0.1",
+      "installed": false
+    },
+    "javax.microedition.io": {
+      "org": "javax.microedition.io",
+      "revision": "2.0.3",
+      "installed": false
+    },
+    "javax.speech.recognition": {
+      "org": "javax.speech.recognition",
+      "revision": "1.0",
+      "installed": false
+    },
+    "javax.vecmath": {
+      "org": "javax.vecmath",
+      "revision": "1.5.1",
+      "installed": false
+    },
+    "javazoom.jl.player": {
+      "org": "javazoom.jl.player",
+      "revision": "1.0.1",
+      "installed": false
+    },
+    "javazoom.spi": {
+      "org": "javazoom.spi",
+      "revision": "1.9.5",
+      "installed": false
+    },
+    "marytts": {
+      "org": "marytts",
+      "revision": "5.1.2",
+      "installed": false
+    },
+    "net.java.games.jinput": {
+      "org": "net.java.games.jinput",
+      "revision": "20120914",
+      "installed": false
+    },
+    "net.sf.opencsv": {
+      "org": "net.sf.opencsv",
+      "revision": "2.3",
+      "installed": false
+    },
+    "net.sourceforge.boofcv": {
+      "org": "net.sourceforge.boofcv",
+      "revision": "0.19",
+      "installed": false
+    },
+    "net.sourceforge.opencv": {
+      "org": "net.sourceforge.opencv",
+      "revision": "2.4.10",
+      "installed": false
+    },
+    "net.sourceforge.simbad": {
+      "org": "net.sourceforge.simbad",
+      "revision": "1.4",
+      "installed": false
+    },
+    "net.sourceforge.tess4j": {
+      "org": "net.sourceforge.tess4j",
+      "revision": "1.1",
+      "installed": false
+    },
+    "opennlp": {
+      "org": "opennlp",
+      "revision": "1.6",
+      "installed": false
+    },
+    "org.alicebot.ab": {
+      "org": "org.alicebot.ab",
+      "revision": "0.0.6.26",
+      "installed": false
+    },
+    "org.apache.commons.httpclient": {
+      "org": "org.apache.commons.httpclient",
+      "revision": "4.2.5",
+      "installed": false
+    },
+    "org.apache.ivy": {
+      "org": "org.apache.ivy",
+      "revision": "2.4.0-rc1",
+      "installed": false
+    },
+    "org.apache.log4j": {
+      "org": "org.apache.log4j",
+      "revision": "1.2.14",
+      "installed": false
+    },
+    "org.apache.solr": {
+      "org": "org.apache.solr",
+      "revision": "4.10.2",
+      "installed": false
+    },
+    "org.apache.tika": {
+      "org": "org.apache.tika",
+      "revision": "1.11",
+      "installed": false
+    },
+    "org.atmosphere.nettosphere": {
+      "org": "org.atmosphere.nettosphere",
+      "revision": "2.3.0",
+      "installed": false
+    },
+    "org.bytedeco.ffmpeg": {
+      "org": "org.bytedeco.ffmpeg",
+      "revision": "2.6.1",
+      "installed": false
+    },
+    "org.bytedeco.javacpp": {
+      "org": "org.bytedeco.javacpp",
+      "revision": "1.1",
+      "installed": false
+    },
+    "org.bytedeco.javacv": {
+      "org": "org.bytedeco.javacv",
+      "revision": "1.1",
+      "installed": false
+    },
+    "org.drjava.java": {
+      "org": "org.drjava.java",
+      "revision": "20120818",
+      "installed": false
+    },
+    "org.eclipse.jetty": {
+      "org": "org.eclipse.jetty",
+      "revision": "7.6.13",
+      "installed": false
+    },
+    "org.eclipse.paho": {
+      "org": "org.eclipse.paho",
+      "revision": "1.0",
+      "installed": false
+    },
+    "org.fife.autocomplete": {
+      "org": "org.fife.autocomplete",
+      "revision": "2.0.4",
+      "installed": false
+    },
+    "org.fife.rsyntaxtextarea": {
+      "org": "org.fife.rsyntaxtextarea",
+      "revision": "2.0.4.1",
+      "installed": false
+    },
+    "org.jcodec.jcodec": {
+      "org": "org.jcodec.jcodec",
+      "revision": "0.1.9",
+      "installed": false
+    },
+    "org.jfugue.music": {
+      "org": "org.jfugue.music",
+      "revision": "5.0",
+      "installed": false
+    },
+    "org.jivesoftware.smack": {
+      "org": "org.jivesoftware.smack",
+      "revision": "3.3.0",
+      "installed": false
+    },
+    "org.jsoup": {
+      "org": "org.jsoup",
+      "revision": "1.8.3",
+      "installed": false
+    },
+    "org.junit": {
+      "org": "org.junit",
+      "revision": "4.11",
+      "installed": false
+    },
+    "org.op.chess": {
+      "org": "org.op.chess",
+      "revision": "1.0.0",
+      "installed": false
+    },
+    "org.python.core": {
+      "org": "org.python.core",
+      "revision": "2.7.0",
+      "installed": false
+    },
+    "org.saintandreas.jovr": {
+      "org": "org.saintandreas.jovr",
+      "revision": "0.7",
+      "installed": false
+    },
+    "org.simpleframework.xml": {
+      "org": "org.simpleframework.xml",
+      "revision": "2.7",
+      "installed": false
+    },
+    "org.slf4j": {
+      "org": "org.slf4j",
+      "revision": "1.6.1",
+      "installed": false
+    },
+    "org.slf4j.logback": {
+      "org": "org.slf4j.logback",
+      "revision": "1.1.3",
+      "installed": false
+    },
+    "org.tritonus.share.sampled.floatsamplebuffer": {
+      "org": "org.tritonus.share.sampled.floatsamplebuffer",
+      "revision": "0.3.6",
+      "installed": false
+    },
+    "org.twitter4j.twitter": {
+      "org": "org.twitter4j.twitter",
+      "revision": "3.0.5",
+      "installed": false
+    },
+    "org.wikidata.wdtk": {
+      "org": "org.wikidata.wdtk",
+      "revision": "0.5.0",
+      "installed": false
+    },
+    "ph.com.alexan.aceduino": {
+      "org": "ph.com.alexan.aceduino",
+      "revision": "1.0",
+      "installed": false
+    },
+    "pl.sarxos.webcam": {
+      "org": "pl.sarxos.webcam",
+      "revision": "0.3.10",
+      "installed": false
+    },
+    "se.comhem.chess": {
+      "org": "se.comhem.chess",
+      "revision": "1.1.2",
+      "installed": false
+    },
+    "simbad.gui": {
+      "org": "simbad.gui",
+      "revision": "1.4",
+      "installed": false
+    },
+    "wiiuse.wiimote": {
+      "org": "wiiuse.wiimote",
+      "revision": "0.12b",
+      "installed": false
+    }
+  }
+}

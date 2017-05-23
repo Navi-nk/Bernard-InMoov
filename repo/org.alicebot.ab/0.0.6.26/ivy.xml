@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0">
+    <info organisation="org.alicebot.ab" module="ab" status="release" revision="0.0.6.26">
+    </info>
+    <configurations>
+        <include url="https://raw.githubusercontent.com/MyRobotLab/repo/develop/ivyconfigurations.xml"/>
+    </configurations>
+    <publications>
+        <artifact name="Ab" type="jar" />
+        <artifact conf="*" name="ProgramAB" type="zip" ext="zip" />
+     </publications>
+</ivy-module>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0">
+    <info organisation="cc.arduino" module="arduino" status="release" revision="1.0">
+    </info>
+    <configurations>
+        <include url="https://raw.githubusercontent.com/MyRobotLab/repo/develop/ivyconfigurations.xml"/>
+    </configurations>
+    <publications>
+    <!--
+        <artifact name="arduino.x86.32.windows" type="zip" ext="zip" conf="x86.32.windows, x86.64.windows"/>
+        <artifact name="arduino.x86.32.windows" type="zip" ext="zip" conf="x86.32.windows, x86.64.windows"/>
+        <artifact name="MRLComm" type="zip" ext="zip"/>
+      -->
+     </publications>
+</ivy-module>

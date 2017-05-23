@@ -1,0 +1,498 @@
+<ServiceData>
+   <serviceTypes>
+      <serviceType name="org.myrobotlab.service.Adafruit16CServoDriver" description="AdaFruit 16-channel 12-bit PWM/servo driver - I2C interface">
+         <dependencies>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.adafruit.servodriver</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.AdafruitMotorShield" description="Adafruit Motor Shield for Arduino">
+         <dependencies>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.adafruit.motorshield</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Arduino" description="The Arduino service is used to communicate and control the very popular Arduino micro-controller">
+         <dependencies>
+		<org>org.fife.autocomplete</org>
+		<org>org.fife.rsyntaxtextarea</org>                     
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.AudioCapture" description="captures audio for playback"/>
+      <serviceType name="org.myrobotlab.service.AudioFile" description="plays audio files">
+         <dependencies>
+            <org>javazoom.jl.player</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.BeagleBoardBlack" description="service beagle board black to interface with GPIO"/>
+      <serviceType name="org.myrobotlab.service.ChessGame" description="chess game engine">
+         <dependencies>
+            <org>org.op.chess</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.CleverBot" description="interface to CleverBot JaberWacky and PandoraBots">
+         <dependencies>
+            <org>com.googlecode.chatterbot</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Clock" description="general clock and event producer"/>
+      <serviceType name="org.myrobotlab.service.Cortex" description="visual processing and memory">
+         <dependencies>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Cron" description="general clock and event producer - cron syntax">
+         <dependencies>
+            <org>it.sauronsoftware.cron4j</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.GUIService" description="a swing graphical user interface for MyRobotLab"/>
+      <serviceType name="org.myrobotlab.service.GoogleSTT" description="uses OpenNI NITE for tracking gestures">
+         <dependencies>
+            <org>javaFlacEncoder.FLAC_FileEncoder</org>
+            <org>org.tritonus.share.sampled.floatsamplebuffer</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.GoPro" description="Service to control a GoPro Camera">
+         <dependencies>
+            <org>org.myrobotlab.service.HttpClient</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.HttpClient" description="service to retrieve internet content">
+         <dependencies>
+            <org>org.apache.commons.httpclient</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Houston" description="control service for Houston robot project">
+         <dependencies>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>com.sun.java3d</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.IPCamera" description="service to control and retrieve a video feed from a ip camera. Foscam cameras currently supported">
+         <dependencies>
+            <org>com.googlecode.javacv</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InMoov" description="service to control the InMoov robot">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>javazoom.jl.player</org>
+            <org>org.jivesoftware.smack</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InMoovArm" description="service to control the InMoov robot">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>javazoom.jl.player</org>
+            <org>org.jivesoftware.smack</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InMoovHand" description="service to control the InMoov robot">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>javazoom.jl.player</org>
+            <org>org.jivesoftware.smack</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InMoovGestureCreator" description="service to control the InMoov robot">
+         <dependencies>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InMoovHead" description="service to control the InMoov robot">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>javazoom.jl.player</org>
+            <org>org.jivesoftware.smack</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InMoovTorso" description="torso service for the InMoov robot">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>javazoom.jl.player</org>
+            <org>org.jivesoftware.smack</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.InverseKinematics" description="Service to calculate InverseKinematics of a 2 joints robot arm, on a rotating base"/>
+      <serviceType name="org.myrobotlab.service.JFugue" description="music and tone generation service">
+         <dependencies>
+            <org>org.jfugue.music</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Joystick" description="general joystick and gamepad service">
+         <dependencies>
+            <org>net.java.games.jinput</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Keyboard" description="a service which allows capture and transmission of keyboard events (keystrokes)"/>
+      <serviceType name="org.myrobotlab.service.LeapMotion" description="service to borg the Leap Motion controller">
+         <dependencies>
+            <org>com.leapmotion</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Log" description="a service capable of logging framework messages"/>
+      <serviceType name="org.myrobotlab.service.Motor" description="A general purpose Motor service"/>
+      <serviceType name="org.myrobotlab.service.MouthControl" description="allows control of a mouth based on text said"/>
+      <serviceType name="org.myrobotlab.service.OpenCV" description="The OpenCV Service is a library of vision functions">
+         <dependencies>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.OpenNI" description="service to provide OpenNI methods such as depth cloud and skeleton tracking">
+         <dependencies>
+            <org>com.googlecode.simpleopenni</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.PID" description="service used to control other systems with PID"/>
+      <serviceType name="org.myrobotlab.service.PID2" description="PID service which can handle multiple pid calculations"/>
+      <serviceType name="org.myrobotlab.service.ParallelPort" description="general parallel port control service">
+         <dependencies>
+            <org>gnu.io.rxtx</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.PickToLight" description="pick to light controller">
+         <dependencies>
+            <org>org.apache.commons.httpclient</org>
+            <org>com.pi4j.pi4j</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Plantoid" description="Plantoid robotics">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javax.speech.recognition</org>
+            <org>com.googlecode.javacv</org>
+            <org>net.sourceforge.opencv</org>
+            <org>edu.cmu.sphinx</org>
+            <org>gnu.io.rxtx</org>
+            <org>cc.arduino</org>
+            <org>com.googlecode.simpleopenni</org>
+            <org>javazoom.jl.player</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.ProgramAB" description="ProgramAB AIML 2.0 Chat bot service">
+         <dependencies>
+            <org>org.alicebot.ab</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Solr" description="Apache Solr client libraries">
+         <dependencies>
+            <org>org.apache.solr</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Propeller" description="service for the Propeller micro-controller">
+         <dependencies>
+            <org>gnu.io.rxtx</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Python" description="scripting engine and IDE. All services are controllable through Python.">
+         <dependencies>
+            <org>org.python.core</org>
+            <org>org.fife.autocomplete</org>
+            <org>org.fife.rsyntaxtextarea</org>            
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.MQTT" description="MQTT service">
+         <dependencies>
+            <org>org.eclipse.paho</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.RasPi" description="a service to allow access to the Raspberry Pi&apos;s GPIO and I2C offered in Pi4J">
+         <dependencies>
+            <org>com.pi4j.pi4j</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.RemoteAdapter" description="allows connectivity to multiple instances of MyRobotLab. Allows peer to peer service sharing"/>
+      <serviceType name="org.myrobotlab.service.Roomba" description="allows MyRobotLab to connect and control a Roomba">
+         <dependencies>
+            <org>gnu.io.rxtx</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Shoutbox" description="shoutbox for myrobotlab.org">
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.SLAMBad" description="3D Simulator based on Simbad">
+         <dependencies>
+            <org>javax.vecmath</org>
+            <org>com.sun.java3d</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Security" description="provides security for MRL"/>
+      <serviceType name="org.myrobotlab.service.SensorMonitor" description="allows the graphical monitoring of sensor data, similar to the Arduino Oscope"/>
+      <serviceType name="org.myrobotlab.service.Serial" description="Serial service: send and recieve serial data into and out of MRL">
+         <dependencies>
+            <org>gnu.io.rxtx</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Servo" description="allows speed and position control of a Servo"/>
+      <serviceType name="org.myrobotlab.service.Speech" description="FreeTTS and Google text to speech service">
+         <dependencies>
+            <org>com.sun.speech.freetts</org>
+            <org>org.apache.commons.httpclient</org>
+            <org>javazoom.jl.player</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Sphinx" description="Sphinx speech recognition">
+         <dependencies>
+            <org>javax.speech.recognition</org>
+            <org>edu.cmu.sphinx</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Stepper" description="Stepper motor control" />         
+      <serviceType name="org.myrobotlab.service.TesseractOCR" description="optical character recognition (OCR) for robots !">
+         <dependencies>
+            <org>net.sourceforge.tess4j</org>
+            <org>com.sun.jna</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.ThingSpeak" description="interface to ThingSpeak for data logging and charting"/>
+      <serviceType name="org.myrobotlab.service.TopCodes" description="Tangible Object Placement Codes">
+         <dependencies>
+            <org>edu.northwestern.topcodes</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Tracking" description="vision tracking service">
+         <dependencies>
+            <org>edu.northwestern.topcodes</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Twitter" description="Twitter service - it allows to publish and read tweets">
+         <dependencies>
+            <org>org.twitter4j.twitter</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.UltrasonicSensor" description="ping sensor"/>
+      <serviceType name="org.myrobotlab.service.VideoStreamer" description="stream video from a video source"/>
+      <serviceType name="org.myrobotlab.service.WebGUI" description="The new GUI for MRL">
+         <dependencies>
+            <org>com.google.gson</org>
+            <org>org.java_websocket.websocket</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.Wii" description="service for the Wii controller">
+         <dependencies>
+            <org>wiiuse.wiimote</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.WolframAlpha" description="service for the WolframAlpha - ask questions get answers">
+         <dependencies>
+            <org>org.apache.commons.httpclient</org>
+            <org>com.wolfram.alpha</org>
+         </dependencies>
+      </serviceType>
+      <serviceType name="org.myrobotlab.service.XMPP" description="client xmpp service - will allow a duplex communication without the need of port-forwarding">
+         <dependencies>
+            <org>org.jivesoftware.smack</org>
+         </dependencies>
+      </serviceType>
+   </serviceTypes>
+   <categories>
+      <category name="actuators">
+         <serviceTypes>org.myrobotlab.service.Motor</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Servo</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.MouthControl</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.PID</serviceTypes>
+      </category>
+      <category name="audio">
+         <serviceTypes>org.myrobotlab.service.AudioCapture</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.AudioFile</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.JFugue</serviceTypes>
+      </category>
+      <category name="communication">
+         <serviceTypes>org.myrobotlab.service.RemoteAdapter</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.XMPP</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Serial</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.ParallelPort</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.HTTPClient</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.WebGUI</serviceTypes>
+      </category>
+      <category name="control">
+         <serviceTypes>org.myrobotlab.service.Keyboard</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Joystick</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InverseKinematics</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.PID</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.PickToLight</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.PID2</serviceTypes>
+      </category>
+      <category name="display">
+         <serviceTypes>org.myrobotlab.service.GUIService</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.WebGUI</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Log</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.VideoStreamer</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.ThingSpeak</serviceTypes>
+      </category>
+      <category name="intelligence">
+         <serviceTypes>org.myrobotlab.service.CleverBot</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.ChessGame</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.ProgramAB</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.TesseractOCR</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.WolframAlpha</serviceTypes>
+      </category>
+      <category name="microcontroller">
+         <serviceTypes>org.myrobotlab.service.Arduino</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.BeagleBoardBlack</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Propeller</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.RasPi</serviceTypes>
+      </category>
+      <category name="motors">
+         <serviceTypes>org.myrobotlab.service.AdafruitMotorShield</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Motor</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Stepper</serviceTypes>
+      </category>
+      <category name="programming">
+         <serviceTypes>org.myrobotlab.service.Python</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.GUIService</serviceTypes>
+      </category>
+      <category name="robots">
+         <serviceTypes>org.myrobotlab.service.Houston</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InMoov</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InMoovHead</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InMoovHand</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InMoovArm</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InMoovTorso</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.InMoovGestureCreator</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Plantoid</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Roomba</serviceTypes>
+      </category>
+      <category name="security">
+         <serviceTypes>org.myrobotlab.service.Security</serviceTypes>
+      </category>
+      <category name="sensors">
+         <serviceTypes>org.myrobotlab.service.Arduino</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.SensorMonitor</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.UltrasonicSensor</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Wii</serviceTypes>
+      </category>
+      <category name="shields">
+         <serviceTypes>org.myrobotlab.service.ACEduinoMotorShield</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Adafruit16CServoDriver</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.AdafruitMotorShield</serviceTypes>
+      </category>
+      <category name="simulators">
+         <serviceTypes>org.myrobotlab.service.SLAMBad</serviceTypes>
+      </category>
+      <category name="social">
+         <serviceTypes>org.myrobotlab.service.Twitter</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Shoutbox</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.CleverBot</serviceTypes>
+      </category>
+      <category name="speech recognition">
+         <serviceTypes>org.myrobotlab.service.Sphinx</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.GoogleSTT</serviceTypes>
+      </category>
+      <category name="speech synthesis">
+         <serviceTypes>org.myrobotlab.service.Speech</serviceTypes>
+      </category>
+      <category name="timers">
+         <serviceTypes>org.myrobotlab.service.Clock</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Cron</serviceTypes>
+      </category>
+      <category name="vision">
+         <serviceTypes>org.myrobotlab.service.Cortex</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.OpenCV</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.OpenNI</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.IPCamera</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.Tracking</serviceTypes>
+         <serviceTypes>org.myrobotlab.service.TopCodes</serviceTypes>
+      </category>
+      <category name="search engine">
+         <serviceTypes>org.myrobotlab.service.SolrService</serviceTypes>
+      </category>
+   </categories>
+   <thirdPartyLibs>
+      <lib org="be.hogent.tarsos" revision="1.7" resolved="false" released="true"/>
+      <lib org="cc.arduino" revision="1.0" resolved="false" released="true"/>
+      <lib org="com.adafruit.motorshield" revision="1.0" resolved="false" released="true"/>
+      <lib org="com.adafruit.servodriver" revision="1.0" resolved="false" released="true"/>
+      <lib org="com.google.gson" revision="2.2.4" resolved="false" released="true"/>
+      <lib org="com.googlecode.chatterbot" revision="1.2.1" resolved="false" released="true"/>
+      <lib org="com.googlecode.javacv" revision="0.6" resolved="false" released="true"/>
+      <lib org="com.googlecode.simpleopenni" revision="1.96" resolved="false" released="true"/>
+      <lib org="com.leapmotion" revision="2.1.3" resolved="false" released="true"/>
+      <lib org="com.pi4j.pi4j" revision="0.0.5" resolved="false" released="true"/>
+      <lib org="com.strobel.decompiler" revision="0.3.2" resolved="false" released="true"/>
+      <lib org="com.sun.java3d" revision="1.5.1" resolved="false" released="true"/>
+      <lib org="com.sun.jna" revision="3.2.2" resolved="false" released="true"/>
+      <lib org="com.sun.speech.freetts" revision="1.2" resolved="false" released="true"/>
+      <lib org="com.wolfram.alpha" revision="1.1" resolved="false" released="true"/>
+      <lib org="edu.cmu.sphinx" revision="4-1.0beta6" resolved="false" released="true"/>
+      <lib org="edu.northwestern.topcodes" revision="1.0" resolved="false" released="true"/>
+      <lib org="gnu.io.rxtx" revision="2.1-7r2" resolved="false" released="true"/>
+      <lib org="it.sauronsoftware.cron4j" revision="2.2.5" resolved="false" released="true"/>
+      <lib org="javaFlacEncoder.FLAC_FileEncoder" revision="0.1" resolved="false" released="true"/>
+      <lib org="javax.speech.recognition" revision="1.0" resolved="false" released="true"/>
+      <lib org="javax.vecmath" revision="1.5.1" resolved="false" released="true"/>
+      <lib org="javazoom.jl.player" revision="1.0.1" resolved="false" released="true"/>
+      <lib org="net.java.games.jinput" revision="20120914" resolved="false" released="true"/>
+      <lib org="net.sourceforge.opencv" revision="2.4.6" resolved="false" released="true"/>
+      <lib org="net.sourceforge.tess4j" revision="1.1" resolved="false" released="true"/>
+      <lib org="org.alicebot.ab" revision="0.0.6.26" resolved="false" released="true"/>
+      <lib org="org.apache.commons.httpclient" revision="4.2.5" resolved="false" released="true"/>
+      <lib org="org.apache.solr" revision="4.10.2" resolved="false" released="true"/>
+      <lib org="org.drjava.java" revision="20120818" resolved="false" released="true"/>
+      <lib org="org.eclipse.paho" revision="1.0" resolved="false" released="true"/>
+      <lib org="org.fife.autocomplete" revision="2.0.4" resolved="false" released="true"/>
+      <lib org="org.fife.rsyntaxtextarea" revision="2.0.4.1" resolved="false" released="true"/>
+      <lib org="org.java_websocket.websocket" revision="1.2" resolved="false" released="true"/>
+      <lib org="org.jfugue.music" revision="4.0.3" resolved="false" released="true"/>
+      <lib org="org.jivesoftware.smack" revision="3.3.0" resolved="false" released="true"/>
+      <lib org="org.op.chess" revision="1.0.0" resolved="false" released="true"/>
+      <lib org="org.python.core" revision="2.5.2" resolved="false" released="true"/>
+      <lib org="org.tritonus.share.sampled.floatsamplebuffer" revision="0.3.6" resolved="false" released="true"/>
+      <lib org="org.twitter4j.twitter" revision="3.0.5" resolved="false" released="true"/>
+      <lib org="ph.com.alexan.aceduino" revision="1.0" resolved="false" released="true"/>      
+      <lib org="wiiuse.wiimote" revision="0.12b" resolved="false" released="true"/>
+   </thirdPartyLibs>
+</ServiceData>

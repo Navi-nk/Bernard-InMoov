@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0">
+    <info organisation="net.java.games.jinput" module="jinput" status="release" revision="20120914">
+    </info>
+    <configurations>
+        <include url="https://raw.githubusercontent.com/MyRobotLab/repo/develop/ivyconfigurations.xml"/>
+    </configurations>
+    <publications>
+        <artifact name="jinput" type="jar"/>
+        <artifact name="jinput-test" type="jar"/>
+        
+        <!--
+        <artifact name="x86.32.windows/jinput-dx8" type="native" ext="dll" conf="x86.32.windows"/>
+        <artifact name="x86.32.windows/jinput-raw" type="native" ext="dll" conf="x86.32.windows"/>
+
+        <artifact name="x86.64.windows/jinput-dx8_64" type="native" ext="dll" conf="x86.64.windows"/>
+        <artifact name="x86.64.windows/jinput-raw_64" type="native" ext="dll" conf="x86.64.windows"/>
+        
+        <artifact name="x86.32.linux/libjinput-linux" type="native" ext="so" conf="x86.32.linux"/>
+        
+        <artifact name="x86.64.linux/libjinput-linux64" type="native" ext="so" conf="x86.64.linux"/>
+        
+        <artifact name="arm.32.linux/libjinput-linux" type="native" ext="so" conf="armv6.hfp.32.linux"/>
+        <artifact name="arm.32.linux/libjinput-linux64" type="native" ext="so" conf="armv6.hfp.32.linux"/>
+
+        <artifact name="x86.64.mac/libjinput-osx" type="native" ext="jnilib" conf="x86.64.mac"/>
+        <artifact name="x86.64.mac/libjinput-osx" type="native" ext="jnilib" conf="x86.32.mac"/>
+        -->
+        
+        <!-- new repo begin -->
+        <artifact name="armv6.hfp.32.linux" type="zip" ext="zip" conf="armv6.hfp.32.linux"/>
+        <artifact name="armv7.hfp.32.linux" type="zip" ext="zip" conf="armv7.hfp.32.linux"/>
+        <artifact name="x86.32.linux" type="zip" ext="zip" conf="x86.32.linux"/>
+        <artifact name="x86.32.windows" type="zip" ext="zip" conf="x86.32.windows"/>
+        <artifact name="x86.64.linux" type="zip" ext="zip" conf="x86.64.linux"/>
+        <artifact name="x86.64.mac" type="zip" ext="zip" conf="x86.64.mac"/>
+        <artifact name="x86.64.windows" type="zip" ext="zip" conf="x86.64.windows"/>
+        
+        <!-- new repo end -->
+        
+    </publications>
+</ivy-module>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0">
+    <info organisation="com.sun.java3d" module="java3d" status="release" revision="1.5.1">
+    </info>
+    <configurations>
+        <include url="https://raw.githubusercontent.com/MyRobotLab/repo/develop/ivyconfigurations.xml"/>
+    </configurations>
+    <publications>
+        <artifact name="j3dcore" type="jar"/>
+        <artifact name="j3dutils" type="jar"/>
+        <artifact name="vecmath" type="jar"/>
+
+        <artifact name="x86.64.windows/j3dcore-ogl" type="native" ext="dll" conf="x86.64.windows"/>
+
+        <artifact name="x86.64.linux/libj3dcore-ogl" type="native" ext="so" conf="x86.64.linux"/>
+
+        <artifact name="x86.32.linux/libj3dcore-ogl" type="native" ext="so" conf="x86.32.linux"/>
+        <artifact name="x86.32.linux/libj3dcore-ogl-cg" type="native" ext="so" conf="x86.32.linux"/>
+        
+        <artifact name="x86.32.windows/j3dcore-d3d" type="native" ext="dll" conf="x86.32.windows"/>
+        <artifact name="x86.32.windows/j3dcore-ogl-cg" type="native" ext="dll" conf="x86.32.windows"/>
+        <artifact name="x86.32.windows/j3dcore-ogl-chk" type="native" ext="dll" conf="x86.32.windows"/>
+        <artifact name="x86.32.windows/j3dcore-ogl" type="native" ext="dll" conf="x86.32.windows"/>	
+	
+	<!-- new repo begin -->
+        <artifact name="x86.64.windows" type="zip" ext="zip" conf="x86.64.windows"/>
+        <artifact name="x86.32.windows" type="zip" ext="zip" conf="x86.32.windows"/>
+        <artifact name="x86.64.linux" type="zip" ext="zip" conf="x86.64.linux"/>
+        <artifact name="x86.32.linux" type="zip" ext="zip" conf="x86.32.linux"/>
+	
+	<!-- new repo end -->
+
+    </publications>
+</ivy-module>
