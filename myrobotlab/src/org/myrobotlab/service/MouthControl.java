@@ -102,6 +102,7 @@ public class MouthControl extends Service {
     return "mouth movements based on spoken text";
   }
 
+  //tweaking logic for better lip movement - change by Navi
   public synchronized void onStartSpeaking(String text) {
     log.info("move moving to :" + text);
       if (jaw == null) {
@@ -129,15 +130,18 @@ public class MouthControl extends Service {
         }
 
         char[] c = testword.toCharArray();
-
-        for (int x = 0; x < c.length; x++) {
+        Integer cLen = c.length;
+        Integer count=0;
+        //for (int x = 0; x < c.length; x++) {
+        for (int x = 0; x < cLen; x++) {
           char s = c[x];
-          if ((s == 'a' || s == 'e' || s == 'i' || s == 'o' || s == 'u' || s == 'y') && !ison) {
+          if ((s == 'a' || s == 'e' || s == 'i' || s == 'o' || s == 'u' || s == 'y' ) && !ison && ((x == (cLen-1)) && (count == 0 ))) {
             jaw.moveTo(mouthOpenedPos); // # move the servo to the
             // open spot
+            count++;
             ison = true;
             sleep(delaytime);
-            jaw.moveTo(mouthClosedPos);// #// close the servo
+            //jaw.moveTo(mouthClosedPos);// #// close the servo
           } else if (s == '.') {
             ison = false;
             sleep(delaytimestop);
@@ -145,7 +149,8 @@ public class MouthControl extends Service {
             ison = false;
             sleep(delaytimeletter); // # sleep half a second
           }
-
+          if(ison)
+        	  jaw.moveTo(mouthClosedPos);// #// close the servo
         }
 
         sleep(80);
