@@ -246,12 +246,12 @@
 	<classpathentry kind="lib" path="/repo/com.azure.translator/0.8.3/microsoft-translator-java-api-with-dependencies-0.8.3.jar"/>
 	<classpathentry kind="lib" path="/repo/marytts/5.2/voice-cmu-bdl-hsmm-5.2.jar"/>
 	<classpathentry kind="lib" path="/repo/marytts/5.2/voice-cmu-rms-hsmm-5.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/text-client-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/j4k2-natives-windows-amd64.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/gluegen-rt-natives-windows-amd64.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jogl-all.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jogl-all-natives-windows-amd64.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/ufdw.jar"/>
+	<classpathentry kind="lib" path="/repo/org.apiai/text-client-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
