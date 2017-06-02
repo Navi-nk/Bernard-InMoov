@@ -18,6 +18,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.math.Vector2f;
 
+import edu.ufl.digitalworlds.math.Geom;
 import edu.ufl.digitalworlds.j4k.Skeleton;
 import org.myrobotlab.service.J4K;
 import org.myrobotlab.service.InMoov;
@@ -42,23 +43,26 @@ public class Bernard extends Service implements Observer {
 	public Skeleton kSkeleton;
 	public boolean robotImitation = false;
 	public boolean vinMoovStarted=false;
+	public boolean trackUserFace=false;
 	//public mapping coordinates for virtual bernard
 	public float robotCenterZ;
 	
 	public double bodyOrientation;
 	
 	public float[] jointOrientation;
-	public float[] shoulderLeftAngle = null;
-	public float[] elbowLeftAngle = null;
-	public float[] wristLeftAngle = null;
-	public float[] handLeftAngle = null;
-	public float[] handTipLeftAngle = null;
+	public float[] shoulderLeftAngle;
+	public float[] elbowLeftAngle;
+	public float[] wristLeftAngle;
+	public float[] wristLeftRotateAngle;
+	public float[] handLeftAngle;
+	public float[] handTipLeftAngle;
 	
-	public float[] shoulderRightAngle = null;
-	public float[] elbowRightAngle = null;
-	public float[] wristRightAngle = null;
-	public float[] handRightAngle = null;
-	public float[] handTipRightAngle = null;
+	public float[] shoulderRightAngle;
+	public float[] elbowRightAngle;
+	public float[] wristRightAngle;
+	public float[] wristRightRotateAngle;
+	public float[] handRightAngle;
+	public float[] handTipRightAngle;
 	
 	public double[] torsoOrientation;
 	public double leftArmOrientation;
@@ -196,19 +200,31 @@ public class Bernard extends Service implements Observer {
 		jointOrientation = kSkeleton.getJointOrientations();
 		bodyOrientation = kSkeleton.getBodyOrientation();
 		torsoOrientation = kSkeleton.getTorsoOrientation();
+		//double t[] = Geom.identity4();
+		//double inv_t[] = Geom.identity4();
+		//System.out.println(t.equals(inv_t));
+		//double torsoTransform = kSkeleton.getTorsoTransform(t, inv_t);
+		//double headTransform = kSkeleton.getHeadTransform(t, inv_t);
+		//double fixHeadTransform = kSkeleton.getFixHeadTransform(t, inv_t);
+		//double shoulderTransform = kSkeleton.getShoulderTransform(t, inv_t);
+		//double betweenHandsTransform = kSkeleton.getBetweenHandsTransform(t, inv_t);
+		//double rightArmTransform = kSkeleton.getRightArmTransform(t, inv_t);
+		//double rightForearmTransform = kSkeleton.getRightArmTransform(t, inv_t);
+		//double leftArmTransform = kSkeleton.getLeftArmTransform(t, inv_t);
+		//double leftForearmTransform = kSkeleton.getLeftArmTransform(t, inv_t);
+		//System.out.println(leftArmTransform);
 		
 		// midpoint between SPINE_MID and SPINE_BASE (navel) as VinMoov starting center position
 		robotCenterZ = (kSkeleton.get3DJointY(Skeleton.SPINE_MID)-kSkeleton.get3DJointY(Skeleton.SPINE_BASE))/2;	
 		spineShoulderJoint = kSkeleton.get3DJoint(Skeleton.SPINE_SHOULDER);
 		
 		// Head
-		
-
-		//System.out.println(90+jointOrientation[4*Skeleton.HEAD+2]*240);
-		i01.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
-		i01.head.neck.moveTo(90+jointOrientation[12+2]*240);
-		//i01.head.rollNeck.moveTo(90+);
-		
+		if(trackUserFace != true) {
+			//System.out.println(90+jointOrientation[4*Skeleton.HEAD+2]*240);
+			//i01.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
+			//i01.head.neck.moveTo(90+jointOrientation[12+2]*240);
+			//i01.head.rollNeck.moveTo(90+);
+		}
 		
 		// Left Arm
 		shoulderLeftJoint = kSkeleton.get3DJoint(Skeleton.SHOULDER_LEFT);
@@ -225,7 +241,8 @@ public class Bernard extends Service implements Observer {
 		elbowLeftAngle = elbowLeftQ.toAngles(elbowLeftAngle);
 		Quaternion wristLeftQ = new Quaternion(jointOrientation[4*Skeleton.WRIST_LEFT],jointOrientation[4*Skeleton.WRIST_LEFT+1],jointOrientation[4*Skeleton.WRIST_LEFT+2],jointOrientation[4*Skeleton.WRIST_LEFT+3]);
 		wristLeftAngle = wristLeftQ.toAngles(wristLeftAngle);
-		
+		Quaternion wristLeftRelativeQ = elbowLeftQ.inverse().mult(wristLeftQ);
+		wristLeftRotateAngle = wristLeftRelativeQ.toAngles(wristLeftRotateAngle);
 		Quaternion handLeftQ = new Quaternion(jointOrientation[4*Skeleton.HAND_LEFT],jointOrientation[4*Skeleton.HAND_LEFT+1],jointOrientation[4*Skeleton.HAND_LEFT+2],jointOrientation[4*Skeleton.HAND_LEFT+3]);
 		handLeftAngle = handLeftQ.toAngles(handLeftAngle);
 		Quaternion handTipLeftQ = new Quaternion(jointOrientation[4*Skeleton.HAND_TIP_LEFT],jointOrientation[4*Skeleton.HAND_TIP_LEFT+1],jointOrientation[4*Skeleton.HAND_TIP_LEFT+2],jointOrientation[4*Skeleton.HAND_TIP_LEFT+3]);
@@ -251,18 +268,18 @@ public class Bernard extends Service implements Observer {
 		//float degrees = Math.round(Math.toDegrees(FastMath.atan2(shoulderElbowLeftVec.getY(),shoulderElbowLeftVec.getX())));
 		//i01.leftArm.omoplate.moveTo(degrees>90?270-degrees:-degrees-90);
 		
-		i01.leftArm.omoplate.moveTo(Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint[0]-elbowLeftJoint[0])/shoulderElbowDistanceLeft)));
+		//i01.leftArm.omoplate.moveTo(Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint[0]-elbowLeftJoint[0])/shoulderElbowDistanceLeft)));
 		float degrees = Math.round(Math.toDegrees(FastMath.atan2(shoulderElbowLeftVec.getZ(),shoulderElbowLeftVec.getY())));
-		i01.leftArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		//i01.leftArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		degrees = (float) Math.toDegrees(elbowLeftAngle[1]);
-		i01.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+torsoOrientation[0]*90));
-		i01.leftArm.bicep.moveTo(Math.round(Math.toDegrees(elbowWristLeftVec.angleBetween(shoulderElbowLeftVec))));
-
+		//i01.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+torsoOrientation[0]*90));
+		//i01.leftArm.bicep.moveTo(Math.round(Math.toDegrees(elbowWristLeftVec.angleBetween(shoulderElbowLeftVec))));
+		
 		// for wrist, need to use all three rotations
 		
-		degrees = (float) Math.toDegrees(wristLeftAngle[1]);
-		i01.leftHand.wrist.moveTo(90+degrees);
-		//System.out.println(Math.toDegrees(handTipLeftQ.toAngleAxis(handHandTipLeftVec)));
+		degrees = (float) Math.toDegrees(wristLeftRotateAngle[2]);
+		//i01.leftHand.wrist.moveTo(degrees);
+		//System.out.println(String.valueOf(Math.round(Math.toDegrees(wristLeftRotateAngle[0])))+","+String.valueOf(Math.round(Math.toDegrees(wristLeftRotateAngle[1])))+","+String.valueOf(Math.round(Math.toDegrees(wristLeftRotateAngle[2]))));
 		
 				
 		// Right Arm
@@ -280,8 +297,11 @@ public class Bernard extends Service implements Observer {
 		elbowRightAngle = elbowRightQ.toAngles(elbowRightAngle);
 		Quaternion wristRightQ = new Quaternion(jointOrientation[4*Skeleton.WRIST_RIGHT],jointOrientation[4*Skeleton.WRIST_RIGHT+1],jointOrientation[4*Skeleton.WRIST_RIGHT+2],jointOrientation[4*Skeleton.WRIST_RIGHT+3]);
 		wristRightAngle = wristRightQ.toAngles(wristRightAngle);
+		Quaternion wristRightRelativeQ = elbowRightQ.inverseLocal().mult(wristRightQ);
+		wristRightRotateAngle = wristRightRelativeQ.toAngles(wristRightRotateAngle);
 		Quaternion handRightQ = new Quaternion(jointOrientation[4*Skeleton.HAND_RIGHT],jointOrientation[4*Skeleton.HAND_RIGHT+1],jointOrientation[4*Skeleton.HAND_RIGHT+2],jointOrientation[4*Skeleton.HAND_RIGHT+3]);
 		handRightAngle = handRightQ.toAngles(handRightAngle);
+		
 		
 		Vector3f shoulderRightVec = new Vector3f((float)shoulderRightJoint[0],(float)shoulderRightJoint[1],(float)shoulderRightJoint[2]);
 		Vector3f elbowRightVec = new Vector3f((float)elbowRightJoint[0],(float)elbowRightJoint[1],(float)elbowRightJoint[2]);
@@ -301,17 +321,17 @@ public class Bernard extends Service implements Observer {
 		
 		
 		
-		i01.rightArm.omoplate.moveTo(10+Math.toDegrees(Math.asin(Math.abs(shoulderRightJoint[0]-elbowRightJoint[0])/shoulderElbowDistanceRight)));
+		//i01.rightArm.omoplate.moveTo(10+Math.toDegrees(Math.asin(Math.abs(shoulderRightJoint[0]-elbowRightJoint[0])/shoulderElbowDistanceRight)));
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(shoulderElbowRightVec.getZ(),shoulderElbowRightVec.getY())));
-		i01.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		//i01.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		
 		//System.out.println(degrees);
 		
 		degrees = (float) -Math.toDegrees(elbowRightAngle[1]);
-		i01.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-torsoOrientation[0]*90));
-		i01.rightArm.bicep.moveTo(Math.round(Math.toDegrees(elbowWristRightVec.angleBetween(shoulderElbowRightVec))));
+		//i01.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-torsoOrientation[0]*90));
+		//i01.rightArm.bicep.moveTo(Math.round(Math.toDegrees(elbowWristRightVec.angleBetween(shoulderElbowRightVec))));
 		degrees = (float) Math.toDegrees(wristRightAngle[1]);
-		i01.rightHand.wrist.moveTo(90-degrees);
+		//i01.rightHand.wrist.moveTo(90-degrees);
 		
 		
 		
@@ -319,24 +339,30 @@ public class Bernard extends Service implements Observer {
 		
 		// Torso Upper
 		shoulderDistance = Math.sqrt(Math.pow(shoulderLeftJoint[0]-shoulderRightJoint[0],2)+Math.pow(shoulderLeftJoint[1]-shoulderRightJoint[1],2)+Math.pow(shoulderLeftJoint[2]-shoulderRightJoint[2],2));
-		i01.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint[1]-shoulderRightJoint[1])/shoulderDistance)));
+		//i01.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint[1]-shoulderRightJoint[1])/shoulderDistance)));
 		// Torso Mid
 		
-		i01.torso.midStom.moveTo(90+torsoOrientation[0]*90);
+		//i01.torso.midStom.moveTo(90+torsoOrientation[0]*90);
 		// Torso Low
-		i01.torso.lowStom.moveTo(90+torsoOrientation[1]*90);
+		//i01.torso.lowStom.moveTo(90+torsoOrientation[1]*90);
 		//double leftForeArmOrientation = kSkeleton.getLeftForearmTransform(transf, inv_transf);
 		//double rightForeArmOrientation = kSkeleton.getRightForearmTransform(transf, inv_transf);
 		//double leftArmOrientation = kSkeleton.getLeftArmTransform(transf, inv_transf);
 		//double rightArmOrientation = kSkeleton.getRightArmTransform(transf, inv_transf);
+		
 	}
+	
+	public void startFaceTracking() {
+		System.out.println("Hello");
+	}
+	
+	
 	@Override
 	public void update(Observable subject, Object arg) {
 		if(arg instanceof Skeleton) {
-			this.kSkeleton = ((Skeleton)arg);
-			
 			//if(robotImitation && vinMoovStarted) {
 			if(robotImitation) {
+				this.kSkeleton = ((Skeleton)arg);
 				mapSkeletonToRobot();
 			}
 		}

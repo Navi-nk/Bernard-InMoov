@@ -56,6 +56,7 @@ import javax.swing.event.ChangeListener;
 
 import org.myrobotlab.j4kdemo.kinectviewerapp.Kinect;
 import org.myrobotlab.j4kdemo.kinectviewerapp.ViewerPanel3D;
+import org.myrobotlab.j4kdemo.JointFilter;
 import edu.ufl.digitalworlds.j4k.Skeleton;
 
 import edu.ufl.digitalworlds.j4k.J4K1;
@@ -83,6 +84,8 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 	JButton turn_off = new JButton("Turn Off");
 	JComboBox depth_resolution = new JComboBox();
 	JComboBox video_resolution = new JComboBox();
+	JComboBox joint_filter = new JComboBox();
+	JSlider frame_history = new JSlider();
 	JCheckBox show_video = new JCheckBox("Show Texture");
 	JCheckBox mask_players = new JCheckBox("Mask Players");
 	JLabel accelerometer = new JLabel("0,0,0");
@@ -170,11 +173,11 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		}
 		else if(myKinect.getDeviceType()==J4KSDK.MICROSOFT_KINECT_2)
 		{
-			video_resolution.addItem("1920x1080"); 
+			video_resolution.addItem("1920x1080");
 			video_resolution.setSelectedIndex(0);
 		}
 		video_resolution.addActionListener(this);
-		
+
 		//Infrared
 		show_infrared.setSelected(false);
 		show_infrared.addActionListener(this);
@@ -190,6 +193,21 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		//Show Joint Orientation
 		joint_orientation.setSelected(false);
 		joint_orientation.addActionListener(this);
+		
+		//Joint Filtering
+		joint_filter.addItem("None");
+		joint_filter.addItem("ExponentialSmoothing1");
+		joint_filter.addItem("ExponentialSmoothing2");
+		joint_filter.addItem("HoltDoubleExponential");
+		joint_filter.addActionListener(this);
+		joint_filter.setSelectedIndex(0);
+		
+		//Filter Smoothing Slider
+		frame_history.setMinimum(1);
+		frame_history.setMaximum(15);
+		frame_history.setValue(5);
+		frame_history.setToolTipText("History ("+frame_history.getValue()+" frames)");
+		frame_history.addChangeListener(this);
 		
 		controls.setLayout(new GridLayout(0, 6));
 		controls.add(new JLabel("Depth Stream:"));
@@ -212,7 +230,7 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		myKinect.subject.addObserver(this);
 		send("updateSkeletonSubject", myKinect.subject);
 		
-		eastPanel.setLayout(new GridLayout(30,1));
+		eastPanel.setLayout(new GridLayout(31,1));
 		eastPanel.add(new JLabel("Joint Positions X,Y,Z"));
 		eastPanel.add(joint_orientation);
 		eastPanel.add(new JLabel("Spine Base:"));
@@ -270,8 +288,10 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		eastPanel.add(body_orientation);
 		eastPanel.add(new JLabel("Torso Orientation:"));
 		eastPanel.add(torso_orientation);
-		//eastPanel.add(new JLabel("RelativeNUICoords:"));
-		//eastPanel.add(relative_NUI_coords);
+		eastPanel.add(new JLabel("Joint Filter:"));
+		eastPanel.add(joint_filter);
+		eastPanel.add(new JLabel("Frames:"));
+		eastPanel.add(frame_history);
 		
 		
 		display.setLayout(new BorderLayout());		
@@ -287,6 +307,7 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		if(arg instanceof Skeleton) {
 			send("getSkeleton",arg);
 		}
+		
 		// Update Gui with Skeleton Joint Positions and Orientations
 		if(arg instanceof Skeleton && !joint_orientation.isSelected()) {
 			double spine_base_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.SPINE_BASE);
@@ -345,7 +366,7 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 			float jointOrientation[] = ((Skeleton)arg).getJointOrientations();
 			double bodyOrientation = ((Skeleton)arg).getBodyOrientation();
 			double torsoOrientation[] = ((Skeleton)arg).getTorsoOrientation();
-			//System.out.println(jointOrientation[11]*120);
+			
 			spine_base.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE+3])));
 			spine_mid.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID+3])));
 			neck.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.NECK]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.NECK+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.NECK+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.NECK+3])));
@@ -451,7 +472,20 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		else if(e.getSource()==mask_players)
 		{
 			myKinect.maskPlayers(mask_players.isSelected());
-		}
+		} 
+		else if(e.getSource()==joint_filter)
+		{
+			myKinect.jf.setFilterMethod(joint_filter.getSelectedItem().toString());
+			
+			if(joint_filter.getSelectedIndex()==2 || joint_filter.getSelectedIndex()==3) {
+				myKinect.jf.setFrameHistory(1);
+				frame_history.setValue(1);
+				myKinect.jf.elapsedFrames = 0;
+			} else if(joint_filter.getSelectedIndex()!=0) {
+				
+				myKinect.jf.setFrameHistory((int)frame_history.getValue());
+			}
+		} 
 	}
 	
 	@Override
@@ -463,6 +497,11 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 				myKinect.setElevationAngle(elevation_angle.getValue());
 				elevation_angle.setToolTipText("Elevation Angle ("+elevation_angle.getValue()+" degrees)");
 			}
+		} 
+		else if(e.getSource()==frame_history) 
+		{
+			myKinect.jf.setFrameHistory((int)frame_history.getValue());
+			frame_history.setToolTipText("History ("+frame_history.getValue()+" frames)");
 		}
 	}
 
