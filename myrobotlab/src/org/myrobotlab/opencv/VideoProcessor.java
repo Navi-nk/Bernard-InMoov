@@ -198,6 +198,7 @@ public class VideoProcessor implements Runnable, Serializable {
 		if (!filters.containsKey(name)) {
 			String type = String.format("org.myrobotlab.opencv.OpenCVFilter%s", filterType);
 			OpenCVFilter filter = (OpenCVFilter) Instantiator.getNewInstance(type, name);
+			filter.setVideoProcessor(this); //bug fix by navi : null pointer  reference
 			addFilterQueue.add(filter);
 			return filter;
 		} else {
