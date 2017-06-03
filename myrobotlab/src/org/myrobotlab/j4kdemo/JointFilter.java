@@ -7,12 +7,10 @@ import java.util.*;
 
 import com.jme3.math.FastMath;
 
-import edu.ufl.digitalworlds.j4k.Skeleton;
-
 public class JointFilter {
 	
 	// List containing skeletons across time
-	public LinkedList<Skeleton> skeletonList = new LinkedList<Skeleton>();
+	public LinkedList<KSkeleton> skeletonList = new LinkedList<KSkeleton>();
 	// List containing skeleton orientation quaternions
 	public LinkedList<ArrayList<Float[]>> orientationQList = new LinkedList<ArrayList<Float[]>>();
 	// List containing joint tracking states
@@ -26,7 +24,7 @@ public class JointFilter {
 	public int jointQInclusions[] = {0,1,2,4,5,6,7,8,9,10,14,20};
 
 	// Final filtered skeleton to return
-	public Skeleton sk;
+	public KSkeleton sk;
 	// Final filtered joint positions and orientations of skeleton to return
 	public float[] joint_positions;
 	public float[] joint_orientations;
@@ -78,7 +76,7 @@ public class JointFilter {
 		jointFilterType = method;
 	}
 	
-	public Skeleton getSkeleton() {
+	public KSkeleton getSkeleton() {
 		
 		switch (jointFilterType) {
 			case "None": break;
@@ -91,7 +89,7 @@ public class JointFilter {
 	}
 	
 	// Add Skeleton to the Skeleton Array
-	public void addSkeleton(Skeleton skeleton) throws IOException {
+	public void addSkeleton(KSkeleton skeleton) throws IOException {
 		if(skeleton == null) {
 			throw new IOException("Null Skeleton");
 		}
