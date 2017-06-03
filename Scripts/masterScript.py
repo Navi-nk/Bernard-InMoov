@@ -1,5 +1,6 @@
 from org.myrobotlab.net import BareBonesBrowserLaunch
 
+
 #Created by  Navi
 #Master script to initiate all the services needed for operation of Bernard
 
@@ -7,8 +8,8 @@ from org.myrobotlab.net import BareBonesBrowserLaunch
 startVirtualBernard=True
 
 #ports for connecting to adruino
-leftPort = "COM"
-rightPort = "COM"
+leftPort = "COM20"
+rightPort = "COM91"
 
 #chatbot choice: we have two chatbots built using api.ai and aiml
 #default is api.ai but aiml option is still there for people to explore
@@ -28,7 +29,7 @@ voiceEffects = "F0Add(f0Add:20.0)+F0Scale(f0Scale:1.5)" #audio effects-tune it a
 #this is a limitation, needs to be fixed in future
 speechRecoType = "WebkitSpeechRecognition"
 
-guiType = WebGui
+guiType = "WebGui"
 
 
 def heardSentence(sentence):
@@ -63,32 +64,39 @@ def heardSentence(sentence):
 
 
 def createBernard():
+    bernard.startAll(leftPort, rightPort)
+    ear.addListener("publishText", python.name, "heardSentence")
     chatBot.configureAIBot(apiKey)
     chatBot.addTextListener(mouth)
-    ear.addListener("publishText", python.name, "heardSentence")
+    
     
 
 
 def createVirtualBernard():
+    global vinmoov
     v1 = Runtime.start('v1', 'VirtualArduino')
     v2 = Runtime.start('v2', 'VirtualArduino')
     v1.connect(leftPort)
     v2.connect(rightPort)
+    bernard.startAll(leftPort, rightPort)
     bernard.startVinMoov()
+    ear.addListener("publishText", "masterscript", "heardSentence")
+    chatBot.configureAIBot(apiKey)
+    chatBot.addTextListener(mouth)
 
 def startWebGui():
     webgui.autoStartBrowser(False)
     webgui.startService()
-    BareBonesBrowserLaunch.openURL("http://localhost:8888/#service/ear")
+    BareBonesBrowserLaunch.openURL("http://localhost:8888/#service/bernard.ear")
 
 def setMouthEffects():
     mouth.setVoice(voiceStyle)
     mouth.setAudioEffects(voiceEffects)
 
-if __name == "__main__":
+if __name__ == "__main__":
     #start webgui for speech recognition-Fix this soon
     webgui = Runtime.create("webgui",guiType)
-    startWebGui()
+    
 
     #start bernard mouth service
     mouth = Runtime.createAndStart('bernard.mouth',speechType)
@@ -106,12 +114,13 @@ if __name == "__main__":
     kinect=Runtime.createAndStart("kinect","Bernard")
 
     #create bernard object
-    bernard = Runtime.create('bernard','InMoov')
-    bernard.startAll(leftPort, rightPort)
+    bernard = Runtime.start('bernard','InMoov')
 
     #Link to bernard- either in simulator or real 
-    if startVirtualBernard
+    if startVirtualBernard:
         createVirtualBernard()
     else:
         createBernard()
+
+    startWebGui()
 

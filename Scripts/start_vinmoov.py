@@ -12,4 +12,7 @@ i01.startAll('COM20', 'COM91')
 
 
 i01.startVinMoov()
+
+
+print("done")
 i01.stopVinMoov()
