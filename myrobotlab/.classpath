@@ -443,5 +443,6 @@
 	<classpathentry kind="lib" path="/repo/com.adafruit.servodriver/1.0/arduino.zip"/>
 	<classpathentry kind="lib" path="/repo/ph.com.alexan.aceduino/1.0/arduino.zip"/>
 	<classpathentry kind="lib" path="libraries/jar/tools.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jbullet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,3 +1,12 @@
+#written by Navi
+
+# check "~\Bernard-InMoov\myrobotlab\ProgramAB\bots\bernard\aiml" path for aiml files
+#aiml files is where you create rules for chatbot
+#rules are written using AIML(Artificial Intelligence Markup Language) similiar to XML
+#check AIML documentation for more info "http://www.alicebot.org/aiml.html"
+#"https://www.tutorialspoint.com/aiml/" is a good start
+
+
 from org.myrobotlab.net import BareBonesBrowserLaunch
 
 leftPort="COM3"
@@ -12,7 +21,6 @@ mouth.setAudioEffects('F0Add(f0Add:20.0)+F0Scale(f0Scale:1.5)')
 ear = Runtime.createAndStart("ear", "WebkitSpeechRecognition")
 #ear.addListener("publishText", python.name, "heard");
 ear.addMouth(mouth)
-
 
 bernardBot = Runtime.createAndStart("Bernard", "ProgramAB")
 bernardBot.startSession(aimlUserName, aimlBotName)

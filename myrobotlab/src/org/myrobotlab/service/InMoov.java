@@ -184,9 +184,9 @@ public class InMoov extends Service {
   private IntegratedMovement integratedMovement;
   private Arduino pirArduino;
 
-  // static String speechService = "MarySpeech";
+   static String speechService = "MarySpeech";
   // static String speechService = "AcapelaSpeech";
-  static String speechService = "NaturalReaderSpeech";
+  //static String speechService = "NaturalReaderSpeech";
   static String speechRecognizer = "WebkitSpeechRecognition";
 
   public InMoov(String n) {
@@ -1046,8 +1046,8 @@ public class InMoov extends Service {
     startRightArm(rightPort);
     startTorso(leftPort);
 
-    startHeadTracking(leftPort, 12, 13);
-    startEyesTracking(leftPort, 22, 24);
+    //startHeadTracking(leftPort, 12, 13);
+    //startEyesTracking(leftPort, 22, 24);
 
     speakBlocking("startup sequence completed");
   }
