@@ -25,6 +25,7 @@ public class KSkeleton extends Skeleton {
 	public Joint shoulderLeftJoint;
 	public Float wristLeftNormalAngle;
 	public Float wristLeftBinormalAngle;
+	public double[] torsoOrientation;
 	
 	
 	public KSkeleton(Skeleton sk) {
@@ -32,6 +33,7 @@ public class KSkeleton extends Skeleton {
 		Joints  = new Joint[JOINT_COUNT];
 		joint_position = sk.getJointPositions();
 		joint_orientation = sk.getJointOrientations();
+		torsoOrientation = sk.getTorsoOrientation();
 		skeleton_tracked = sk.isTracked();
 		Quaternion[] joint_orientation_list = new Quaternion[JOINT_COUNT];
 		
@@ -74,13 +76,12 @@ public class KSkeleton extends Skeleton {
 		}
 		return false;
 	}
-	/*
+	
 	public Vector3f getBone(int a, int b) {
-		//Vector3f boneA = ;
+		Vector3f boneA = this.getJoint(a).getAbsPosition();
 		Vector3f boneB = this.getJoint(b).getAbsPosition();
-		boneB.subtract(boneA);
-		
-		return 
+
+		return boneB.subtract(boneA).normalizeLocal();
 	}
-	*/
+	
 }
