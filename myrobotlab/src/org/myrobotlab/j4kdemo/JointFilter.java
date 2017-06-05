@@ -40,10 +40,10 @@ public class JointFilter {
 	public Float _smoothing = 0.9f; // data smoothing factor
 	
 	// Filter Attributes for Holt's Double Exponential Smoothing
-	public Float _correction = 0.5f; // Speed for adjusting trend
+	public Float _correction = 0.7f; // Speed for adjusting trend
 	public Float _prediction = 0.5f;
-	public Float _jitterRadius = 0.05f; // jitter control
-	public Float _maxDeviationRadius = 0.04f;
+	public Float _jitterRadius = 0.03f; // jitter control
+	public Float _maxDeviationRadius = 0.01f;
 	//public Float[] _level = new Float[7];
 	//public Float[] _trend = new Float[7];
 	public Integer elapsedFrames = 0;
@@ -70,6 +70,26 @@ public class JointFilter {
 	
 	public void setFrameHistory(int length) {
 		maxSize = length;
+	}
+	
+	public void setSmoothing(Float smoothing) {
+		_smoothing = smoothing;
+	}
+	
+	public void setCorrection(Float correction) {
+		_correction = correction;
+	}
+	
+	public void setPrediction(Float prediction) {
+		_prediction = prediction;
+	}
+	
+	public void setJitterRadius(Float jitterRadius) {
+		_jitterRadius = jitterRadius;
+	}
+	
+	public void setMaxDeviationRadius(Float maxDeviationRadius) {
+		_maxDeviationRadius = maxDeviationRadius;
 	}
 	
 	public void setFilterMethod(String method) {

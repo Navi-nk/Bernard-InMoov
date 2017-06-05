@@ -35,12 +35,10 @@ public class Bernard extends Service implements Observer {
 	
 	// MRL Services
 	public J4K KinectViewer;
-	public InMoov i01;
+	public InMoov bernard;
 	public VirtualArduino v1;
 	public VirtualArduino v2;
-	public ProgramAB AliceBot;
-	public NaturalReaderSpeech i01mouth;
-	
+
 	// Skeletal Mapping Variables
 	public KSkeleton kSkeleton;
 	public boolean robotImitation = false;
@@ -50,12 +48,9 @@ public class Bernard extends Service implements Observer {
 	
 	
 	// InMoov Variables Initialisation
-	public String leftPort = "COM20";
-	public String rightPort = "COM91";
+	public String leftPort = "COM3";
+	public String rightPort = "COM3";
 	public String headPort = leftPort;
-	public String voiceType = "Ryan";
-	public String lang = "EN";
-	public String ProgramABPath = "C:\\Users\\Joycob\\git\\myrobotlab\\ProgramAB";
 
 	public final static Logger log = LoggerFactory.getLogger(Bernard.class);
 	  
@@ -79,11 +74,11 @@ public class Bernard extends Service implements Observer {
 	    // meta.addDependency("org.coolproject", "1.0.0");
 	    meta.addCategory("general");
 	    meta.addPeer("KinectViewer", "J4K", "Kinect Viewer");
-	    meta.addPeer("i01", "InMoov", "InMoov");
+	    meta.addPeer("bernard", "InMoov", "InMoov");
 	    meta.addPeer("v1", "VirtualArduino", "Virtual Arduino 1: Left");
 	    meta.addPeer("v2", "VirtualArduino", "Virtual Arduino 2: Right");
-	    meta.addPeer("AliceBot", "ProgramAB", "Alice Chatbot");
-	    meta.addPeer("i01.mouth", "NaturalReaderSpeech", "Speech Control");
+	   // meta.addPeer("AliceBot", "ProgramAB", "Alice Chatbot");
+	   // meta.addPeer("bernard.mouth", "NaturalReaderSpeech", "Speech Control");
 	    return meta;
 	}
 
@@ -103,6 +98,10 @@ public class Bernard extends Service implements Observer {
 		KinectViewer = (J4K) startPeer("KinectViewer");
 	}
 	
+	public void setRobotImitation(boolean state) {
+		robotImitation = state;
+	}
+	
 	public void startRobotImitation() {
 		robotImitation = true; 
 		startKinectViewer();
@@ -119,9 +118,11 @@ public class Bernard extends Service implements Observer {
 		
 	public void startInMoov() {
 		// Actual InMoov
-		i01 = (InMoov) startPeer("i01");
+		bernard = (InMoov) startPeer("bernard");
 		try {
-			i01.startAll(leftPort, rightPort);
+			//bernard.startAll(leftPort, rightPort);
+			bernard.startArm("right", rightPort, null);
+			//bernard.startArm("left", leftPort, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,24 +131,17 @@ public class Bernard extends Service implements Observer {
 	
 	public void startVinMoov() {
 		try {
-			i01 = (InMoov) startPeer("i01");
-			//vinMoov = i01;
+			bernard = (InMoov) startPeer("bernard");
+			//vinMoov = bernard;
 			v1 = (VirtualArduino) startPeer("v1");
 			//VirtualArduino va1 = v1;
 			v2 = (VirtualArduino) startPeer("v2");
 			//VirtualArduino va2 = v2;
 			v1.connect(leftPort);
 			v2.connect(rightPort);
-			i01.startAll(leftPort, rightPort);
+			bernard.startAll(leftPort, rightPort);
 			
-			AliceBot = (ProgramAB) startPeer("AliceBot");
-			//ProgramAB alice = AliceBot;
-			AliceBot.setPath(ProgramABPath);
-			i01mouth = (NaturalReaderSpeech) startPeer("i01.mouth");
-			i01mouth.setVoice(voiceType);
-			i01mouth.setLanguage(lang);
-			
-			i01.startVinMoov();
+			bernard.startVinMoov();
 			//vinMoov.startIntegratedMovement();
 			vinMoovStarted = true;
 			
@@ -174,7 +168,7 @@ public class Bernard extends Service implements Observer {
 		double betweenHandsTransform = kSkeleton.getBetweenHandsTransform(t, inv_t);
 		double rightArmTransform = kSkeleton.getRightArmTransform(t, inv_t);
 		double rightForearmTransform = kSkeleton.getRightArmTransform(t, inv_t);
-		double leftArmTransform = kSkeleton.getLeftArmTransform(t, inv_t);
+		Float leftArmTransform = (float) kSkeleton.getLeftArmTransform(t, inv_t);
 		double leftForearmTransform = kSkeleton.getLeftArmTransform(t, inv_t);
 
 		Joint spineShoulderJoint = kSkeleton.getJoint(KSkeleton.SPINE_SHOULDER);
@@ -182,9 +176,9 @@ public class Bernard extends Service implements Observer {
 		// Head
 		if(trackUserFace != true) {
 			//System.out.println(90+jointOrientation[4*Skeleton.HEAD+2]*240);
-			//i01.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
-			//i01.head.neck.moveTo(90+jointOrientation[12+2]*240);
-			//i01.head.rollNeck.moveTo(90+);
+			//bernard.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
+			//bernard.head.neck.moveTo(90+jointOrientation[12+2]*240);
+			//bernard.head.rollNeck.moveTo(90+);
 		}
 		
 		// Left Arm 
@@ -229,20 +223,22 @@ public class Bernard extends Service implements Observer {
 		Vector3f leftThumb = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.THUMB_LEFT);
 		
 		float degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getY(),leftArm.getX())));
-		//i01.leftArm.omoplate.moveTo(degrees>90?270-degrees:-degrees-90);
+		//bernard.leftArm.omoplate.moveTo(degrees>90?270-degrees:-degrees-90);
 		
-		//i01.leftArm.omoplate.moveTo(Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsX()-elbowLeftJoint.getAbsX())/leftArmTransform)));
+		////bernard.leftArm.omoplate.moveTo(Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsX()-elbowLeftJoint.getAbsX())/leftArmTransform)));
 		
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getZ(),leftArm.getY())));
-		//i01.leftArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		//degrees = Math.round(Math.toDegrees(FastMath.acos(leftArm.getZ()/leftArmTransform)));
+		//System.out.println(degrees);
+		//bernard.leftArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		degrees = (float) Math.toDegrees(elbowLeftAngle[1]);
-		//i01.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
-		i01.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
+		//bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
+		//bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
 		
 		// for wrist, need to use all three rotations
 		
 		degrees = (float) Math.toDegrees(wristLeftRotateAngle);
-		//i01.leftHand.wrist.moveTo(degrees);
+		//bernard.leftHand.wrist.moveTo(degrees);
 				
 		// Right Arm
 		Joint shoulderRightJoint = kSkeleton.getJoint(KSkeleton.SHOULDER_RIGHT);
@@ -274,34 +270,34 @@ public class Bernard extends Service implements Observer {
 		Vector3f rightFingers = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.HAND_TIP_RIGHT);
 		Vector3f rightThumb = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.THUMB_RIGHT);
 		
-		//i01.rightArm.omoplate.moveTo(10+Math.toDegrees(Math.asin(Math.abs(shoulderRightJoint[0]-elbowRightJoint[0])/shoulderElbowDistanceRight)));
+		//bernard.rightArm.omoplate.moveTo(10+Math.toDegrees(Math.asin(Math.abs(shoulderRightJoint.getAbsX()-elbowRightJoint.getAbsX())/rightArmTransform)));
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(rightArm.getZ(),rightArm.getY())));
-		//i01.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		//bernard.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		
 		//System.out.println(degrees);
 		
 		//degrees = (float) -Math.toDegrees(elbowRightAngle[1]);
-		//i01.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
-		//i01.rightArm.bicep.moveTo(Math.round(Math.toDegrees(elbowWristRightVec.angleBetween(shoulderElbowRightVec))));
+		//bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
+		bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
 		//degrees = (float) Math.toDegrees(wristRightAngle[1]);
-		//i01.rightHand.wrist.moveTo(90-degrees);
-		
+		//bernard.rightHand.wrist.moveTo(90-degrees);
 		
 		
 		// Body
 		
 		// Torso Upper
-		//i01.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsY()-shoulderRightJoint.getAbsY())/shoulderTransform)));
+		//bernard.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsY()-shoulderRightJoint.getAbsY())/shoulderTransform)));
 		// Torso Mid
 		
-		//i01.torso.midStom.moveTo(90+kSkeleton.torsoOrientation[0]*90);
+		//bernard.torso.midStom.moveTo(90+kSkeleton.torsoOrientation[0]*90);
 		// Torso Low
-		//i01.torso.lowStom.moveTo(90+kSkeleton.torsoOrientation[1]*90);
+		//bernard.torso.lowStom.moveTo(90+kSkeleton.torsoOrientation[1]*90);
 		
 	}
 	
 	public void startFaceTracking() {
-		System.out.println("Hello");
+		Float eyesY = 0.5f;
+		
 	}
 	
 	

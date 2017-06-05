@@ -35,12 +35,11 @@ guiType = "WebGui"
 def heardSentence(sentence):
     print(sentence)
     if sentence == "start conversation":
+        mouth.speakBlocking("starting conversation mode")
         ear.addTextListener(chatBot)
         bernard.mouthControl.setmouth(30,80)
-        mouth.speakBlocking('Starting conversation mode')
     elif sentence == "stop conversation":
-        ear.removeListener("publishText", chatbot, "onText")
-        mouth.speakBlocking('Stoping conversation mode')
+        ear.removeListener("publishText", "chatBot", "onText")
     elif sentence == "start recognition":
         fr=opencv.addFilter("fr","FaceRecognizer")
         opencv.setDisplayFilter("fr")
@@ -59,8 +58,11 @@ def heardSentence(sentence):
         sleep(5)
         fr.setModeRecognize()
     elif sentence == "start imitation":
-        kinect.startRobotImitation()
-        kinect.addKinectObservers()
+        mouth.speakBlocking("Starting Imitation mode")
+        kinect.setRobotImitation(True)
+    elif sentence == "stop imitation":
+        mouth.speakBlocking("Stopping Imitation mode")
+        kinect.setRobotImitation(False)
 
 
 def createBernard():
@@ -107,13 +109,15 @@ if __name__ == "__main__":
     #chat bot
     chatBot = Runtime.createAndStart("chatBot", chatbot)
 
+    #create bernard object
+    bernard = Runtime.start('bernard','InMoov')
+
     #opencv for face recognition
     opencv = Runtime.start("cv","OpenCV")
 
-    kinect=Runtime.createAndStart("kinect","Bernard")
-
-    #create bernard object
-    bernard = Runtime.start('bernard','InMoov')
+    kinect=Runtime.start("kinect","Bernard")
+    
+    #KinectViewer = Runtime.start("kinect.KinectViewer", "J4K")
 
     #Link to bernard- either in simulator or real 
     if startVirtualBernard:
@@ -122,3 +126,8 @@ if __name__ == "__main__":
         createBernard()
 
     startWebGui()
+    kinect.startRobotImitation()
+    sleep(5)
+    kinect.addKinectObservers()
+    kinect.bernard = bernard
+    kinect.setRobotImitation(False)

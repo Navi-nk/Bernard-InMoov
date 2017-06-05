@@ -321,7 +321,6 @@
 	<classpathentry kind="lib" path="/repo/org.apache.ivy/2.4.0-rc1/ivy-2.4.0-rc1.jar"/>
 	<classpathentry kind="lib" path="/repo/org.apache.log4j/1.2.14/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="/repo/org.apache.tika/1.11/tika-core-1.11.jar"/>
-	<classpathentry kind="lib" path="/repo/org.apiai/text-client-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="/repo/org.bytedeco.ffmpeg/2.6.1/ffmpeg-2.6.1-0.11.jar"/>
 	<classpathentry kind="lib" path="/repo/org.bytedeco.ffmpeg/2.6.1/ffmpeg-2.6.1-1.0-20150502.231737-1-windows-x86_64.jar"/>
 	<classpathentry kind="lib" path="/repo/org.bytedeco.javacpp/1.1/javacpp.jar"/>
@@ -444,5 +443,18 @@
 	<classpathentry kind="lib" path="/repo/ph.com.alexan.aceduino/1.0/arduino.zip"/>
 	<classpathentry kind="lib" path="libraries/jar/tools.jar"/>
 	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jbullet.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jME3-jbullet.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jME3-desktop.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jME3-testdata.jar"/>
+	<classpathentry kind="lib" path="/repo/com.voicerss.tts/1.0/tts.jar"/>
+	<classpathentry kind="lib" path="/repo/org.joda/2.9.4/joda-time.jar"/>
+	<classpathentry kind="lib" path="/repo/marytts/5.2/voice-cmu-bdl-hsmm-5.2.jar"/>
+	<classpathentry kind="lib" path="/repo/j4k/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="/repo/j4k/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="/repo/j4k/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="/repo/j4k/jogl-all.jar"/>
+	<classpathentry kind="lib" path="/repo/j4k/ufdw.jar"/>
+	<classpathentry kind="lib" path="/repo/j4k/j4k2-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="/repo/org.apiai/text-client-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

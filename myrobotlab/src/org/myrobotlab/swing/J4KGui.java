@@ -89,8 +89,7 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 	JButton turn_off = new JButton("Turn Off");
 	JComboBox depth_resolution = new JComboBox();
 	JComboBox video_resolution = new JComboBox();
-	JComboBox joint_filter = new JComboBox();
-	JSlider frame_history = new JSlider();
+	
 	JCheckBox show_video = new JCheckBox("Show Texture");
 	JCheckBox mask_players = new JCheckBox("Mask Players");
 	JLabel accelerometer = new JLabel("0,0,0");
@@ -98,7 +97,15 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 	//JPanel eastPanel = new JPanel();
 	JTabbedPane eastPanel = new JTabbedPane();
 	JPanel coordPanel = new JPanel();
+
 	JPanel filterPanel = new JPanel();
+	JComboBox joint_filter = new JComboBox();
+	JSlider frame_history = new JSlider();
+	JSlider smoothing = new JSlider();
+	JSlider correction = new JSlider();
+	JSlider prediction = new JSlider();
+	JSlider jitter_radius = new JSlider();
+	JSlider max_deviation_radius = new JSlider();
 	
 	public KSkeleton[] skeletonData;
 	
@@ -212,12 +219,47 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		joint_filter.addActionListener(this);
 		joint_filter.setSelectedIndex(0);
 		
-		//Filter Smoothing Slider
+		//Frame Slider
 		frame_history.setMinimum(1);
 		frame_history.setMaximum(15);
 		frame_history.setValue(5);
-		frame_history.setToolTipText("History ("+frame_history.getValue()+" frames)");
+		frame_history.setToolTipText("History ("+String.valueOf(frame_history.getValue())+" frames)");
 		frame_history.addChangeListener(this);
+		
+		//Smoothing Slider
+		smoothing.setMinimum(0);
+		smoothing.setMaximum(100);
+		smoothing.setValue(90);
+		smoothing.setToolTipText("Smoothing ("+String.valueOf((float)smoothing.getValue()/100.0f)+")");
+		smoothing.addChangeListener(this);
+		
+		//Correction Slider
+		correction.setMinimum(0);
+		correction.setMaximum(100);
+		correction.setValue(50);
+		correction.setToolTipText("Correction ("+String.valueOf((float)correction.getValue()/100.0f)+")");
+		correction.addChangeListener(this);
+		
+		//Prediction Slider
+		prediction.setMinimum(0);
+		prediction.setMaximum(100);
+		prediction.setValue(0);
+		prediction.setToolTipText("Prediction ("+String.valueOf((float)prediction.getValue()/100.0f)+")");
+		prediction.addChangeListener(this);
+		
+		//Jitter Radius Slider
+		jitter_radius.setMinimum(0);
+		jitter_radius.setMaximum(10);
+		jitter_radius.setValue(50);
+		jitter_radius.setToolTipText("Jitter Radius ("+String.valueOf((float)jitter_radius.getValue()/50.0f)+")");
+		jitter_radius.addChangeListener(this);
+		
+		//Max Deviation Radius Slider
+		max_deviation_radius.setMinimum(0);
+		max_deviation_radius.setMaximum(8);
+		max_deviation_radius.setValue(50);
+		max_deviation_radius.setToolTipText("Max Deviation Radius ("+String.valueOf((float)max_deviation_radius.getValue()/50.0f)+")");
+		max_deviation_radius.addChangeListener(this);
 		
 		controls.setLayout(new GridLayout(0, 6));
 		controls.add(new JLabel("Depth Stream:"));
@@ -243,6 +285,22 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		eastPanel.setPreferredSize(new Dimension(300,0));
 		eastPanel.addTab("Joint Coordinates", coordPanel);
 		eastPanel.addTab("Joint Filter", filterPanel);
+		
+		filterPanel.setLayout(new GridLayout(14,1));
+		filterPanel.add(new JLabel("Joint Filter: "));
+		filterPanel.add(joint_filter);
+		filterPanel.add(new JLabel("Frames: "));
+		filterPanel.add(frame_history);
+		filterPanel.add(new JLabel("Smoothing: "));
+		filterPanel.add(smoothing);
+		filterPanel.add(new JLabel("Correction: "));
+		filterPanel.add(correction);
+		filterPanel.add(new JLabel("Prediction: "));
+		filterPanel.add(prediction);
+		filterPanel.add(new JLabel("Jitter Radius: "));
+		filterPanel.add(jitter_radius);
+		filterPanel.add(new JLabel("Max Deviation Radius: "));
+		filterPanel.add(max_deviation_radius);
 		
 		coordPanel.setLayout(new GridLayout(31,1));
 		coordPanel.add(new JLabel("Joint Positions X,Y,Z"));
@@ -301,13 +359,6 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		coordPanel.add(body_orientation);
 		coordPanel.add(new JLabel("Torso Orientation:"));
 		coordPanel.add(torso_orientation);
-		coordPanel.add(new JLabel("Joint Filter:"));
-		coordPanel.add(joint_filter);
-		coordPanel.add(new JLabel("Frames:"));
-		coordPanel.add(frame_history);
-		
-		coordPanel.setLayout(new GridLayout(31,1));
-		
 		
 		display.setLayout(new BorderLayout());		
 		display.add(mainPanel, BorderLayout.CENTER);
@@ -452,8 +503,33 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 			myKinect.jf.setFrameHistory((int)frame_history.getValue());
 			frame_history.setToolTipText("History ("+frame_history.getValue()+" frames)");
 		}
+		else if(e.getSource()==smoothing) 
+		{
+			myKinect.jf.setSmoothing((float)smoothing.getValue()/100.0f);
+			smoothing.setToolTipText("Smoothing ("+String.valueOf((float)smoothing.getValue()/100.0f)+")");
+		}
+		else if(e.getSource()==correction) 
+		{
+			myKinect.jf.setCorrection((float)correction.getValue()/100.0f);
+			correction.setToolTipText("Correction ("+String.valueOf((float)correction.getValue()/100.0f)+")");
+		}
+		else if(e.getSource()==prediction) 
+		{
+			myKinect.jf.setPrediction((float)prediction.getValue()/100.0f);
+			prediction.setToolTipText("Prediction ("+String.valueOf((float)prediction.getValue()/100.0f)+")");
+		}
+		else if(e.getSource()==jitter_radius) 
+		{
+			myKinect.jf.setJitterRadius((float)jitter_radius.getValue()/50.0f);
+			jitter_radius.setToolTipText("Jitter Radius ("+String.valueOf((float)jitter_radius.getValue()/50.0f)+")");
+		}	
+		else if(e.getSource()==max_deviation_radius) 
+		{
+			myKinect.jf.setMaxDeviationRadius((float)max_deviation_radius.getValue()/50.0f);
+			max_deviation_radius.setToolTipText("Max Deviation Radius ("+String.valueOf((float)max_deviation_radius.getValue()/50.0f)+")");
+		}			
 	}
-
+	
 	@Override
 	public void subscribeGui() {
 	// un-defined gui's
