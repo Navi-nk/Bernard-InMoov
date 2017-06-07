@@ -7,12 +7,10 @@ import java.util.*;
 
 import com.jme3.math.FastMath;
 
-import edu.ufl.digitalworlds.j4k.Skeleton;
-
 public class JointFilter {
 	
 	// List containing skeletons across time
-	public LinkedList<Skeleton> skeletonList = new LinkedList<Skeleton>();
+	public LinkedList<KSkeleton> skeletonList = new LinkedList<KSkeleton>();
 	// List containing skeleton orientation quaternions
 	public LinkedList<ArrayList<Float[]>> orientationQList = new LinkedList<ArrayList<Float[]>>();
 	// List containing joint tracking states
@@ -26,7 +24,7 @@ public class JointFilter {
 	public int jointQInclusions[] = {0,1,2,4,5,6,7,8,9,10,14,20};
 
 	// Final filtered skeleton to return
-	public Skeleton sk;
+	public KSkeleton sk;
 	// Final filtered joint positions and orientations of skeleton to return
 	public float[] joint_positions;
 	public float[] joint_orientations;
@@ -42,10 +40,10 @@ public class JointFilter {
 	public Float _smoothing = 0.9f; // data smoothing factor
 	
 	// Filter Attributes for Holt's Double Exponential Smoothing
-	public Float _correction = 0.5f; // Speed for adjusting trend
+	public Float _correction = 0.7f; // Speed for adjusting trend
 	public Float _prediction = 0.5f;
-	public Float _jitterRadius = 0.05f; // jitter control
-	public Float _maxDeviationRadius = 0.04f;
+	public Float _jitterRadius = 0.03f; // jitter control
+	public Float _maxDeviationRadius = 0.01f;
 	//public Float[] _level = new Float[7];
 	//public Float[] _trend = new Float[7];
 	public Integer elapsedFrames = 0;
@@ -74,11 +72,31 @@ public class JointFilter {
 		maxSize = length;
 	}
 	
+	public void setSmoothing(Float smoothing) {
+		_smoothing = smoothing;
+	}
+	
+	public void setCorrection(Float correction) {
+		_correction = correction;
+	}
+	
+	public void setPrediction(Float prediction) {
+		_prediction = prediction;
+	}
+	
+	public void setJitterRadius(Float jitterRadius) {
+		_jitterRadius = jitterRadius;
+	}
+	
+	public void setMaxDeviationRadius(Float maxDeviationRadius) {
+		_maxDeviationRadius = maxDeviationRadius;
+	}
+	
 	public void setFilterMethod(String method) {
 		jointFilterType = method;
 	}
 	
-	public Skeleton getSkeleton() {
+	public KSkeleton getSkeleton() {
 		
 		switch (jointFilterType) {
 			case "None": break;
@@ -91,7 +109,7 @@ public class JointFilter {
 	}
 	
 	// Add Skeleton to the Skeleton Array
-	public void addSkeleton(Skeleton skeleton) throws IOException {
+	public void addSkeleton(KSkeleton skeleton) throws IOException {
 		if(skeleton == null) {
 			throw new IOException("Null Skeleton");
 		}

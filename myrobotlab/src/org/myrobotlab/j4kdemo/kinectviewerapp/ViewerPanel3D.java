@@ -7,7 +7,8 @@ import javax.media.opengl.GL2;
 
 import edu.ufl.digitalworlds.opengl.OpenGLPanel;
 import edu.ufl.digitalworlds.j4k.DepthMap;
-import edu.ufl.digitalworlds.j4k.Skeleton;
+//import edu.ufl.digitalworlds.j4k.Skeleton;
+import org.myrobotlab.j4kdemo.KSkeleton;
 import edu.ufl.digitalworlds.j4k.VideoFrame;
 
 /*
@@ -58,7 +59,7 @@ public class ViewerPanel3D extends OpenGLPanel
 	
 	VideoFrame videoTexture;
 	
-	Skeleton skeletons[];
+	KSkeleton skeletons[];
 	
 	public void setup()
 	{
@@ -84,7 +85,7 @@ public class ViewerPanel3D extends OpenGLPanel
 			gl.glColor3f(0.9f,0.9f,0.9f);
 		    
 			
-			skeletons=new Skeleton[6];
+			skeletons=new KSkeleton[6];
 			
 			videoTexture=new VideoFrame();
 			

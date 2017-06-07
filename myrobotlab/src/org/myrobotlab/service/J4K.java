@@ -8,13 +8,14 @@ import org.myrobotlab.logging.Logging;
 import org.myrobotlab.logging.LoggingFactory;
 import org.slf4j.Logger;
 
-import edu.ufl.digitalworlds.j4k.Skeleton;
+//import edu.ufl.digitalworlds.j4k.Skeleton;
+import org.myrobotlab.j4kdemo.KSkeleton;
 import org.myrobotlab.j4kdemo.kinectviewerapp.KinectSubject;
 
 public class J4K extends Service {
 
 	private static final long serialVersionUID = 1L;
-	public Skeleton sk;
+	public KSkeleton sk;
 	public KinectSubject sub;
 
 	  public final static Logger log = LoggerFactory.getLogger(J4K.class);
@@ -37,6 +38,7 @@ public class J4K extends Service {
 	    meta.setAvailable(true); // false if you do not want it viewable in a gui
 	    // add dependency if necessary
 	    // meta.addDependency("org.coolproject", "1.0.0");
+	    //meta.addDependency("j4k", "");
 	    meta.addCategory("general");
 	    return meta;
 	  }
@@ -45,7 +47,7 @@ public class J4K extends Service {
 	    try {
 	      LoggingFactory.init(Level.INFO);
 
-	      J4K kinectViewer = (J4K) Runtime.start("kinectViewer", "J4K");
+	      J4K KinectViewer = (J4K) Runtime.start("KinectViewer", "J4K");
 	      Runtime.start("gui", "SwingGui");
 	      
 	      
@@ -54,7 +56,7 @@ public class J4K extends Service {
 	    }
 	  }
 
-	public void getSkeleton(Skeleton sk) {
+	public void getSkeleton(KSkeleton sk) {
 		this.sk = sk;
 		//System.out.println(this.sk.toString());
 	}

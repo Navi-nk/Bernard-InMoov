@@ -10,6 +10,7 @@ import edu.ufl.digitalworlds.j4k.DepthMap;
 import edu.ufl.digitalworlds.j4k.J4KSDK;
 import edu.ufl.digitalworlds.j4k.Skeleton;
 
+import org.myrobotlab.j4kdemo.KSkeleton;
 import org.myrobotlab.j4kdemo.JointFilter;
 
 
@@ -51,6 +52,7 @@ public class Kinect extends J4KSDK {
 	
 	public KinectSubject subject = new KinectSubject();
 	public Skeleton sk;
+	public KSkeleton sk2;
 	public String JointFilterType;
 	public JointFilter jf = new JointFilter(5); // set default smoothing to 5
 	public ViewerPanel3D viewer=null;
@@ -109,6 +111,7 @@ public class Kinect extends J4KSDK {
 			{
 				if(Skeleton.getSkeleton(i, flags,positions, orientations,state,this).isTracked()) {
 					sk=Skeleton.getSkeleton(i, flags,positions, orientations,state,this);
+					sk2 = new KSkeleton(sk);
 					break;
 				}
 			}
@@ -116,7 +119,7 @@ public class Kinect extends J4KSDK {
 			//single skeletal tracking
 			//sk=Skeleton.getSkeleton(0, flags,positions, orientations,state,this);
 			
-			if(sk.isTracked()) {
+			if(sk2.isTracked()) {
 				if(jf.jointFilterType == "None" && jf.skeletonList.size() != 0) {
 					System.out.println("Remove skeleton.");
 					jf.removeSkeleton(jf.skeletonList.size());
@@ -124,8 +127,8 @@ public class Kinect extends J4KSDK {
 				} else if(jf.jointFilterType != "None") {
 					try {
 						jf.addElapsedFrames();
-						jf.addSkeleton(sk);
-						sk = jf.getSkeleton();
+						jf.addSkeleton(sk2);
+						sk2 = jf.getSkeleton();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -133,9 +136,9 @@ public class Kinect extends J4KSDK {
 				}
 				
 				// update viewer gui
-				viewer.skeletons[0] = sk;
+				viewer.skeletons[0] = sk2;
 				// updateObservers
-				subject.notify(sk);
+				subject.notify(sk2);
 			} else {
 				jf.reset();
 			}

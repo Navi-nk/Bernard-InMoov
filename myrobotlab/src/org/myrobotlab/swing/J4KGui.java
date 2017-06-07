@@ -37,6 +37,7 @@ package org.myrobotlab.swing;
  */
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +51,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -58,6 +60,9 @@ import org.myrobotlab.j4kdemo.kinectviewerapp.Kinect;
 import org.myrobotlab.j4kdemo.kinectviewerapp.ViewerPanel3D;
 import org.myrobotlab.j4kdemo.JointFilter;
 import edu.ufl.digitalworlds.j4k.Skeleton;
+import org.myrobotlab.j4kdemo.KSkeleton;
+import com.jme3.math.Vector3f;
+import com.jme3.math.Quaternion;
 
 import edu.ufl.digitalworlds.j4k.J4K1;
 import edu.ufl.digitalworlds.j4k.J4K2;
@@ -84,15 +89,25 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 	JButton turn_off = new JButton("Turn Off");
 	JComboBox depth_resolution = new JComboBox();
 	JComboBox video_resolution = new JComboBox();
-	JComboBox joint_filter = new JComboBox();
-	JSlider frame_history = new JSlider();
+	
 	JCheckBox show_video = new JCheckBox("Show Texture");
 	JCheckBox mask_players = new JCheckBox("Mask Players");
 	JLabel accelerometer = new JLabel("0,0,0");
 	
-	JPanel eastPanel = new JPanel();
+	//JPanel eastPanel = new JPanel();
+	JTabbedPane eastPanel = new JTabbedPane();
+	JPanel coordPanel = new JPanel();
+
+	JPanel filterPanel = new JPanel();
+	JComboBox joint_filter = new JComboBox();
+	JSlider frame_history = new JSlider();
+	JSlider smoothing = new JSlider();
+	JSlider correction = new JSlider();
+	JSlider prediction = new JSlider();
+	JSlider jitter_radius = new JSlider();
+	JSlider max_deviation_radius = new JSlider();
 	
-	public Skeleton[] skeletonData;
+	public KSkeleton[] skeletonData;
 	
 	JCheckBox joint_orientation = new JCheckBox("Joint Orientation");
 	JLabel spine_base = new JLabel("0,0,0");
@@ -122,7 +137,9 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 	JLabel thumb_right = new JLabel("0,0,0");
 	JLabel body_orientation = new JLabel("0,0,0");
 	JLabel torso_orientation = new JLabel("0,0,0");
-	//JLabel relative_NUI_coords = new JLabel("0,0,0");
+	JLabel[] skeleton_labels = {spine_base,spine_mid,neck,head,shoulder_left,elbow_left,wrist_left,hand_left,shoulder_right,
+								elbow_right,wrist_right,hand_right,hip_left,knee_left,ankle_left,foot_left,hip_right,knee_right,
+								ankle_right,foot_right,spine_shoulder,hand_tip_left,thumb_left,hand_tip_right,thumb_right,body_orientation,torso_orientation};
 	
 	JPanel controls = new JPanel();
 	
@@ -202,12 +219,47 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		joint_filter.addActionListener(this);
 		joint_filter.setSelectedIndex(0);
 		
-		//Filter Smoothing Slider
+		//Frame Slider
 		frame_history.setMinimum(1);
 		frame_history.setMaximum(15);
 		frame_history.setValue(5);
-		frame_history.setToolTipText("History ("+frame_history.getValue()+" frames)");
+		frame_history.setToolTipText("History ("+String.valueOf(frame_history.getValue())+" frames)");
 		frame_history.addChangeListener(this);
+		
+		//Smoothing Slider
+		smoothing.setMinimum(0);
+		smoothing.setMaximum(100);
+		smoothing.setValue(90);
+		smoothing.setToolTipText("Smoothing ("+String.valueOf((float)smoothing.getValue()/100.0f)+")");
+		smoothing.addChangeListener(this);
+		
+		//Correction Slider
+		correction.setMinimum(0);
+		correction.setMaximum(100);
+		correction.setValue(50);
+		correction.setToolTipText("Correction ("+String.valueOf((float)correction.getValue()/100.0f)+")");
+		correction.addChangeListener(this);
+		
+		//Prediction Slider
+		prediction.setMinimum(0);
+		prediction.setMaximum(100);
+		prediction.setValue(0);
+		prediction.setToolTipText("Prediction ("+String.valueOf((float)prediction.getValue()/100.0f)+")");
+		prediction.addChangeListener(this);
+		
+		//Jitter Radius Slider
+		jitter_radius.setMinimum(0);
+		jitter_radius.setMaximum(10);
+		jitter_radius.setValue(50);
+		jitter_radius.setToolTipText("Jitter Radius ("+String.valueOf((float)jitter_radius.getValue()/50.0f)+")");
+		jitter_radius.addChangeListener(this);
+		
+		//Max Deviation Radius Slider
+		max_deviation_radius.setMinimum(0);
+		max_deviation_radius.setMaximum(8);
+		max_deviation_radius.setValue(50);
+		max_deviation_radius.setToolTipText("Max Deviation Radius ("+String.valueOf((float)max_deviation_radius.getValue()/50.0f)+")");
+		max_deviation_radius.addChangeListener(this);
 		
 		controls.setLayout(new GridLayout(0, 6));
 		controls.add(new JLabel("Depth Stream:"));
@@ -230,69 +282,83 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		myKinect.subject.addObserver(this);
 		send("updateSkeletonSubject", myKinect.subject);
 		
-		eastPanel.setLayout(new GridLayout(31,1));
-		eastPanel.add(new JLabel("Joint Positions X,Y,Z"));
-		eastPanel.add(joint_orientation);
-		eastPanel.add(new JLabel("Spine Base:"));
+		eastPanel.setPreferredSize(new Dimension(300,0));
+		eastPanel.addTab("Joint Coordinates", coordPanel);
+		eastPanel.addTab("Joint Filter", filterPanel);
 		
-		eastPanel.add(spine_base);
-		eastPanel.add(new JLabel("Spine Mid:"));
-		eastPanel.add(spine_mid);
-		eastPanel.add(new JLabel("Neck:"));
-		eastPanel.add(neck);
-		eastPanel.add(new JLabel("Head:"));
-		eastPanel.add(head);
-		eastPanel.add(new JLabel("Shoulder Left:"));
-		eastPanel.add(shoulder_left);
-		eastPanel.add(new JLabel("Elbow Left:"));
-		eastPanel.add(elbow_left);
-		eastPanel.add(new JLabel("Wrist Left:"));
-		eastPanel.add(wrist_left);
-		eastPanel.add(new JLabel("Hand Left:"));
-		eastPanel.add(hand_left);
-		eastPanel.add(new JLabel("Shoulder Right:"));
-		eastPanel.add(shoulder_right);
-		eastPanel.add(new JLabel("Elbow Right:"));
-		eastPanel.add(elbow_right);
-		eastPanel.add(new JLabel("Wrist Right:"));
-		eastPanel.add(wrist_right);
-		eastPanel.add(new JLabel("Hand Right:"));
-		eastPanel.add(hand_right);
-		eastPanel.add(new JLabel("Hip Left:"));
-		eastPanel.add(hip_left);
-		eastPanel.add(new JLabel("Knee Left:"));
-		eastPanel.add(knee_left);
-		eastPanel.add(new JLabel("Ankle Left:"));
-		eastPanel.add(ankle_left);
-		eastPanel.add(new JLabel("Foot Left:"));
-		eastPanel.add(foot_left);
-		eastPanel.add(new JLabel("Hip Right:"));
-		eastPanel.add(hip_right);
-		eastPanel.add(new JLabel("Knee Right:"));
-		eastPanel.add(knee_right);
-		eastPanel.add(new JLabel("Ankle Right:"));
-		eastPanel.add(ankle_right);
-		eastPanel.add(new JLabel("Foot Right:"));
-		eastPanel.add(foot_right);
-		eastPanel.add(new JLabel("Spine Shoulder:"));
-		eastPanel.add(spine_shoulder);
-		eastPanel.add(new JLabel("Hand Tip Left:"));
-		eastPanel.add(hand_tip_left);
-		eastPanel.add(new JLabel("Thumb Left:"));
-		eastPanel.add(thumb_left);
-		eastPanel.add(new JLabel("Hand Tip Right:"));
-		eastPanel.add(hand_tip_right);
-		eastPanel.add(new JLabel("Thumb Right:"));
-		eastPanel.add(thumb_right);
-		eastPanel.add(new JLabel("Body Orientation:"));
-		eastPanel.add(body_orientation);
-		eastPanel.add(new JLabel("Torso Orientation:"));
-		eastPanel.add(torso_orientation);
-		eastPanel.add(new JLabel("Joint Filter:"));
-		eastPanel.add(joint_filter);
-		eastPanel.add(new JLabel("Frames:"));
-		eastPanel.add(frame_history);
+		filterPanel.setLayout(new GridLayout(14,1));
+		filterPanel.add(new JLabel("Joint Filter: "));
+		filterPanel.add(joint_filter);
+		filterPanel.add(new JLabel("Frames: "));
+		filterPanel.add(frame_history);
+		filterPanel.add(new JLabel("Smoothing: "));
+		filterPanel.add(smoothing);
+		filterPanel.add(new JLabel("Correction: "));
+		filterPanel.add(correction);
+		filterPanel.add(new JLabel("Prediction: "));
+		filterPanel.add(prediction);
+		filterPanel.add(new JLabel("Jitter Radius: "));
+		filterPanel.add(jitter_radius);
+		filterPanel.add(new JLabel("Max Deviation Radius: "));
+		filterPanel.add(max_deviation_radius);
 		
+		coordPanel.setLayout(new GridLayout(31,1));
+		coordPanel.add(new JLabel("Joint Positions X,Y,Z"));
+		coordPanel.add(joint_orientation);
+		coordPanel.add(new JLabel("Spine Base:"));
+		coordPanel.add(spine_base);
+		coordPanel.add(new JLabel("Spine Mid:"));
+		coordPanel.add(spine_mid);
+		coordPanel.add(new JLabel("Neck:"));
+		coordPanel.add(neck);
+		coordPanel.add(new JLabel("Head:"));
+		coordPanel.add(head);
+		coordPanel.add(new JLabel("Shoulder Left:"));
+		coordPanel.add(shoulder_left);
+		coordPanel.add(new JLabel("Elbow Left:"));
+		coordPanel.add(elbow_left);
+		coordPanel.add(new JLabel("Wrist Left:"));
+		coordPanel.add(wrist_left);
+		coordPanel.add(new JLabel("Hand Left:"));
+		coordPanel.add(hand_left);
+		coordPanel.add(new JLabel("Shoulder Right:"));
+		coordPanel.add(shoulder_right);
+		coordPanel.add(new JLabel("Elbow Right:"));
+		coordPanel.add(elbow_right);
+		coordPanel.add(new JLabel("Wrist Right:"));
+		coordPanel.add(wrist_right);
+		coordPanel.add(new JLabel("Hand Right:"));
+		coordPanel.add(hand_right);
+		coordPanel.add(new JLabel("Hip Left:"));
+		coordPanel.add(hip_left);
+		coordPanel.add(new JLabel("Knee Left:"));
+		coordPanel.add(knee_left);
+		coordPanel.add(new JLabel("Ankle Left:"));
+		coordPanel.add(ankle_left);
+		coordPanel.add(new JLabel("Foot Left:"));
+		coordPanel.add(foot_left);
+		coordPanel.add(new JLabel("Hip Right:"));
+		coordPanel.add(hip_right);
+		coordPanel.add(new JLabel("Knee Right:"));
+		coordPanel.add(knee_right);
+		coordPanel.add(new JLabel("Ankle Right:"));
+		coordPanel.add(ankle_right);
+		coordPanel.add(new JLabel("Foot Right:"));
+		coordPanel.add(foot_right);
+		coordPanel.add(new JLabel("Spine Shoulder:"));
+		coordPanel.add(spine_shoulder);
+		coordPanel.add(new JLabel("Hand Tip Left:"));
+		coordPanel.add(hand_tip_left);
+		coordPanel.add(new JLabel("Thumb Left:"));
+		coordPanel.add(thumb_left);
+		coordPanel.add(new JLabel("Hand Tip Right:"));
+		coordPanel.add(hand_tip_right);
+		coordPanel.add(new JLabel("Thumb Right:"));
+		coordPanel.add(thumb_right);
+		coordPanel.add(new JLabel("Body Orientation:"));
+		coordPanel.add(body_orientation);
+		coordPanel.add(new JLabel("Torso Orientation:"));
+		coordPanel.add(torso_orientation);
 		
 		display.setLayout(new BorderLayout());		
 		display.add(mainPanel, BorderLayout.CENTER);
@@ -304,97 +370,31 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 	@Override
 	public void update(Observable subject, Object arg) {
 		
-		if(arg instanceof Skeleton) {
+		if(arg instanceof KSkeleton) {
 			send("getSkeleton",arg);
 		}
 		
 		// Update Gui with Skeleton Joint Positions and Orientations
-		if(arg instanceof Skeleton && !joint_orientation.isSelected()) {
-			double spine_base_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.SPINE_BASE);
-			spine_base.setText(String.valueOf(df.format(spine_base_joint[0]))+","+String.valueOf(df.format(spine_base_joint[1]))+","+String.valueOf(df.format(spine_base_joint[2])));
-			double spine_mid_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.SPINE_MID);
-			spine_mid.setText(String.valueOf(df.format(spine_mid_joint[0]))+","+String.valueOf(df.format(spine_mid_joint[1]))+","+String.valueOf(df.format(spine_mid_joint[2])));
-			double neck_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.NECK);
-			neck.setText(String.valueOf(df.format(neck_joint[0]))+","+String.valueOf(df.format(neck_joint[1]))+","+String.valueOf(df.format(neck_joint[2])));
-			double head_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HEAD);
-			head.setText(String.valueOf(df.format(head_joint[0]))+","+String.valueOf(df.format(head_joint[1]))+","+String.valueOf(df.format(head_joint[2])));
-			double shoulder_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.SHOULDER_LEFT);
-			shoulder_left.setText(String.valueOf(df.format(shoulder_left_joint[0]))+","+String.valueOf(df.format(shoulder_left_joint[1]))+","+String.valueOf(df.format(shoulder_left_joint[2])));
-			double elbow_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.ELBOW_LEFT);
-			elbow_left.setText(String.valueOf(df.format(elbow_left_joint[0]))+","+String.valueOf(df.format(elbow_left_joint[1]))+","+String.valueOf(df.format(elbow_left_joint[2])));
-			double wrist_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.WRIST_LEFT);
-			wrist_left.setText(String.valueOf(df.format(wrist_left_joint[0]))+","+String.valueOf(df.format(wrist_left_joint[1]))+","+String.valueOf(df.format(wrist_left_joint[2])));
-			double hand_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HAND_LEFT);
-			hand_left.setText(String.valueOf(df.format(hand_left_joint[0]))+","+String.valueOf(df.format(hand_left_joint[1]))+","+String.valueOf(df.format(hand_left_joint[2])));
-			double shoulder_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.SHOULDER_RIGHT);
-			shoulder_right.setText(String.valueOf(df.format(shoulder_right_joint[0]))+","+String.valueOf(df.format(shoulder_right_joint[1]))+","+String.valueOf(df.format(shoulder_right_joint[2])));
-			double elbow_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.ELBOW_RIGHT);
-			elbow_right.setText(String.valueOf(df.format(elbow_right_joint[0]))+","+String.valueOf(df.format(elbow_right_joint[1]))+","+String.valueOf(df.format(elbow_right_joint[2])));
-			double wrist_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.WRIST_RIGHT);
-			wrist_right.setText(String.valueOf(df.format(wrist_right_joint[0]))+","+String.valueOf(df.format(wrist_right_joint[1]))+","+String.valueOf(df.format(wrist_right_joint[2])));
-			double hand_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HAND_RIGHT);
-			hand_right.setText(String.valueOf(df.format(hand_right_joint[0]))+","+String.valueOf(df.format(hand_right_joint[1]))+","+String.valueOf(df.format(hand_right_joint[2])));
-			double hip_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HIP_LEFT);
-			hip_left.setText(String.valueOf(df.format(hip_left_joint[0]))+","+String.valueOf(df.format(hip_left_joint[1]))+","+String.valueOf(df.format(hip_left_joint[2])));
-			double knee_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.KNEE_LEFT);
-			knee_left.setText(String.valueOf(df.format(knee_left_joint[0]))+","+String.valueOf(df.format(knee_left_joint[1]))+","+String.valueOf(df.format(knee_left_joint[2])));
-			double ankle_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.ANKLE_LEFT);
-			ankle_left.setText(String.valueOf(df.format(ankle_left_joint[0]))+","+String.valueOf(df.format(ankle_left_joint[1]))+","+String.valueOf(df.format(ankle_left_joint[2])));
-			double foot_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.FOOT_LEFT);
-			foot_left.setText(String.valueOf(df.format(foot_left_joint[0]))+","+String.valueOf(df.format(foot_left_joint[1]))+","+String.valueOf(df.format(foot_left_joint[2])));
-			double hip_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HIP_RIGHT);
-			hip_right.setText(String.valueOf(df.format(hip_right_joint[0]))+","+String.valueOf(df.format(hip_right_joint[1]))+","+String.valueOf(df.format(hip_right_joint[2])));
-			double knee_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.KNEE_RIGHT);
-			knee_right.setText(String.valueOf(df.format(knee_right_joint[0]))+","+String.valueOf(df.format(knee_right_joint[1]))+","+String.valueOf(df.format(knee_right_joint[2])));
-			double ankle_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.ANKLE_RIGHT);
-			ankle_right.setText(String.valueOf(df.format(ankle_right_joint[0]))+","+String.valueOf(df.format(ankle_right_joint[1]))+","+String.valueOf(df.format(ankle_right_joint[2])));
-			double foot_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.FOOT_RIGHT);
-			foot_right.setText(String.valueOf(df.format(foot_right_joint[0]))+","+String.valueOf(df.format(foot_right_joint[1]))+","+String.valueOf(df.format(foot_right_joint[2])));
-			double spine_shoulder_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.SPINE_SHOULDER);
-			spine_shoulder.setText(String.valueOf(df.format(spine_shoulder_joint[0]))+","+String.valueOf(df.format(spine_shoulder_joint[1]))+","+String.valueOf(df.format(spine_shoulder_joint[2])));
-			double hand_tip_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HAND_TIP_LEFT);
-			hand_tip_left.setText(String.valueOf(df.format(hand_tip_left_joint[0]))+","+String.valueOf(df.format(hand_tip_left_joint[1]))+","+String.valueOf(df.format(hand_tip_left_joint[2])));
-			double thumb_left_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.THUMB_LEFT);
-			thumb_left.setText(String.valueOf(df.format(thumb_left_joint[0]))+","+String.valueOf(df.format(thumb_left_joint[1]))+","+String.valueOf(df.format(thumb_left_joint[2])));
-			double hand_tip_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.HAND_TIP_RIGHT);
-			hand_tip_right.setText(String.valueOf(df.format(hand_tip_right_joint[0]))+","+String.valueOf(df.format(hand_tip_right_joint[1]))+","+String.valueOf(df.format(hand_tip_right_joint[2])));
-			double thumb_right_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.THUMB_RIGHT);
-			thumb_right.setText(String.valueOf(df.format(thumb_right_joint[0]))+","+String.valueOf(df.format(thumb_right_joint[1]))+","+String.valueOf(df.format(thumb_right_joint[2])));
-			//double joint_count_joint[] = ((Skeleton)arg).get3DJoint(Skeleton.JOINT_COUNT);
-			//joint_count.setText(String.valueOf(df.format(joint_count_joint[0]))+","+String.valueOf(df.format(joint_count_joint[1]))+","+String.valueOf(df.format(joint_count_joint[2])));
-		} else if(arg instanceof Skeleton && joint_orientation.isSelected()) {
-			float jointOrientation[] = ((Skeleton)arg).getJointOrientations();
-			double bodyOrientation = ((Skeleton)arg).getBodyOrientation();
-			double torsoOrientation[] = ((Skeleton)arg).getTorsoOrientation();
+		if(arg instanceof KSkeleton && !joint_orientation.isSelected()) {
 			
-			spine_base.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_BASE+3])));
-			spine_mid.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_MID+3])));
-			neck.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.NECK]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.NECK+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.NECK+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.NECK+3])));
-			head.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HEAD]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HEAD+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HEAD+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HEAD+3])));
-			shoulder_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_LEFT+3])));
-			elbow_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_LEFT+3])));
-			wrist_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_LEFT+3])));
-			hand_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_LEFT+3])));
-			shoulder_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SHOULDER_RIGHT+3])));
-			elbow_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ELBOW_RIGHT+3])));
-			wrist_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.WRIST_RIGHT+3])));
-			hand_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_RIGHT+3])));
-			hip_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_LEFT+3])));
-			knee_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_LEFT+3])));
-			ankle_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_LEFT+3])));
-			foot_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_LEFT+3])));
-			hip_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HIP_RIGHT+3])));
-			knee_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.KNEE_RIGHT+3])));
-			ankle_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.ANKLE_RIGHT+3])));
-			foot_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.FOOT_RIGHT+3])));
-			spine_shoulder.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_SHOULDER]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_SHOULDER+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_SHOULDER+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.SPINE_SHOULDER+3])));
-			hand_tip_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_LEFT+3])));
-			thumb_left.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_LEFT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_LEFT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_LEFT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_LEFT+3])));
-			hand_tip_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.HAND_TIP_RIGHT+3])));
-			thumb_right.setText(String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_RIGHT]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_RIGHT+1]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_RIGHT+2]))+","+String.valueOf(df.format(jointOrientation[4*Skeleton.THUMB_RIGHT+3])));
+			for(int i=0;i<KSkeleton.JOINT_COUNT;i++) {
+				Vector3f joint_data = ((KSkeleton) arg).getJoint(i).getAbsPosition();
+				skeleton_labels[i].setText(String.valueOf(df.format(joint_data.getX()))+","+String.valueOf(df.format(joint_data.getY()))+","+String.valueOf(df.format(joint_data.getZ())));
+			}
+			
+		} else if(arg instanceof KSkeleton && joint_orientation.isSelected()) {
+			
+			for(int i=0;i<KSkeleton.JOINT_COUNT;i++) {
+				Quaternion joint_data = ((KSkeleton) arg).getJoint(i).getAbsOrientation();
+				skeleton_labels[i].setText(String.valueOf(df.format(joint_data.getX()))+","+String.valueOf(df.format(joint_data.getY()))+","+String.valueOf(df.format(joint_data.getZ()))+","+String.valueOf(df.format(joint_data.getW())));
+			}
+			
+			//float jointOrientation[] = ((KSkeleton)arg).getJointOrientations();
+			double bodyOrientation = ((KSkeleton)arg).getBodyOrientation();
+			double torsoOrientation[] = ((KSkeleton)arg).getTorsoOrientation();
 			body_orientation.setText(String.valueOf(df.format(bodyOrientation)));
 			torso_orientation.setText(String.valueOf(df.format(torsoOrientation[0]))+","+String.valueOf(df.format(torsoOrientation[1]))+","+String.valueOf(df.format(torsoOrientation[2])));
-			//relative_NUI_coords.setText(String.valueOf(df.format(relativeNUICoords[0]))+","+String.valueOf(df.format(relativeNUICoords[1]))+","+String.valueOf(df.format(relativeNUICoords[2])));
+		
 		}
 	}
 	
@@ -503,8 +503,33 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 			myKinect.jf.setFrameHistory((int)frame_history.getValue());
 			frame_history.setToolTipText("History ("+frame_history.getValue()+" frames)");
 		}
+		else if(e.getSource()==smoothing) 
+		{
+			myKinect.jf.setSmoothing((float)smoothing.getValue()/100.0f);
+			smoothing.setToolTipText("Smoothing ("+String.valueOf((float)smoothing.getValue()/100.0f)+")");
+		}
+		else if(e.getSource()==correction) 
+		{
+			myKinect.jf.setCorrection((float)correction.getValue()/100.0f);
+			correction.setToolTipText("Correction ("+String.valueOf((float)correction.getValue()/100.0f)+")");
+		}
+		else if(e.getSource()==prediction) 
+		{
+			myKinect.jf.setPrediction((float)prediction.getValue()/100.0f);
+			prediction.setToolTipText("Prediction ("+String.valueOf((float)prediction.getValue()/100.0f)+")");
+		}
+		else if(e.getSource()==jitter_radius) 
+		{
+			myKinect.jf.setJitterRadius((float)jitter_radius.getValue()/50.0f);
+			jitter_radius.setToolTipText("Jitter Radius ("+String.valueOf((float)jitter_radius.getValue()/50.0f)+")");
+		}	
+		else if(e.getSource()==max_deviation_radius) 
+		{
+			myKinect.jf.setMaxDeviationRadius((float)max_deviation_radius.getValue()/50.0f);
+			max_deviation_radius.setToolTipText("Max Deviation Radius ("+String.valueOf((float)max_deviation_radius.getValue()/50.0f)+")");
+		}			
 	}
-
+	
 	@Override
 	public void subscribeGui() {
 	// un-defined gui's
