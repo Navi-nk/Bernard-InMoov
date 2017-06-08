@@ -5,10 +5,10 @@ from org.myrobotlab.net import BareBonesBrowserLaunch
 #Master script to initiate all the services needed for operation of Bernard
 
 #Connecting to virtual or real
-startVirtualBernard=True
+startVirtualBernard=False
 
 #ports for connecting to adruino
-leftPort = "COM20"
+leftPort = "COM3"
 rightPort = "COM91"
 
 #chatbot choice: we have two chatbots built using api.ai and aiml
@@ -30,39 +30,55 @@ voiceEffects = "F0Add(f0Add:20.0)+F0Scale(f0Scale:1.5)" #audio effects-tune it a
 speechRecoType = "WebkitSpeechRecognition"
 
 guiType = "WebGui"
+recognize = False
 
 
 def heardSentence(sentence):
     print(sentence)
+    global recognize
     if sentence == "start conversation":
         mouth.speakBlocking("starting conversation mode")
         ear.addTextListener(chatBot)
-        bernard.mouthControl.setmouth(30,80)
+        bernard.mouthControl.setmouth(60,120)
     elif sentence == "stop conversation":
         ear.removeListener("publishText", "chatBot", "onText")
     elif sentence == "start recognition":
-        fr=opencv.addFilter("fr","FaceRecognizer")
-        opencv.setDisplayFilter("fr")
-        opencv.capture()
-        fr.train()
-        fr.setModeRecognize()
-        chatBot.getResponse(fr.getLastRecognizedName())
-    elif sentence == "start introduction":
+        global fr
         if fr is None:
             fr=opencv.addFilter("fr","FaceRecognizer")
-        opencv.setDisplayFilter("fr")
-        opencv.capture()
-        #fr.train()
+            opencv.setDisplayFilter("fr")
+            print("testing")
+        print(fr.getLastRecognizedName())
+        name=fr.getLastRecognizedName()
+        ear.addTextListener(chatBot) 
+        chatBot.getParsedRespose(chatBot.getAIResponse(name))
+    elif sentence == "start introduction":
+        mouth.speakBlocking("who is this standing infront of me?")
+        recognize = True
+    elif recognize == True:
+        global fr
+        if fr is None:
+            fr=opencv.addFilter("fr","FaceRecognizer")
+            opencv.setDisplayFilter("fr")
+        fr.setTrainName(sentence)
         fr.setModeTrain()
-        fr.setTrainName("li")
-        sleep(5)
+        sleep(10)
         fr.setModeRecognize()
+        mouth.speakBlocking("Learning done")
+        recognize = False
     elif sentence == "start imitation":
         mouth.speakBlocking("Starting Imitation mode")
         kinect.setRobotImitation(True)
     elif sentence == "stop imitation":
         mouth.speakBlocking("Stopping Imitation mode")
         kinect.setRobotImitation(False)
+    elif sentence == "start facing user":
+        mouth.speakBlocking("Starting Facing User Mode")
+        kinect.setFacingUser(True)
+    elif sentence == "stop facing user":
+        mouth.speakBlocking("Stopping Facing User Mode")
+        kinect.setFacingUser(False)
+
 
 
 def createBernard():
@@ -114,6 +130,12 @@ if __name__ == "__main__":
 
     #opencv for face recognition
     opencv = Runtime.start("cv","OpenCV")
+    opencv.setCameraIndex(1)
+    fr=opencv.addFilter("fr","FaceRecognizer")
+    fr.train()
+    opencv.setDisplayFilter("fr")
+    opencv.capture()
+
 
     kinect=Runtime.start("kinect","Bernard")
     
