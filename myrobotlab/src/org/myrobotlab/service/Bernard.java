@@ -43,13 +43,13 @@ public class Bernard extends Service implements Observer {
 	public KSkeleton kSkeleton;
 	public boolean robotImitation = false;
 	public boolean vinMoovStarted=false;
-	public boolean trackUserFace=false;
+	public boolean userFacing=false;
 	//public mapping coordinates for virtual bernard
 	
 	
 	// InMoov Variables Initialisation
 	public String leftPort = "COM3";
-	public String rightPort = "COM3";
+	public String rightPort = "COM91";
 	public String headPort = leftPort;
 
 	public final static Logger log = LoggerFactory.getLogger(Bernard.class);
@@ -95,11 +95,17 @@ public class Bernard extends Service implements Observer {
 	}
 
 	public void startKinectViewer() {
-		KinectViewer = (J4K) startPeer("KinectViewer");
+		if(KinectViewer == null) {
+			KinectViewer = (J4K) startPeer("KinectViewer");
+		}
 	}
 	
 	public void setRobotImitation(boolean state) {
 		robotImitation = state;
+	}
+	
+	public void setFacingUser(boolean state) {
+		userFacing = state;
 	}
 	
 	public void startRobotImitation() {
@@ -120,9 +126,10 @@ public class Bernard extends Service implements Observer {
 		// Actual InMoov
 		bernard = (InMoov) startPeer("bernard");
 		try {
-			//bernard.startAll(leftPort, rightPort);
-			bernard.startArm("right", rightPort, null);
+			bernard.startAll(leftPort, rightPort);
+			//bernard.startArm("right", rightPort, null);
 			//bernard.startArm("left", leftPort, null);
+			//bernard.startHead(headPort);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -174,7 +181,8 @@ public class Bernard extends Service implements Observer {
 		Joint spineShoulderJoint = kSkeleton.getJoint(KSkeleton.SPINE_SHOULDER);
 		
 		// Head
-		if(trackUserFace != true) {
+		
+		if(userFacing != true) {
 			//System.out.println(90+jointOrientation[4*Skeleton.HEAD+2]*240);
 			//bernard.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
 			//bernard.head.neck.moveTo(90+jointOrientation[12+2]*240);
@@ -223,17 +231,17 @@ public class Bernard extends Service implements Observer {
 		Vector3f leftThumb = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.THUMB_LEFT);
 		
 		float degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getY(),leftArm.getX())));
-		//bernard.leftArm.omoplate.moveTo(degrees>90?270-degrees:-degrees-90);
+		bernard.leftArm.omoplate.moveTo(degrees>90?270-degrees:-degrees-90);
 		
 		////bernard.leftArm.omoplate.moveTo(Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsX()-elbowLeftJoint.getAbsX())/leftArmTransform)));
 		
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getZ(),leftArm.getY())));
 		//degrees = Math.round(Math.toDegrees(FastMath.acos(leftArm.getZ()/leftArmTransform)));
 		//System.out.println(degrees);
-		//bernard.leftArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		bernard.leftArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		degrees = (float) Math.toDegrees(elbowLeftAngle[1]);
-		//bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
-		//bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
+		bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
+		bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
 		
 		// for wrist, need to use all three rotations
 		
@@ -278,7 +286,7 @@ public class Bernard extends Service implements Observer {
 		
 		//degrees = (float) -Math.toDegrees(elbowRightAngle[1]);
 		//bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
-		bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
+		//bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
 		//degrees = (float) Math.toDegrees(wristRightAngle[1]);
 		//bernard.rightHand.wrist.moveTo(90-degrees);
 		
@@ -295,11 +303,30 @@ public class Bernard extends Service implements Observer {
 		
 	}
 	
-	public void startFaceTracking() {
-		Float eyesY = 0.5f;
-		
+	public void startFacingUser() {
+		userFacing = true;
+		startKinectViewer();
+		faceUser();
 	}
 	
+	public void stopFacingUser() {
+		userFacing = false;
+	}
+	
+	public void faceUser() {
+		Float bernardEyesY = 0.43f;
+		Joint head = kSkeleton.getJoint(KSkeleton.HEAD);
+		Float zDistance = head.getAbsZ();
+		Float height = head.getAbsY();
+		Float neckYAngle = (float) Math.toDegrees(FastMath.atan2(head.getAbsY()-bernardEyesY, head.getAbsZ()));
+		bernard.head.neck.moveTo(neckYAngle+65);
+		Float neckXAngle = (float) Math.toDegrees(FastMath.atan2(head.getAbsX(),head.getAbsZ()));
+		bernard.head.rothead.moveTo(neckXAngle+100);
+	}
+	
+	public void rollEyes() {
+		
+	}
 	
 	@Override
 	public void update(Observable subject, Object arg) {
@@ -308,6 +335,10 @@ public class Bernard extends Service implements Observer {
 			if(robotImitation) {
 				this.kSkeleton = ((KSkeleton)arg);
 				mapSkeletonToRobot();
+			}
+			if(userFacing) {
+				this.kSkeleton = ((KSkeleton)arg);
+				faceUser();
 			}
 		}
 
