@@ -45,14 +45,14 @@ public class InMoovArm extends Service implements IKJointAngleListener {
     omoplate = (Servo) createPeer("omoplate");
     arduino = (Arduino) createPeer("arduino");
 
-    bicep.setMinMax(5, 90);
-    rotate.setMinMax(40, 180);
-    shoulder.setMinMax(0, 180);
-    omoplate.setMinMax(10, 80);
+    //bicep.setMinMax(5, 90);
+    //rotate.setMinMax(40, 180);
+    //shoulder.setMinMax(0, 180);
+    //omoplate.setMinMax(10, 80);
 
     bicep.setRest(5);
     rotate.setRest(90);
-    shoulder.setRest(30);
+    shoulder.setRest(13);
     omoplate.setRest(10);
     
     setVelocity(20.0, 20.0, 20.0, 20.0);

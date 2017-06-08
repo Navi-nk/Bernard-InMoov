@@ -1170,6 +1170,17 @@ public class InMoov extends Service {
 
   public InMoovArm startLeftArm(String port, String type) throws Exception {
     leftArm = startArm(LEFT, port, type);
+    
+    leftArm.bicep.setMinMax(0, 73);
+    leftArm.rotate.setMinMax(40, 180);
+    leftArm.shoulder.setMinMax(0, 180);
+    leftArm.omoplate.setMinMax(10, 80);
+
+    leftArm.bicep.moveTo(0);
+    leftArm.rotate.moveTo(90);
+    leftArm.shoulder.moveTo(13);
+    leftArm.omoplate.moveTo(10);
+    
     return leftArm;
   }
 
@@ -1286,6 +1297,17 @@ public class InMoov extends Service {
       return rightArm;
     }
     rightArm = startArm(RIGHT, port, type);
+    
+    rightArm.bicep.setMinMax(0, 73);
+    rightArm.rotate.setMinMax(40, 180);
+    rightArm.shoulder.setMinMax(0, 180);
+    rightArm.omoplate.setMinMax(0, 70);
+
+    rightArm.bicep.moveTo(0);
+    rightArm.rotate.moveTo(90);
+    rightArm.shoulder.moveTo(10);
+    rightArm.omoplate.moveTo(0);
+
     return rightArm;
   }
 
