@@ -2,6 +2,8 @@ package org.myrobotlab.j4kdemo;
 
 // Class that wraps around the Skeleton class from Java for Kinect
 
+import java.io.Serializable;
+
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector4f;
@@ -11,7 +13,7 @@ import com.jme3.math.Vector2f;
 import edu.ufl.digitalworlds.j4k.Skeleton;
 import edu.ufl.digitalworlds.math.Geom;
 
-public class KSkeleton extends Skeleton {
+public class KSkeleton extends Skeleton implements Serializable {
 	public static final int[] end_joints = {HEAD, HAND_TIP_RIGHT, HAND_TIP_LEFT, THUMB_RIGHT, THUMB_LEFT, FOOT_RIGHT, FOOT_LEFT};
 	private Joint[] Joints;
 	public static int[] spineHierarchy = {SPINE_BASE, SPINE_MID, SPINE_SHOULDER, NECK, HEAD};
