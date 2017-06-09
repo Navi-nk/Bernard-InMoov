@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 import org.myrobotlab.j4kdemo.KSkeleton;
+//import org.myrobotlab.j4kdemo.Joint;
 
 
 public class Gesture implements Serializable {
@@ -22,6 +23,18 @@ public class Gesture implements Serializable {
 	}
 	
 	public void stop() {
+		
+	}
+	
+	public void record(KSkeleton sk) {
+		
+	}
+	
+	public void load() {
+		
+	}
+	
+	public void store() {
 		
 	}
 }
