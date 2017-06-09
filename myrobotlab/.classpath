@@ -5,88 +5,86 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libraries/jar/assets.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/batch.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-android-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-calibration-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-feature-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-geo-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-io-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-ip-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-jcodec-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-learning-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-openkinect-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-recognition-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-sfm-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-visualize-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-WebcamCapture-0.23.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/BoofCV-xuggler-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-android-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-calibration-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-feature-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-geo-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-io-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-ip-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-jcodec-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-learning-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-openkinect-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-recognition-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-sfm-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-visualize-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-WebcamCapture-0.23.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/BoofCV-xuggler-0.23.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/bridj-0.6.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/chatter-bot-api.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/ChessBoard.jar"/>
+	<classpathentry kind="lib" path="/repo/com.googlecode.chatterbot/1.2.1/chatter-bot-api.jar"/>
+	<classpathentry kind="lib" path="/repo/org.op.chess/1.0.0/ChessBoard.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/commons-collections-3.2.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/commons-io-2.3.jar"/>
+	<classpathentry kind="lib" path="/repo/org.apache.commons.io/2.3.0/commons-io-2.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/commons-io-2.5.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="/repo/org.apache.commons.commons-lang3/3.3.2/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/core-0.29.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/core.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/cron4j-2.2.5.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/ddogleg-0.9.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/dense64-0.29.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/core-0.29.jar"/>
+	<classpathentry kind="lib" path="/repo/it.sauronsoftware.cron4j/2.2.5/cron4j-2.2.5.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/ddogleg-0.9.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/dense64-0.29.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/diff4j-1.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/dsn.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.mail/1.4.5/dsn.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/emotionml-checker-java-1.1.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/equation-0.29.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/equation-0.29.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/eventbus.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/fast-md5-2.7.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/fest-assert-1.4.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/freetts.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/georegression-0.10.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/geronimo-servlet_3.0_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/ghost4j-0.3.1.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/glamour-lwjgl-1.0.8.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/georegression-0.10.jar"/>
+	<classpathentry kind="lib" path="/repo/org.atmosphere.nettosphere/2.3.0/geronimo-servlet_3.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.tess4j/1.1/ghost4j-0.3.1.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/glamour-lwjgl-1.0.8.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/gluegen-rt-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/gluegen-rt-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-api-client-1.22.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-api-services-vision-v1-rev16-1.22.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-http-client-1.22.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-http-client-gson-1.22.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-http-client-jackson2-1.22.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-http-client-jdo-1.22.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/google-oauth-client-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/google-api-client-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.vision/1.22.0/google-api-services-vision-v1-rev16-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/google-http-client-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/google-http-client-gson-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/google-http-client-jackson2-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/google-http-client-jdo-1.22.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/google-oauth-client-1.22.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/groovy-all-2.4.5.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/guava-14.0.1.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/guava-17.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/guava-17.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/hamcrest-all-1.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/hsqldb-2.0.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/httpcore-4.4.4.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/httpcore-nio-4.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/icu4j-54.1.1.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/imap.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.mail/1.4.5/imap.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/inmoov-head.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/j-ogg-oggd.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/j-ogg-vorbisd.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/j3dcore.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/j3dutils.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.java3d/1.5.1/j3dcore.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.java3d/1.5.1/j3dutils.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/j4k2-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jackson-annotations-2.5.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jackson-core-2.5.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jackson-databind-2.5.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jai_imageio.jar"/>
+	<classpathentry kind="lib" path="/repo/com.fasterxml.jackson.core/2.5.0/jackson-annotations-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.fasterxml.jackson.core/2.5.0/jackson-core-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.fasterxml.jackson.core/2.5.0/jackson-databind-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.tess4j/1.1/jai_imageio.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jama-1.0.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/Jampack-1.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/java-diff-1.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/javacpp.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/javacv.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="/repo/org.atmosphere.nettosphere/2.3.0/javax.inject-1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jbullet.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jdo2-api-2.3-eb.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jfugue-5.0.7.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/jdo2-api-2.3-eb.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jfugue.music/5.0/jfugue-5.0.7.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jglfont-core.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jinput-test.jar"/>
+	<classpathentry kind="lib" path="/repo/net.java.games.jinput/2.0.5/jinput-test.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jinput.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jME3-android.jar"/>
@@ -109,36 +107,33 @@
 	<classpathentry kind="lib" path="libraries/jar/jME3-plugins.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jME3-terrain.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jME3-testdata.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jna-4.2.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jna.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jnativehook-2.0.3.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/jna-4.2.0.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.jna/3.2.2/jna.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jnativehook/2.0.3/jnativehook-2.0.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/joal.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/joda-time.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jogl-all-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jogl-all-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jogl-all.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jovr-0.7.0.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/jovr-0.7.0.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jsapi-1.0-base.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jsapi.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jscience-4.3.1.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/jscience-4.3.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/json-20090211.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jsoup-1.8.3.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jsr305-1.3.9.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jsoup/1.8.3/jsoup-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/repo/com.google.client/1.22.0/jsr305-1.3.9.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jssc-2.8.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/jtok-core-1.9.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jxmpp-core-0.4.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/jxmpp-util-cache-0.4.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/KinectPV2.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/jxmpp-core-0.4.2.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/jxmpp-util-cache-0.4.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/launch4j.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/LeapJava.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/lwjgl_util-2.9.3.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/lwjgl-2.9.3.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/lwjgl-platform-2.9.3-natives-windows.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/lwjgl_util-2.9.3.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/lwjgl-2.9.3.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/lwjgl-platform-2.9.3-natives-windows.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/lwjgl.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/mail.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/mailapi.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.mail/1.4.5/mail.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.mail/1.4.5/mailapi.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/marytts-builder-5.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/marytts-client-5.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/marytts-common-5.2.jar"/>
@@ -155,86 +150,85 @@
 	<classpathentry kind="lib" path="libraries/jar/marytts-runtime-5.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/marytts-signalproc-5.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/marytts-transcription-5.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/math-1.0.4.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/microsoft-translator-java-api-0.6.2-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/math-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/repo/com.azure.translator/0.6.2/microsoft-translator-java-api-0.6.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/mp3spi1.9.5.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/mwdumper-1.16.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/myo-java-0.9.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/repo/com.thalmic.myo/0.9.0/myo-java-0.9.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/mysql-connector-java-5.1.16.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/nettosphere-assembly-2.3.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.atmosphere.nettosphere/2.3.0/nettosphere-assembly-2.3.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/nifty-default-controls-javadoc.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/nifty-default-controls.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/nifty-javadoc.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/nifty-style-black.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/nifty.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/nodyn-0.1.1-20141121.193443-283.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/noggit-0.5.jar"/>
+	<classpathentry kind="lib" path="/repo/org.node/0.1.1/nodyn-0.1.1-20141121.193443-283.jar"/>
+	<classpathentry kind="lib" path="/repo/org.apache.solr/4.10.2/noggit-0.5.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/opencv-windows-x86_64.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/opencv.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/opennlp-maxent-3.0.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/opennlp-tools-1.5.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/opennlp-tools-1.6.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/opennlp-uima-1.6.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/org.eclipse.paho.client.mqttv3_1.0.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/oria-resources-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/repo/org.eclipse.paho/1.0/org.eclipse.paho.client.mqttv3_1.0.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/oria-resources-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/oro-2.0.8.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/pi4j-core.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/pi4j-gpio-extension.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/pop3.jar"/>
+	<classpathentry kind="lib" path="/repo/com.pi4j.pi4j/0.0.5/pi4j-core.jar"/>
+	<classpathentry kind="lib" path="/repo/com.pi4j.pi4j/0.0.5/pi4j-gpio-extension.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.mail/1.4.5/pop3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/program-ab-kw-0.0.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/proguard.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/retrace.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/sgt-3.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/simple-0.29.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.23/simple-0.29.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/SimpleOpenNI.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/slick-util.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/smack-core-4.1.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/smack-im-4.1.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/smack-java7-4.1.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/smack-tcp-4.1.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/smtp.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/solr-solrj-4.10.2.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/slick-util.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/smack-core-4.1.6.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/smack-im-4.1.6.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/smack-java7-4.1.6.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/smack-tcp-4.1.6.jar"/>
+	<classpathentry kind="lib" path="/repo/com.sun.mail/1.4.5/smtp.jar"/>
+	<classpathentry kind="lib" path="/repo/org.apache.solr/4.10.2/solr-solrj-4.10.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/sosia.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/sphinx4.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/stack-alloc.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/swing-layout-1.0.3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/tags.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/tess4j.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.tess4j/1.1/tess4j.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/testng-6.9.11.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/TIDIGITS_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/topcodes.jar"/>
+	<classpathentry kind="lib" path="/repo/edu.northwestern.topcodes/1.0/topcodes.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/tritonus_share-0.3.6.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/trove4j-2.0.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/tts.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/twitter4j-async-3.0.5.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/twitter4j-core-3.0.5.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/twitter4j-media-support-3.0.5.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/twitter4j-stream-3.0.5.jar"/>
+	<classpathentry kind="lib" path="/repo/org.twitter4j.twitter/3.0.5/twitter4j-async-3.0.5.jar"/>
+	<classpathentry kind="lib" path="/repo/org.twitter4j.twitter/3.0.5/twitter4j-core-3.0.5.jar"/>
+	<classpathentry kind="lib" path="/repo/org.twitter4j.twitter/3.0.5/twitter4j-media-support-3.0.5.jar"/>
+	<classpathentry kind="lib" path="/repo/org.twitter4j.twitter/3.0.5/twitter4j-stream-3.0.5.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/ufdw.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/vecmath.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/videoinput-windows-x86_64.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/videoinput.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/voice-cmu-bdl-hsmm-5.2.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/voice-cmu-slt-hsmm-5.2.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wasync-2.1.3-20150917-all.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wdtk-datamodel-0.7.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wdtk-dumpfiles-0.7.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wdtk-storage-0.7.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wdtk-util-0.7.0.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wdtk-wikibaseapi-0.7.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.atmosphere.nettosphere/2.3.0/wasync-2.1.3-20150917-all.jar"/>
+	<classpathentry kind="lib" path="/repo/org.wikidata.wdtk/0.7.0/wdtk-datamodel-0.7.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.wikidata.wdtk/0.7.0/wdtk-dumpfiles-0.7.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.wikidata.wdtk/0.7.0/wdtk-storage-0.7.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.wikidata.wdtk/0.7.0/wdtk-util-0.7.0.jar"/>
+	<classpathentry kind="lib" path="/repo/org.wikidata.wdtk/0.7.0/wdtk-wikibaseapi-0.7.0.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/webcam-capture-0.3.10.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/weka-dev-3.7.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/wiiusej.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/WolframAlpha-1.1.jar"/>
+	<classpathentry kind="lib" path="/repo/wiiuse.wiimote/0.12b/wiiusej.jar"/>
+	<classpathentry kind="lib" path="/repo/com.wolfram.alpha/1.1/WolframAlpha-1.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/xmlpull-1.1.3.1.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.19/xmlpull-1.1.3.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/xmlpull-xpp3.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/xmlunit-1.6.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/xpp3_min-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/xpp3-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/xres-1.0.3.jar"/>
-	<classpathentry kind="lib" path="libraries/jar/xstream-1.4.7.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.19/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="/repo/org.jivesoftware.smack/4.1.6/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="/repo/org.saintandreas.jovr/0.7/xres-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/repo/net.sourceforge.boofcv/0.19/xstream-1.4.7.jar"/>
 	<classpathentry kind="lib" path="libraries/jar/xstream.jar"/>
 	<classpathentry kind="lib" path="/repo/atlassian/4.0.0/jira-rest-java-client-api-4.0.0.jar"/>
 	<classpathentry kind="lib" path="/repo/atlassian/4.0.0/jira-rest-java-client-core-4.0.0.jar"/>
@@ -287,7 +281,6 @@
 	<classpathentry kind="lib" path="/repo/inmoov.fr/1.0.0/jm3-inMoov-Model.zip"/>
 	<classpathentry kind="lib" path="/repo/io.netty/3.10.0/netty-3.10.0.Final.jar"/>
 	<classpathentry kind="lib" path="/repo/j4k/jogl-all-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="/repo/j4k/jogl-all-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="/repo/javaFlacEncoder.FLAC_FileEncoder/0.1/javaFlacEncoder-0.1.jar"/>
 	<classpathentry kind="lib" path="/repo/javax.microedition.io/2.0.3/cldcapi11-2.0.3.jar"/>
 	<classpathentry kind="lib" path="/repo/marytts/5.2/httpcore-4.1.jar"/>
@@ -441,17 +434,13 @@
 	<classpathentry kind="lib" path="/repo/com.adafruit.motorshield/1.0/arduino.zip"/>
 	<classpathentry kind="lib" path="/repo/com.adafruit.servodriver/1.0/arduino.zip"/>
 	<classpathentry kind="lib" path="/repo/ph.com.alexan.aceduino/1.0/arduino.zip"/>
-	<classpathentry kind="lib" path="libraries/jar/tools.jar"/>
 	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jbullet.jar"/>
 	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jME3-jbullet.jar"/>
 	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jME3-desktop.jar"/>
 	<classpathentry kind="lib" path="/repo/org.jme3.sdk/3.0.0/jME3-testdata.jar"/>
-	<classpathentry kind="lib" path="/repo/com.voicerss.tts/1.0/tts.jar"/>
-	<classpathentry kind="lib" path="/repo/org.joda/2.9.4/joda-time.jar"/>
 	<classpathentry kind="lib" path="/repo/marytts/5.2/voice-cmu-bdl-hsmm-5.2.jar"/>
 	<classpathentry kind="lib" path="/repo/j4k/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="/repo/j4k/gluegen-rt-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="/repo/j4k/gluegen-rt-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="/repo/j4k/jogl-all.jar"/>
 	<classpathentry kind="lib" path="/repo/j4k/ufdw.jar"/>
 	<classpathentry kind="lib" path="/repo/j4k/j4k2-natives-windows-amd64.jar"/>
