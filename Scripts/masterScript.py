@@ -73,10 +73,10 @@ def heardSentence(sentence):
         #mouth.speakBlocking("Stopping Imitation mode")
         kinect.setRobotImitation(False)
     elif sentence == "start facing user":
-        mouth.speakBlocking("Starting Facing User Mode")
+        #mouth.speakBlocking("Starting Facing User Mode")
         kinect.setFacingUser(True)
     elif sentence == "stop facing user":
-        mouth.speakBlocking("Stopping Facing User Mode")
+        #mouth.speakBlocking("Stopping Facing User Mode")
         kinect.setFacingUser(False)
 
 
@@ -149,7 +149,8 @@ if __name__ == "__main__":
     startWebGui()
     kinect.startRobotImitation()
     sleep(5)
+    kinect.setRobotImitation(False)
     kinect.addKinectObservers()
     kinect.bernard = bernard
-    kinect.setRobotImitation(False)
+   
 
