@@ -21,9 +21,9 @@ public class MouthControl extends Service {
   public final static Logger log = LoggerFactory.getLogger(MouthControl.class.getCanonicalName());
   public int mouthClosedPos = 20;
   public int mouthOpenedPos = 4;
-  public int delaytime = 75;
-  public int delaytimestop = 150;
-  public int delaytimeletter = 45;
+  public int delaytime = 100;
+  public int delaytimestop = 200;
+  public int delaytimeletter = 60;
   transient Servo jaw;
   transient Arduino arduino;
   transient SpeechSynthesis mouth;
@@ -130,18 +130,15 @@ public class MouthControl extends Service {
         }
 
         char[] c = testword.toCharArray();
-        Integer cLen = c.length;
-        Integer count=0;
-        //for (int x = 0; x < c.length; x++) {
-        for (int x = 0; x < cLen; x++) {
+
+        for (int x = 0; x < c.length; x++) {
           char s = c[x];
-          if ((s == 'a' || s == 'e' || s == 'i' || s == 'o' || s == 'u' || s == 'y' ) && !ison && ((x == (cLen-1)) && (count == 0 ))) {
+          if ((s == 'a' || s == 'e' || s == 'i' || s == 'o' || s == 'u' || s == 'y') && !ison) {
             jaw.moveTo(mouthOpenedPos); // # move the servo to the
             // open spot
-            count++;
             ison = true;
             sleep(delaytime);
-            //jaw.moveTo(mouthClosedPos);// #// close the servo
+            jaw.moveTo(mouthClosedPos);// #// close the servo
           } else if (s == '.') {
             ison = false;
             sleep(delaytimestop);
@@ -149,8 +146,7 @@ public class MouthControl extends Service {
             ison = false;
             sleep(delaytimeletter); // # sleep half a second
           }
-          if(ison)
-        	  jaw.moveTo(mouthClosedPos);// #// close the servo
+
         }
 
         sleep(80);
