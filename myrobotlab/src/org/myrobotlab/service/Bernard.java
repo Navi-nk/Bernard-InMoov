@@ -335,8 +335,13 @@ public class Bernard extends Service implements Observer {
 		bernard.head.eyeY.moveTo(startY);
 	}
 	
-	public void loadGesture() {
-		
+	public void playGesture(String ref) throws Exception {
+		currentGesture = new Gesture();
+		currentGesture.load(ref);
+		for(int i=0;i<currentGesture.duration;i++) {
+			this.kSkeleton = currentGesture.skeletonList.poll();
+			mapSkeletonToRobot();
+		}
 	}
 	
 	@Override
@@ -346,7 +351,8 @@ public class Bernard extends Service implements Observer {
 			if(recordingGesture) {
 				robotImitation = true;
 				if(currentGesture == null) {
-					currentGesture = new Gesture(gestureLength);
+					currentGesture = new Gesture();
+					currentGesture.setLength(gestureLength);
 				}
 				if(!currentGesture.finished) {
 					currentGesture.record((KSkeleton)arg);

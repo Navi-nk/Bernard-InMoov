@@ -5,7 +5,9 @@ import org.myrobotlab.service.InMoov;
 //import org.json.*;
 import java.io.Serializable;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
@@ -19,45 +21,46 @@ public class Gesture implements Serializable {
 	// List containing skeletons across time
 	public LinkedList<KSkeleton> skeletonList = new LinkedList<KSkeleton>();
 	//public JSONObject storage = new JSONObject();
-	public int frames;
 	public int recordedFrames;
 	public boolean finished;
+	public String GestureName;
 	
-	public Gesture(int len) {
-		setLength(len);
+	public Gesture() {
+
 	}
 	
 	public void setLength(int len) {
-		frames = len;
-	}
-	
-	public void run() {
-		
-	}
-	
-	public void stop() {
-		
+		duration = len;
 	}
 	
 	public void record(KSkeleton sk) {
-		if(recordedFrames < frames) {
+		if(recordedFrames < duration) {
 			skeletonList.add(sk);
 			recordedFrames++;
 		}
-		if(recordedFrames == frames) {
-			store();
+		if(recordedFrames == duration) {
+			store(GestureName);
 		}
 	}
 	
-	public void load() {
-		
+	public void load(String name) throws Exception {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("gestures/" + name + ".dat"));
+			skeletonList = (LinkedList<KSkeleton>) ois.readObject();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void store() {
+	public void store(String name) {
 		try {
-		      FileOutputStream output = new FileOutputStream("skeleton.sk");
+		      FileOutputStream output = new FileOutputStream(name + ".dat");
 		      ObjectOutputStream oos = new ObjectOutputStream(output);
-		      oos.writeObject();
+		      oos.writeObject(skeletonList);
 		      oos.flush();
 		    } catch (Exception e) {
 		      System.out.println("Problem serializing: " + e);
