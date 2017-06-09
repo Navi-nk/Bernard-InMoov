@@ -23,7 +23,7 @@ public class Gesture implements Serializable {
 	//public JSONObject storage = new JSONObject();
 	public int recordedFrames;
 	public boolean finished;
-	public String GestureName;
+	public String GestureName = "swing";
 	
 	public Gesture() {
 
@@ -58,7 +58,7 @@ public class Gesture implements Serializable {
 	
 	public void store(String name) {
 		try {
-		      FileOutputStream output = new FileOutputStream(name + ".dat");
+		      FileOutputStream output = new FileOutputStream("gestures/" + name + ".dat");
 		      ObjectOutputStream oos = new ObjectOutputStream(output);
 		      oos.writeObject(skeletonList);
 		      oos.flush();
