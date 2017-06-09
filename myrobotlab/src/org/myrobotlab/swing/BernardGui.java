@@ -81,6 +81,8 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 	JButton turnOnVinMoov = new JButton("Turn On Virtual InMoov Service");
 	JButton turnOnInMoov = new JButton("Turn On InMoov Service");
 	JButton userFaceTracking = new JButton("Start Face Tracking");
+	JButton recordGesture = new JButton("Record Gesture");
+	JButton playGesture = new JButton("Play Gesture");
 
 	
 	public BernardGui(final String boundServiceName, final SwingGui myService) {
@@ -93,12 +95,16 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 	    turnOnVinMoov.addActionListener(this);
 	    turnOnInMoov.addActionListener(this);
 	    userFaceTracking.addActionListener(this);
+	    recordGesture.addActionListener(this);
+	    playGesture.addActionListener(this);
 	    
 	    controls.add(turnOnRobotImitation);
 	    controls.add(addKinectObservers);
 	    controls.add(turnOnVinMoov);
 	    controls.add(turnOnInMoov);
 	    controls.add(userFaceTracking);
+	    controls.add(recordGesture);
+	    controls.add(playGesture);
 	    
 		display.setLayout(new BorderLayout());		
 		display.add(controls, BorderLayout.CENTER);
@@ -120,6 +126,7 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 			if(turnOnRobotImitation.getText().compareTo("Turn Off Robot Imitation")==0)
 			{
 				//myKinect.stop();
+				send("stopRobotImitation");
 				turnOnRobotImitation.setText("Turn On Robot Imitation");
 			}
 			else
@@ -163,6 +170,10 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 				send("startFaceTracking");
 				userFaceTracking.setText("Stop Face Tracking");
 			}
+		} else if(e.getSource()==recordGesture) {
+			send("recordGesture");
+		} else if(e.getSource()==playGesture) {
+			send("playGesture");
 		}
 	}
 	

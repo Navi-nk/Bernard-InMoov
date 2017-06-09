@@ -1,11 +1,13 @@
 package org.myrobotlab.j4kdemo;
 
+import java.io.Serializable;
+
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.math.Vector2f;
 
-public class Joint {
+public class Joint implements Serializable {
 	
 	public int jointID;
 	public Vector3f absolutePos;

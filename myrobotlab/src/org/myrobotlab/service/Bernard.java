@@ -116,6 +116,9 @@ public class Bernard extends Service implements Observer {
 			//offset for kinect is 0,0,220
 		//}
 	}
+	public void stopRobotImitation() {
+		robotImitation = false;
+	}
 	
 	public void addKinectObservers() {
 		this.KinectViewer.sub.addObserver(this);
@@ -193,7 +196,7 @@ public class Bernard extends Service implements Observer {
 			float[] neckAngle = neckJoint.getAbsOrientation().toAngles(null);
 			
 			float degrees = Math.round(Math.toDegrees(FastMath.atan2(neck.getY(),neck.getZ())));
-			System.out.println(kSkeleton.torsoOrientation[1]*90);
+			//System.out.println(kSkeleton.torsoOrientation[1]*90);
 			bernard.head.neck.moveTo(65+(90-degrees)-kSkeleton.torsoOrientation[1]*90);
 		}
 		
@@ -233,14 +236,14 @@ public class Bernard extends Service implements Observer {
 		Vector3f leftThumb = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.THUMB_LEFT);
 		
 		float degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getY(),Math.abs(leftArm.getX()))));
-		//bernard.leftArm.omoplate.moveTo(90+degrees);
+		bernard.leftArm.omoplate.moveTo(90+degrees);
 
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getZ(),leftArm.getY())));
 		
-		//bernard.leftArm.shoulder.moveTo(degrees>0?degrees-180:degrees+180);
+		bernard.leftArm.shoulder.moveTo(degrees>0?degrees-180:degrees+180);
 		degrees = (float) Math.toDegrees(elbowLeftAngle[1]);
-		//bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
-		//bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
+		bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
+		bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
 		
 		// for wrist, need to use all three rotations
 		
@@ -278,13 +281,13 @@ public class Bernard extends Service implements Observer {
 		Vector3f rightThumb = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.THUMB_RIGHT);
 		
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(rightArm.getY(),Math.abs(rightArm.getX()))));
-		//bernard.rightArm.omoplate.moveTo(90+degrees);
+		bernard.rightArm.omoplate.moveTo(90+degrees);
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(rightArm.getZ(),rightArm.getY())));
-		//bernard.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		bernard.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		
 		degrees = (float) -Math.toDegrees(elbowRightAngle[1]);
-		//bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
-		//bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
+		bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
+		bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
 		//degrees = (float) Math.toDegrees(wristRightAngle[1]);
 		//bernard.rightHand.wrist.moveTo(90-degrees);
 		
@@ -292,10 +295,10 @@ public class Bernard extends Service implements Observer {
 		// Body
 		
 		// Torso Upper
-		//bernard.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsY()-shoulderRightJoint.getAbsY())/shoulderTransform)));
+		bernard.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsY()-shoulderRightJoint.getAbsY())/shoulderTransform)));
 		// Torso Mid
 		
-		//bernard.torso.midStom.moveTo(90+kSkeleton.torsoOrientation[0]*90);
+		bernard.torso.midStom.moveTo(90+kSkeleton.torsoOrientation[0]*90);
 		// Torso Low
 		//bernard.torso.lowStom.moveTo(90+kSkeleton.torsoOrientation[1]*90);
 		
@@ -335,13 +338,21 @@ public class Bernard extends Service implements Observer {
 		bernard.head.eyeY.moveTo(startY);
 	}
 	
-	public void playGesture(String ref) throws Exception {
+	public void playGesture() throws Exception {
+		String ref = "swing";
 		currentGesture = new Gesture();
+		if(ref == null) {
+			ref = "swing";
+		}
 		currentGesture.load(ref);
 		for(int i=0;i<currentGesture.duration;i++) {
 			this.kSkeleton = currentGesture.skeletonList.poll();
 			mapSkeletonToRobot();
 		}
+	}
+	
+	public void recordGesture() {
+		recordingGesture = true;
 	}
 	
 	@Override
