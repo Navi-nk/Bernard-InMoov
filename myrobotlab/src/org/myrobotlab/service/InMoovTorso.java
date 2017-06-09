@@ -29,9 +29,9 @@ public class InMoovTorso extends Service {
     try {
       VirtualArduino v = (VirtualArduino)Runtime.start("virtual", "VirtualArduino");
       
-      v.connect("COM4");
+      v.connect("COM3");
       InMoovTorso torso = (InMoovTorso) Runtime.start("i01.torso", "InMoovTorso");
-      torso.connect("COM4");
+      torso.connect("COM3");
       Runtime.start("webgui", "WebGui");
       torso.test();
     } catch (Exception e) {
@@ -48,11 +48,11 @@ public class InMoovTorso extends Service {
     lowStom = (Servo) createPeer("lowStom");
     arduino = (Arduino) createPeer("arduino");
 
-    topStom.setMinMax(60, 120);
+    topStom.setMinMax(63, 116);
     midStom.setMinMax(0, 180);
     lowStom.setMinMax(0, 180);
 
-    topStom.setRest(90);
+    topStom.setRest(86);
     midStom.setRest(90);
     lowStom.setRest(90);
 

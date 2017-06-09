@@ -39,8 +39,10 @@ public class Bernard extends Service implements Observer {
 	// Skeletal Mapping Variables
 	public KSkeleton kSkeleton;
 	public boolean robotImitation = false;
-	public boolean vinMoovStarted=false;
-	public boolean userFacing=false;
+	public boolean vinMoovStarted = false;
+	public boolean userFacing = false;
+	public boolean recordGesture = false;
+	Gesture currentGesture;
 	//public mapping coordinates for virtual bernard
 	
 	
@@ -185,10 +187,13 @@ public class Bernard extends Service implements Observer {
 		if(userFacing != true) {
 			//System.out.println(90+jointOrientation[4*Skeleton.HEAD+2]*240);
 			//bernard.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
-			//System.out.println(Math.toDegrees(neckJoint.getAbsOrientation());
-			//bernard.head.neck.moveTo(90+);
-			//bernard.head.neck.moveTo(90+jointOrientation[12+2]*240);
-			//bernard.head.rollNeck.moveTo(90+);
+			
+			Vector3f neck = kSkeleton.getBone(KSkeleton.SPINE_SHOULDER, KSkeleton.HEAD);
+			float[] neckAngle = neckJoint.getAbsOrientation().toAngles(null);
+			
+			float degrees = Math.round(Math.toDegrees(FastMath.atan2(neck.getY(),neck.getZ())));
+			System.out.println(kSkeleton.torsoOrientation[1]*90);
+			bernard.head.neck.moveTo(65+(90-degrees)-kSkeleton.torsoOrientation[1]*90);
 		}
 		
 		// Left Arm 
@@ -276,8 +281,6 @@ public class Bernard extends Service implements Observer {
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(rightArm.getZ(),rightArm.getY())));
 		//bernard.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
 		
-		//System.out.println(degrees);
-		
 		degrees = (float) -Math.toDegrees(elbowRightAngle[1]);
 		//bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
 		//bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
@@ -331,6 +334,10 @@ public class Bernard extends Service implements Observer {
 		bernard.head.eyeY.moveTo(startY);
 	}
 	
+	public void recordGesture() {
+		
+	}
+	
 	@Override
 	public void update(Observable subject, Object arg) {
 		if(arg instanceof KSkeleton) {
@@ -342,6 +349,13 @@ public class Bernard extends Service implements Observer {
 			if(userFacing) {
 				this.kSkeleton = ((KSkeleton)arg);
 				faceUser();
+			}
+			if(recordGesture) {
+				if(currentGesture == null) {
+					currentGesture = new Gesture();
+				}
+				currentGesture.record((KSkeleton)arg);
+				this.kSkeleton = ((KSkeleton)arg);
 			}
 		}
 
