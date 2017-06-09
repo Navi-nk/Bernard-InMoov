@@ -98,6 +98,8 @@ def heardSentence(sentence):
         else:
             mouth.speakBlocking("sorry! I dont know that gesture")
         gesturePlay = False
+    elif sentence == "roll eyes":
+        rollEyes()
     
 
 

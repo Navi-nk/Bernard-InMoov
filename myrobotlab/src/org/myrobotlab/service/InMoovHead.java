@@ -40,8 +40,8 @@ public class InMoovHead extends Service {
     rothead.setMinMax(30, 150);
     // reset by mouth control
     jaw.setMinMax(50, 120);
-    eyeX.setMinMax(70, 110);
-    eyeY.setMinMax(40, 100);
+    eyeX.setMinMax(50, 120);
+    eyeY.setMinMax(40, 120);
     neck.setRest(65);
     rollNeck.setRest(90);
     rothead.setRest(100);
