@@ -31,11 +31,14 @@ speechRecoType = "WebkitSpeechRecognition"
 
 guiType = "WebGui"
 recognize = False
-
+gestureRecord = False
+gesturePlay = False
 
 def heardSentence(sentence):
     print(sentence)
     global recognize
+    global gestureRecord
+    global gesturePlay
     if sentence == "start conversation":
         mouth.speakBlocking("starting conversation mode")
         ear.addTextListener(chatBot)
@@ -78,9 +81,27 @@ def heardSentence(sentence):
     elif sentence == "stop facing user":
         #mouth.speakBlocking("Stopping Facing User Mode")
         kinect.setFacingUser(False)
+    elif sentence == "record gesture":
+        mouth.speakBlocking("what name should i give to this gesture?")
+        gestureRecord=True
+    elif gestureRecord == True:
+        kinect.recordGesture(sentence)
+        sleep(4)
+        mouth.speakBlocking("Gesture Recording Done")
+        gestureRecord == False
+    elif sentence == "play gesture":
+        mouth.speakBlocking("what gesture should i play?")
+        gesturePlay = True
+    elif gesturePlay == True:
+        if(kinect.findGesture(sentence)):
+            kinect.playGesture(sentence)
+        else:
+            mouth.speakBlocking("sorry! I dont know that gesture")
+        gesturePlay = False
+    
 
 
-
+#create bernard
 def createBernard():
     bernard.startAll(leftPort, rightPort)
     ear.addListener("publishText", python.name, "heardSentence")
@@ -88,8 +109,7 @@ def createBernard():
     chatBot.addTextListener(mouth)
     
     
-
-
+#create virtual inmoov
 def createVirtualBernard():
     global vinmoov
     v1 = Runtime.start('v1', 'VirtualArduino')
@@ -137,7 +157,7 @@ if __name__ == "__main__":
     opencv.setDisplayFilter("fr")
     opencv.capture()
 
-
+    #kinect for imitation
     kinect=Runtime.start("kinect","Bernard")
 
     #Link to bernard- either in simulator or real 
@@ -147,6 +167,8 @@ if __name__ == "__main__":
         createBernard()
 
     startWebGui()
+
+    #setting up kinect
     kinect.startRobotImitation()
     sleep(5)
     kinect.setRobotImitation(False)

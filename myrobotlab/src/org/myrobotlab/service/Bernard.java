@@ -338,11 +338,10 @@ public class Bernard extends Service implements Observer {
 		bernard.head.eyeY.moveTo(startY);
 	}
 	
-	public void playGesture() throws Exception {
-		String ref = "swing";
+	public void playGesture(String ref) throws Exception {
 		currentGesture = new Gesture();
 		if(ref == null) {
-			ref = "swing";
+			ref = "default";
 		}
 		currentGesture.load(ref);
 		for(int i=0;i<currentGesture.duration;i++) {
@@ -351,8 +350,21 @@ public class Bernard extends Service implements Observer {
 		}
 	}
 	
-	public void recordGesture() {
+	public void recordGesture(String name) {
 		recordingGesture = true;
+		if(currentGesture == null) {
+			currentGesture = new Gesture();
+			currentGesture.setLength(gestureLength);
+			
+		}
+		currentGesture.GestureName = name;
+			
+	}
+	
+	public Boolean findGesture(String name){
+		if(currentGesture == null)
+			return false;
+		return currentGesture.findGesture(name);
 	}
 	
 	@Override
@@ -364,6 +376,7 @@ public class Bernard extends Service implements Observer {
 				if(currentGesture == null) {
 					currentGesture = new Gesture();
 					currentGesture.setLength(gestureLength);
+					currentGesture.GestureName = "default";
 				}
 				if(!currentGesture.finished) {
 					currentGesture.record((KSkeleton)arg);

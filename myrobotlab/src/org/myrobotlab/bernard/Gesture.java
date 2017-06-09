@@ -4,9 +4,11 @@ import org.myrobotlab.service.InMoov;
 
 //import org.json.*;
 import java.io.Serializable;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,7 +25,7 @@ public class Gesture implements Serializable {
 	//public JSONObject storage = new JSONObject();
 	public int recordedFrames;
 	public boolean finished;
-	public String GestureName = "swing";
+	public String GestureName;
 	
 	public Gesture() {
 
@@ -65,5 +67,19 @@ public class Gesture implements Serializable {
 		    } catch (Exception e) {
 		      System.out.println("Problem serializing: " + e);
 		    }
+	}
+	
+	public Boolean findGesture(String name) {
+		
+		File dir = new File("gestures");
+		File[] matches = dir.listFiles(new FilenameFilter()
+		{
+		  public boolean accept(File dir, String filename)
+		  {
+		     return filename.equals(name+".dat");
+		  }
+		});
+		
+		return matches.length == 1 ;
 	}
 }

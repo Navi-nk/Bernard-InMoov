@@ -47,7 +47,9 @@ import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
@@ -171,9 +173,15 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 				userFaceTracking.setText("Stop Face Tracking");
 			}
 		} else if(e.getSource()==recordGesture) {
-			send("recordGesture");
+			JFrame frame = new JFrame();
+			frame.setTitle("Set Gesture Name");
+			String name = JOptionPane.showInputDialog(frame, "new Gesture name");
+			send("recordGesture", name);
 		} else if(e.getSource()==playGesture) {
-			send("playGesture");
+			JFrame frame = new JFrame();
+			frame.setTitle("Get Gesture Name");
+			String name = JOptionPane.showInputDialog(frame, "Gesture name");
+			send("playGesture", name);
 		}
 	}
 	
