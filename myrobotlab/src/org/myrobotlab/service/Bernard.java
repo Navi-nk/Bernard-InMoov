@@ -41,8 +41,9 @@ public class Bernard extends Service implements Observer {
 	public boolean robotImitation = false;
 	public boolean vinMoovStarted = false;
 	public boolean userFacing = false;
-	public boolean recordGesture = false;
+	public boolean recordingGesture = false;
 	Gesture currentGesture;
+	public int gestureLength = 60;
 	//public mapping coordinates for virtual bernard
 	
 	
@@ -322,7 +323,7 @@ public class Bernard extends Service implements Observer {
 	}
 	
 	public void rollEyes() {
-		Gesture RollEye = new Gesture();
+		//Gesture RollEye = new Gesture();
 		double startX = bernard.head.eyeX.getPos();
 		double startY = bernard.head.eyeY.getPos();
 		bernard.head.eyeY.moveTo(bernard.head.eyeY.getMax());
@@ -334,7 +335,7 @@ public class Bernard extends Service implements Observer {
 		bernard.head.eyeY.moveTo(startY);
 	}
 	
-	public void recordGesture() {
+	public void loadGesture() {
 		
 	}
 	
@@ -342,6 +343,19 @@ public class Bernard extends Service implements Observer {
 	public void update(Observable subject, Object arg) {
 		if(arg instanceof KSkeleton) {
 			//if(robotImitation && vinMoovStarted) {
+			if(recordingGesture) {
+				robotImitation = true;
+				if(currentGesture == null) {
+					currentGesture = new Gesture(gestureLength);
+				}
+				if(!currentGesture.finished) {
+					currentGesture.record((KSkeleton)arg);
+				} else {
+					currentGesture = null;
+					recordingGesture = false;
+					robotImitation = false;
+				}
+			}
 			if(robotImitation) {
 				this.kSkeleton = ((KSkeleton)arg);
 				mapSkeletonToRobot();
@@ -350,13 +364,7 @@ public class Bernard extends Service implements Observer {
 				this.kSkeleton = ((KSkeleton)arg);
 				faceUser();
 			}
-			if(recordGesture) {
-				if(currentGesture == null) {
-					currentGesture = new Gesture();
-				}
-				currentGesture.record((KSkeleton)arg);
-				this.kSkeleton = ((KSkeleton)arg);
-			}
+			
 		}
 
 	}
