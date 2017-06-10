@@ -61,11 +61,7 @@ public class JointFilter {
 			jointYListArray.add(new LinkedList<Float>());
 			jointZListArray.add(new LinkedList<Float>());
 		}
-		
-		//skeleton = kSkeleton;
-		//bodyOrientation = kSkeleton.getBodyOrientation();
-		//torsoOrientation = kSkeleton.getTorsoOrientation();
-		
+
 	}
 	
 	public void setFrameHistory(int length) {
@@ -100,8 +96,8 @@ public class JointFilter {
 		
 		switch (jointFilterType) {
 			case "None": break;
-			case "ExponentialSmoothing1": ExponentialSmoothing(1); break;
-			case "ExponentialSmoothing2": ExponentialSmoothing(2); break;
+			case "ExponentialWeightedMovingAverage": ExponentialSmoothing(1); break;
+			case "SimpleExponential": ExponentialSmoothing(2); break;
 			case "HoltDoubleExponential": ExponentialSmoothing(3); break;
 		}
 		
@@ -216,7 +212,7 @@ public class JointFilter {
 				Float[] posLevel = new Float[3];
 				for(int j=0;j<3;j++) {
 					Float[] result = new Float[2];
-					result = EWMA2(fxyz[j],skoldPosLevel.get(i)[j]);
+					result = SES(fxyz[j],skoldPosLevel.get(i)[j]);
 					joint_positions[j+jointPosInclusions[i]*3] = result[0];
 					posLevel[j] = result[1];
 				}
@@ -253,7 +249,7 @@ public class JointFilter {
 					for(int k=0;k<orientationQList.size();k++) {
 						q[i*4+j][k] = orientationQList.get(k).get(i)[j];
 					}
-					 Float[] result = EWMA2(q[i*4+j], skoldQLevel.get(i)[j]);
+					 Float[] result = SES(q[i*4+j], skoldQLevel.get(i)[j]);
 					 joint_orientations[jointQInclusions[i]*4+j] = result[0];
 					 qLevel[j] = result[1];
 				}
@@ -308,18 +304,16 @@ public class JointFilter {
 			delta = level - prevLevel;
             trend = (delta * correction) + (prevTrend * (1.0f - correction));
 		} else {
-			// First apply jitter filter 
+			// Jitter filter 
 			delta = raw - prevLevel;
             diffVal = FastMath.abs(delta);
             if (diffVal <= jitterRadius) {
-            	level = (raw * (diffVal / jitterRadius)) +
-                                   (prevLevel * (1.0f - (diffVal / jitterRadius)));
+            	level = (raw * (diffVal / jitterRadius)) + (prevLevel * (1.0f - (diffVal / jitterRadius)));
             } else {
             	level = raw;
             }
-            // Now the double exponential smoothing filter
-            level = (level * (1.0f - smoothing)) +
-                               ((prevLevel + prevTrend) * smoothing);
+            // Double exponential smoothing filter
+            level = (level * (1.0f - smoothing)) + ((prevLevel + prevTrend) * smoothing);
 
             delta = level - prevLevel;
             trend = (delta * correction) + (prevTrend * (1.0f - correction));
@@ -332,8 +326,7 @@ public class JointFilter {
         diffVal = FastMath.abs(delta);
 
         if (diffVal > maxDeviationRadius) {
-            predictedData = (predictedData * (maxDeviationRadius / diffVal)) +
-                                (raw * (1.0f - (maxDeviationRadius / diffVal)));
+            predictedData = (predictedData * (maxDeviationRadius / diffVal)) + (raw * (1.0f - (maxDeviationRadius / diffVal)));
         }
         
         result[0] = predictedData;
@@ -354,8 +347,7 @@ public class JointFilter {
 	    for(Float c:data) average = Float.sum(average, c);
 	    average /= data.length;
 	 
-	    for ( int i = 0; i < data.length; ++i )
-	    {	
+	    for ( int i = 0; i < data.length; i++ ) {	
 	        numerator = Float.sum(numerator, data[i] * FastMath.pow( alpha, data.length - i - 1 ));
 	        denominator = Float.sum(denominator, FastMath.pow( alpha, data.length - i - 1 ));
 	    }
@@ -367,8 +359,8 @@ public class JointFilter {
 	
 	}
 	
-	//Exponential weighted moving average method
-	public Float[] EWMA2(Float[] data, Float _level) {
+	//Simple Exponential Smoothing
+	public Float[] SES(Float[] data, Float _level) {
 		
 		/*  Null Checker
 		if(data.length == 1 && data[0]==null) return 0.5f;
@@ -392,11 +384,10 @@ public class JointFilter {
 			prevLevel = _level;
 		}
 		
-		//c = alpha * a + (1.0f - alpha) * b;
-		level = prevLevel + (alpha) * (raw - prevLevel);
+		level = alpha * raw + (1.0f - alpha) * prevLevel;
+		//level = prevLevel + (alpha) * (raw - prevLevel);
 		
-		result[0] = level;
-		result[1] = level;
+		result[0] = result[1] = level;
 		
 		return result;
 	}	

@@ -213,8 +213,8 @@ public class J4KGui extends ServiceGui implements ActionListener, ChangeListener
 		
 		//Joint Filtering
 		joint_filter.addItem("None");
-		joint_filter.addItem("ExponentialSmoothing1");
-		joint_filter.addItem("ExponentialSmoothing2");
+		joint_filter.addItem("ExponentialWeightedMovingAverage");
+		joint_filter.addItem("SimpleExponential");
 		joint_filter.addItem("HoltDoubleExponential");
 		joint_filter.addActionListener(this);
 		joint_filter.setSelectedIndex(0);

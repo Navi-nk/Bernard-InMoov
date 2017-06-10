@@ -43,7 +43,7 @@ public class Bernard extends Service implements Observer {
 	public boolean userFacing = false;
 	public boolean recordingGesture = false;
 	Gesture currentGesture;
-	public int gestureLength = 60;
+	public int gestureLength = 30;
 	//public mapping coordinates for virtual bernard
 	
 	
@@ -351,7 +351,7 @@ public class Bernard extends Service implements Observer {
 		}
 		long endTime = System.currentTimeMillis();
 		System.out.println("That took " + (endTime - startTime) + " milliseconds");
-		bernard.rest();
+		bernard.restAll();
 	}
 	
 	public void recordGesture(String name) {
@@ -374,7 +374,6 @@ public class Bernard extends Service implements Observer {
 	@Override
 	public void update(Observable subject, Object arg) {
 		if(arg instanceof KSkeleton) {
-			//if(robotImitation && vinMoovStarted) {
 			if(recordingGesture) {
 				robotImitation = true;
 				if(currentGesture == null) {
@@ -388,7 +387,7 @@ public class Bernard extends Service implements Observer {
 					currentGesture = null;
 					recordingGesture = false;
 					robotImitation = false;
-					bernard.rest();
+					bernard.restAll();
 				}
 			}
 			if(robotImitation) {
