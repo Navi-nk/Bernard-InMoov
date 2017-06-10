@@ -1353,6 +1353,8 @@ public class InMoov extends Service {
 
   public InMoovHand startRightHand(String port, String type) throws Exception {
     rightHand = startHand(RIGHT, port, type);
+    rightHand.pinky.map(0, 180, 180, 0);
+    rightHand.pinky.moveTo(2);
     return rightHand;
   }
 

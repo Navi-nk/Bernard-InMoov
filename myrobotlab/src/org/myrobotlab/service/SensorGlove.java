@@ -45,7 +45,7 @@ public class SensorGlove extends Service {
 
   public SensorGlove(String reservedKey) {
 		super(reservedKey);
-		arduino = (Arduino) createPeer("arduino");
+		//arduino = (Arduino) createPeer("arduino");
 	}
 
 private static final long serialVersionUID = 1L;
@@ -73,13 +73,13 @@ private static final long serialVersionUID = 1L;
   }
   
  
-  public boolean connect(String port, String type) throws Exception {
+  public boolean connect(String port) throws Exception {
 
 	    if (arduino == null) {
 	      error("arduino is invalid");
 	      return false;
 	    }
-	    arduino.setBoard(type);
+	    //arduino.setBoard(type);
 	    arduino.connect(port);
 
 	    if (!arduino.isConnected()) {
@@ -94,11 +94,11 @@ private static final long serialVersionUID = 1L;
   public void connectHand(InMoovHand hand){
 	  if(hand != null){
 		  this.hand = hand;
-		  hand.thumb.map(0, 180, 184, 305);
-		  hand.index.map(0, 180, 211, 299);
-		  hand.majeure.map(0, 180, 216, 310);
-		  hand.ringFinger.map(0, 180, 244, 305);
-		  hand.pinky.map(0, 180, 238, 316);
+		  this.hand.thumb.map(0, 180, 184, 305);
+		  this.hand.index.map(0, 180, 330, 417);
+		 // hand.majeure.map(0, 180, 216, 310);
+		 // hand.ringFinger.map(0, 180, 244, 305);
+		 // hand.pinky.map(0, 180, 238, 316);
 	  }
   }
   
