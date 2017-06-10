@@ -865,6 +865,31 @@ public class InMoov extends Service {
       eyelids.rest();
     }
   }
+  
+  public void restAll() {
+	  log.info("All parts move to rest position");
+	    if (head != null) {
+	      head.rest();
+	    }
+	    if (rightHand != null) {
+	      rightHand.rest();
+	    }
+	    if (leftHand != null) {
+	      leftHand.rest();
+	    }
+	    if (rightArm != null) {
+	    	restRightArm();
+	    }
+	    if (leftArm != null) {
+	    	restLeftArm();
+	    }
+	    if (torso != null) {
+	      torso.rest();
+	    }
+	   /* if (eyelids != null) {
+	      eyelids.rest();
+	    }*/
+  }
 
   @Override
   public boolean save() {
@@ -1176,13 +1201,19 @@ public class InMoov extends Service {
     leftArm.shoulder.setMinMax(0, 180);
     leftArm.omoplate.setMinMax(10, 80);
 
-    leftArm.bicep.moveTo(0);
-    leftArm.rotate.moveTo(90);
-    leftArm.shoulder.moveTo(13);
-    leftArm.omoplate.moveTo(10);
+    restLeftArm();
     
     return leftArm;
   }
+  
+//added by Navi
+  public void restLeftArm(){
+	  leftArm.bicep.moveTo(0);
+	    leftArm.rotate.moveTo(90);
+	    leftArm.shoulder.moveTo(13);
+	    leftArm.omoplate.moveTo(10);
+  }
+
 
   public InMoovHand startLeftHand(String port) throws Exception {
     return startLeftHand(port, null);
@@ -1303,12 +1334,17 @@ public class InMoov extends Service {
     rightArm.shoulder.setMinMax(0, 180);
     rightArm.omoplate.setMinMax(0, 70);
 
-    rightArm.bicep.moveTo(0);
-    rightArm.rotate.moveTo(90);
-    rightArm.shoulder.moveTo(10);
-    rightArm.omoplate.moveTo(0);
+    restRightArm();
 
     return rightArm;
+  }
+  
+  //added by Navi
+  public void restRightArm() {
+	 	rightArm.bicep.moveTo(0);
+	    rightArm.rotate.moveTo(90);
+	    rightArm.shoulder.moveTo(10);
+	    rightArm.omoplate.moveTo(0);
   }
 
   public InMoovHand startRightHand(String port) throws Exception {
