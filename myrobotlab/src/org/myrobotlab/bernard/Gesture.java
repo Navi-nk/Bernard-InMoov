@@ -26,8 +26,8 @@ public class Gesture implements Serializable {
 	public int recordedFrames;
 	public boolean finished;
 	public String GestureName;
-	public ObjectOutputStream oos;
-	public ObjectInputStream ois;
+	//public ObjectOutputStream oos;
+	//public ObjectInputStream ois;
 	
 	public Gesture() {
 
