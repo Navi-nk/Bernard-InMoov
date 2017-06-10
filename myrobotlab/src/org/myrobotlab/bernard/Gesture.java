@@ -19,13 +19,15 @@ import org.myrobotlab.j4kdemo.KSkeleton;
 
 
 public class Gesture implements Serializable {
-	public int duration;
+	public int duration=60;
 	// List containing skeletons across time
 	public LinkedList<KSkeleton> skeletonList = new LinkedList<KSkeleton>();
 	//public JSONObject storage = new JSONObject();
 	public int recordedFrames;
 	public boolean finished;
 	public String GestureName;
+	public ObjectOutputStream oos;
+	public ObjectInputStream ois;
 	
 	public Gesture() {
 
@@ -39,9 +41,10 @@ public class Gesture implements Serializable {
 		if(recordedFrames < duration) {
 			skeletonList.add(sk);
 			recordedFrames++;
-		}
-		if(recordedFrames == duration) {
+			System.out.println(recordedFrames);
+		} else if(recordedFrames == duration) {	
 			store(GestureName);
+			finished = true;
 		}
 	}
 	
@@ -49,6 +52,8 @@ public class Gesture implements Serializable {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("gestures/" + name + ".dat"));
 			skeletonList = (LinkedList<KSkeleton>) ois.readObject();
+			ois.close();
+			//oos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +68,8 @@ public class Gesture implements Serializable {
 		      FileOutputStream output = new FileOutputStream("gestures/" + name + ".dat");
 		      ObjectOutputStream oos = new ObjectOutputStream(output);
 		      oos.writeObject(skeletonList);
-		      oos.flush();
+		      oos.close();
+		      System.out.println("stored");
 		    } catch (Exception e) {
 		      System.out.println("Problem serializing: " + e);
 		    }

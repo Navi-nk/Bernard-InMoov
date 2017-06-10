@@ -344,10 +344,14 @@ public class Bernard extends Service implements Observer {
 			ref = "default";
 		}
 		currentGesture.load(ref);
+		long startTime = System.currentTimeMillis();
 		for(int i=0;i<currentGesture.duration;i++) {
 			this.kSkeleton = currentGesture.skeletonList.poll();
 			mapSkeletonToRobot();
 		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("That took " + (endTime - startTime) + " milliseconds");
+		bernard.rest();
 	}
 	
 	public void recordGesture(String name) {
@@ -384,6 +388,7 @@ public class Bernard extends Service implements Observer {
 					currentGesture = null;
 					recordingGesture = false;
 					robotImitation = false;
+					bernard.rest();
 				}
 			}
 			if(robotImitation) {
