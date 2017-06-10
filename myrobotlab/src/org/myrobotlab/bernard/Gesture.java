@@ -1,7 +1,5 @@
 package org.myrobotlab.bernard;
 
-import org.myrobotlab.service.InMoov;
-
 //import org.json.*;
 import java.io.Serializable;
 import java.io.File;
@@ -15,19 +13,20 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import org.myrobotlab.j4kdemo.KSkeleton;
-//import org.myrobotlab.j4kdemo.Joint;
-
 
 public class Gesture implements Serializable {
-	public int duration=60;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// Default duration of Gesture
+	public int duration=30;
 	// List containing skeletons across time
 	public LinkedList<KSkeleton> skeletonList = new LinkedList<KSkeleton>();
 	//public JSONObject storage = new JSONObject();
 	public int recordedFrames;
 	public boolean finished;
 	public String GestureName;
-	//public ObjectOutputStream oos;
-	//public ObjectInputStream ois;
 	
 	public Gesture() {
 
