@@ -65,7 +65,7 @@ def heardSentence(sentence):
             opencv.setDisplayFilter("fr")
         fr.setTrainName(sentence)
         fr.setModeTrain()
-        sleep(10)
+        sleep(5)
         fr.setModeRecognize()
         mouth.speakBlocking("Learning done")
         recognize = False
