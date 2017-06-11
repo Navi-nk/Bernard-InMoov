@@ -35,19 +35,19 @@ public class InMoovHead extends Service {
     arduino = (Arduino) createPeer("arduino");
 
 
-    neck.setMinMax(20, 160);
+    neck.setMinMax(20, 130);
     rollNeck.setMinMax(20, 160);
     rothead.setMinMax(30, 150);
     // reset by mouth control
-    jaw.setMinMax(10, 25);
-    eyeX.setMinMax(60, 100);
-    eyeY.setMinMax(50, 100);
-    neck.setRest(90);
+    jaw.setMinMax(50, 120);
+    eyeX.setMinMax(50, 120);
+    eyeY.setMinMax(40, 120);
+    neck.setRest(65);
     rollNeck.setRest(90);
-    rothead.setRest(90);
-    jaw.setRest(10);
-    eyeX.setRest(80);
-    eyeY.setRest(90);
+    rothead.setRest(100);
+    jaw.setRest(50);
+    eyeX.setRest(90);
+    eyeY.setRest(60);
     
     setVelocity(45.0,45.0,-1.0,-1.0,-1.0,45.0);
     

@@ -47,7 +47,9 @@ import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
@@ -80,6 +82,9 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 	JButton addKinectObservers = new JButton("Add Kinect Observers");
 	JButton turnOnVinMoov = new JButton("Turn On Virtual InMoov Service");
 	JButton turnOnInMoov = new JButton("Turn On InMoov Service");
+	JButton userFaceTracking = new JButton("Start Face Tracking");
+	JButton recordGesture = new JButton("Record Gesture");
+	JButton playGesture = new JButton("Play Gesture");
 
 	
 	public BernardGui(final String boundServiceName, final SwingGui myService) {
@@ -91,11 +96,17 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 	    addKinectObservers.addActionListener(this);
 	    turnOnVinMoov.addActionListener(this);
 	    turnOnInMoov.addActionListener(this);
+	    userFaceTracking.addActionListener(this);
+	    recordGesture.addActionListener(this);
+	    playGesture.addActionListener(this);
 	    
 	    controls.add(turnOnRobotImitation);
 	    controls.add(addKinectObservers);
 	    controls.add(turnOnVinMoov);
 	    controls.add(turnOnInMoov);
+	    controls.add(userFaceTracking);
+	    controls.add(recordGesture);
+	    controls.add(playGesture);
 	    
 		display.setLayout(new BorderLayout());		
 		display.add(controls, BorderLayout.CENTER);
@@ -117,6 +128,7 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 			if(turnOnRobotImitation.getText().compareTo("Turn Off Robot Imitation")==0)
 			{
 				//myKinect.stop();
+				send("stopRobotImitation");
 				turnOnRobotImitation.setText("Turn On Robot Imitation");
 			}
 			else
@@ -140,7 +152,7 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 				//resetKinect();
 			}
 		} else if(e.getSource()==turnOnInMoov) {
-			if(turnOnInMoov.getText().compareTo("Turn On InMoov Service")==0)
+			if(turnOnInMoov.getText()=="Turn Off InMoov Service")
 			{
 				//myKinect.stop();
 				turnOnInMoov.setText("Turn On InMoov Service");
@@ -151,7 +163,26 @@ public class BernardGui extends ServiceGui implements ActionListener, ChangeList
 				turnOnInMoov.setText("Turn Off InMoov Service");
 				//resetKinect();
 			}
-		} 
+		} else if(e.getSource()==userFaceTracking) {
+			if(userFaceTracking.getText()=="Stop Face Tracking")
+			{
+				userFaceTracking.setText("Start Face Tracking");
+			}
+			else {
+				send("startFaceTracking");
+				userFaceTracking.setText("Stop Face Tracking");
+			}
+		} else if(e.getSource()==recordGesture) {
+			JFrame frame = new JFrame();
+			frame.setTitle("Set Gesture Name");
+			String name = JOptionPane.showInputDialog(frame, "new Gesture name");
+			send("recordGesture", name);
+		} else if(e.getSource()==playGesture) {
+			JFrame frame = new JFrame();
+			frame.setTitle("Get Gesture Name");
+			String name = JOptionPane.showInputDialog(frame, "Gesture name");
+			send("playGesture", name);
+		}
 	}
 	
 	@Override

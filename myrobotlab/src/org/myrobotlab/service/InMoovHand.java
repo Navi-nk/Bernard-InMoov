@@ -82,11 +82,11 @@ public class InMoovHand extends Service implements LeapDataListener {
     wrist = (Servo) createPeer("wrist");
     arduino = (Arduino) createPeer("arduino");
 
-    thumb.setRest(2);
-    index.setRest(2);
-    majeure.setRest(2);
-    ringFinger.setRest(2);
-    pinky.setRest(2);
+    thumb.setRest(180);
+    index.setRest(180);
+    majeure.setRest(180);
+    ringFinger.setRest(180);
+    pinky.setRest(180);
     wrist.setRest(90);
     
     setVelocity(45.0, 45.0, 45.0, 45.0, 45.0, 45.0);

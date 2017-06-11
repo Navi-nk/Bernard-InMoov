@@ -1,6 +1,8 @@
 
 #start open cv
 opencv = Runtime.start("cv","OpenCV")
+
+opencv.setCameraIndex(1)
 fr=opencv.addFilter("fr","FaceRecognizer")
 opencv.setDisplayFilter("fr")
 opencv.capture()

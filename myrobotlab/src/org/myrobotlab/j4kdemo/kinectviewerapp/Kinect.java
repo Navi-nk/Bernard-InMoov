@@ -1,12 +1,17 @@
 package org.myrobotlab.j4kdemo.kinectviewerapp;
 
 import javax.swing.JLabel;
+
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
 import edu.ufl.digitalworlds.j4k.DepthMap;
 import edu.ufl.digitalworlds.j4k.J4KSDK;
 import edu.ufl.digitalworlds.j4k.Skeleton;
+
+import org.myrobotlab.j4kdemo.KSkeleton;
+import org.myrobotlab.j4kdemo.JointFilter;
 
 
 /*
@@ -46,6 +51,10 @@ import edu.ufl.digitalworlds.j4k.Skeleton;
 public class Kinect extends J4KSDK {
 	
 	public KinectSubject subject = new KinectSubject();
+	public Skeleton sk;
+	public KSkeleton sk2;
+	public String JointFilterType;
+	public JointFilter jf = new JointFilter(5); // set default smoothing to 5
 	public ViewerPanel3D viewer=null;
 	JLabel label=null;
 	boolean mask_players=false;
@@ -97,20 +106,60 @@ public class Kinect extends J4KSDK {
 		if(viewer==null || viewer.skeletons==null) {
 			return;
 		} else {
+			
+			for(int i=0;i<getSkeletonCountLimit();i++)
+			{
+				if(Skeleton.getSkeleton(i, flags,positions, orientations,state,this).isTracked()) {
+					sk=Skeleton.getSkeleton(i, flags,positions, orientations,state,this);
+					sk2 = new KSkeleton(sk);
+					break;
+				}
+			}
+			
+			//single skeletal tracking
+			//sk=Skeleton.getSkeleton(0, flags,positions, orientations,state,this);
+			
+			if(sk2.isTracked()) {
+				if(jf.jointFilterType == "None" && jf.skeletonList.size() != 0) {
+					System.out.println("Remove skeleton.");
+					jf.removeSkeleton(jf.skeletonList.size());
+					jf.resetElapsedFrames();
+				} else if(jf.jointFilterType != "None") {
+					try {
+						jf.addElapsedFrames();
+						jf.addSkeleton(sk2);
+						sk2 = jf.getSkeleton();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				// update viewer gui
+				viewer.skeletons[0] = sk2;
+				// updateObservers
+				subject.notify(sk2);
+			} else {
+				jf.reset();
+			}
+			
+			/*multiple skeletal tracking
+			
 			for(int i=0;i<getSkeletonCountLimit();i++)
 			{
 				viewer.skeletons[i]=Skeleton.getSkeleton(i, flags,positions, orientations,state,this);
 			}
-			// updateObservers
+			
 			int j=0;
 			while(j<getSkeletonCountLimit()) {
 				if(viewer.skeletons[j].isTracked()) {
+					// updateObservers 
 					subject.notify(viewer.skeletons[j]);
 					break;
 				} else {
 					j++;
 				}
-			}
+			} */	
 		}
 	}
 

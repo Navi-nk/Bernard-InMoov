@@ -184,9 +184,9 @@ public class InMoov extends Service {
   private IntegratedMovement integratedMovement;
   private Arduino pirArduino;
 
-  // static String speechService = "MarySpeech";
+   static String speechService = "MarySpeech";
   // static String speechService = "AcapelaSpeech";
-  static String speechService = "NaturalReaderSpeech";
+  //static String speechService = "NaturalReaderSpeech";
   static String speechRecognizer = "WebkitSpeechRecognition";
 
   public InMoov(String n) {
@@ -865,6 +865,31 @@ public class InMoov extends Service {
       eyelids.rest();
     }
   }
+  
+  public void restAll() {
+	  log.info("All parts move to rest position");
+	    if (head != null) {
+	      head.rest();
+	    }
+	    if (rightHand != null) {
+	      rightHand.rest();
+	    }
+	    if (leftHand != null) {
+	      leftHand.rest();
+	    }
+	    if (rightArm != null) {
+	    	restRightArm();
+	    }
+	    if (leftArm != null) {
+	    	restLeftArm();
+	    }
+	    if (torso != null) {
+	      torso.rest();
+	    }
+	   /* if (eyelids != null) {
+	      eyelids.rest();
+	    }*/
+  }
 
   @Override
   public boolean save() {
@@ -1046,8 +1071,8 @@ public class InMoov extends Service {
     startRightArm(rightPort);
     startTorso(leftPort);
 
-    startHeadTracking(leftPort, 12, 13);
-    startEyesTracking(leftPort, 22, 24);
+    //startHeadTracking(leftPort, 12, 13);
+    //startEyesTracking(leftPort, 22, 24);
 
     speakBlocking("startup sequence completed");
   }
@@ -1170,8 +1195,25 @@ public class InMoov extends Service {
 
   public InMoovArm startLeftArm(String port, String type) throws Exception {
     leftArm = startArm(LEFT, port, type);
+    
+    leftArm.bicep.setMinMax(0, 73);
+    leftArm.rotate.setMinMax(40, 180);
+    leftArm.shoulder.setMinMax(0, 180);
+    leftArm.omoplate.setMinMax(10, 80);
+
+    restLeftArm();
+    
     return leftArm;
   }
+  
+//added by Navi
+  public void restLeftArm(){
+	  leftArm.bicep.moveTo(0);
+	    leftArm.rotate.moveTo(90);
+	    leftArm.shoulder.moveTo(13);
+	    leftArm.omoplate.moveTo(10);
+  }
+
 
   public InMoovHand startLeftHand(String port) throws Exception {
     return startLeftHand(port, null);
@@ -1286,7 +1328,23 @@ public class InMoov extends Service {
       return rightArm;
     }
     rightArm = startArm(RIGHT, port, type);
+    
+    rightArm.bicep.setMinMax(0, 73);
+    rightArm.rotate.setMinMax(40, 180);
+    rightArm.shoulder.setMinMax(0, 180);
+    rightArm.omoplate.setMinMax(0, 70);
+
+    restRightArm();
+
     return rightArm;
+  }
+  
+  //added by Navi
+  public void restRightArm() {
+	 	rightArm.bicep.moveTo(0);
+	    rightArm.rotate.moveTo(90);
+	    rightArm.shoulder.moveTo(10);
+	    rightArm.omoplate.moveTo(0);
   }
 
   public InMoovHand startRightHand(String port) throws Exception {
@@ -1295,6 +1353,8 @@ public class InMoov extends Service {
 
   public InMoovHand startRightHand(String port, String type) throws Exception {
     rightHand = startHand(RIGHT, port, type);
+    rightHand.pinky.map(0, 180, 180, 0);
+    rightHand.pinky.moveTo(2);
     return rightHand;
   }
 
