@@ -48,6 +48,7 @@ def heardSentence(sentence):
         ear.removeListener("publishText", "chatBot", "onText")
         kinect.setFacingUser(False)
     elif sentence == "start recognition":
+        ear.removeListener("publishText", "chatBot", "onText")
         global fr
         if fr is None:
             fr=opencv.addFilter("fr","FaceRecognizer")
@@ -55,12 +56,16 @@ def heardSentence(sentence):
             print("testing")
         print(fr.getLastRecognizedName())
         name=fr.getLastRecognizedName()
+        if name == "none":
+            mouth.speakBlocking("could not recognize the person standing infront of me")
         ear.addTextListener(chatBot) 
         chatBot.getParsedRespose(chatBot.getAIResponse(name))
     elif sentence == "start introduction":
+        ear.removeListener("publishText", "chatBot", "onText")
         mouth.speakBlocking("who is this standing infront of me?")
         recognize = True
     elif recognize == True:
+        ear.removeListener("publishText", "chatBot", "onText")
         global fr
         if fr is None:
             fr=opencv.addFilter("fr","FaceRecognizer")
