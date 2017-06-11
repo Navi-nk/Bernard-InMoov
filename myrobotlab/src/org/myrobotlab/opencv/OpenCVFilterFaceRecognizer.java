@@ -636,6 +636,14 @@ public class OpenCVFilterFaceRecognizer extends OpenCVFilter {
   public void setMode(Mode mode) {
     this.mode = mode;
   }
+  
+  public void setModeTrain() {
+	  this.mode = Mode.TRAIN;
+  }
+  
+  public void setModeRecognize() {
+	  this.mode = Mode.RECOGNIZE;
+  }
 
   public String getTrainName() {
     return trainName;
