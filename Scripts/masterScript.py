@@ -42,9 +42,11 @@ def heardSentence(sentence):
     if sentence == "start conversation":
         mouth.speakBlocking("starting conversation mode")
         ear.addTextListener(chatBot)
-        bernard.mouthControl.setmouth(60,120)
+        kinect.setFacingUser(True)
+        bernard.mouthControl.setmouth(50,120)
     elif sentence == "stop conversation":
         ear.removeListener("publishText", "chatBot", "onText")
+        kinect.setFacingUser(False)
     elif sentence == "start recognition":
         global fr
         if fr is None:
@@ -82,6 +84,7 @@ def heardSentence(sentence):
         #mouth.speakBlocking("Stopping Facing User Mode")
         kinect.setFacingUser(False)
     elif sentence == "record gesture":
+        ear.removeListener("publishText", "chatBot", "onText")
         mouth.speakBlocking("what name should i give to this gesture?")
         gestureRecord=True
     elif gestureRecord == True:
@@ -90,6 +93,7 @@ def heardSentence(sentence):
         mouth.speakBlocking("Gesture Recording Done")
         gestureRecord == False
     elif sentence == "play gesture":
+        ear.removeListener("publishText", "chatBot", "onText")
         mouth.speakBlocking("what gesture should i play?")
         gesturePlay = True
     elif gesturePlay == True:
