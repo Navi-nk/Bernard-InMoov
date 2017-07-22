@@ -56,15 +56,24 @@ def heardSentence(sentence):
             sleep(5)
         print(fr.getLastRecognizedName())
         name=fr.getLastRecognizedName()
+<<<<<<< HEAD
         if name == "None":
             mouth.speakBlocking("Sorry could not recognize you")
         else:
             sleep(3)
+=======
+        if name == "none":
+            mouth.speakBlocking("could not recognize the person standing infront of me")
+>>>>>>> 3366f715887f1143f91b6615674bb9f646e85631
         ear.addTextListener(chatBot) 
         chatBot.getParsedRespose(chatBot.getAIResponse(name))
     elif sentence == "start introduction":
         ear.removeListener("publishText", "chatBot", "onText")
+<<<<<<< HEAD
         mouth.speakBlocking("who is this standing in front of me?")
+=======
+        mouth.speakBlocking("who is this standing infront of me?")
+>>>>>>> 3366f715887f1143f91b6615674bb9f646e85631
         recognize = True
     elif recognize == True:
         ear.removeListener("publishText", "chatBot", "onText")
