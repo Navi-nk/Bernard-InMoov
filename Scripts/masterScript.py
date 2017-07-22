@@ -48,6 +48,7 @@ def heardSentence(sentence):
         ear.removeListener("publishText", "chatBot", "onText")
         kinect.setFacingUser(False)
     elif sentence == "start recognition":
+        ear.removeListener("publishText", "chatBot", "onText")
         global fr
         if fr is None:
             fr=opencv.addFilter("fr","FaceRecognizer")
