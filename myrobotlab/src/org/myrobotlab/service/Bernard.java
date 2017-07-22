@@ -43,12 +43,12 @@ public class Bernard extends Service implements Observer {
 	public boolean userFacing = false;
 	public boolean recordingGesture = false;
 	Gesture currentGesture;
-	public int gestureLength = 30;
+	public int gestureLength = 200;
 	//public mapping coordinates for virtual bernard
 	
 	
 	// InMoov Variables Initialisation
-	public String leftPort = "COM3";
+	public String leftPort = "COM20";
 	public String rightPort = "COM91";
 	public String headPort = leftPort;
 
@@ -171,20 +171,20 @@ public class Bernard extends Service implements Observer {
 		
 		double t[] = Geom.identity4();
 		double inv_t[] = Geom.identity4();
-		double torsoTransform = kSkeleton.getTorsoTransform(t, inv_t);
-		double headTransform = kSkeleton.getHeadTransform(t, inv_t);
-		double fixHeadTransform = kSkeleton.getFixHeadTransform(t, inv_t);
+		//double torsoTransform = kSkeleton.getTorsoTransform(t, inv_t);
+		//double headTransform = kSkeleton.getHeadTransform(t, inv_t);
+		//double fixHeadTransform = kSkeleton.getFixHeadTransform(t, inv_t);
 		double shoulderTransform = kSkeleton.getShoulderTransform(t, inv_t);
-		double betweenHandsTransform = kSkeleton.getBetweenHandsTransform(t, inv_t);
-		double rightArmTransform = kSkeleton.getRightArmTransform(t, inv_t);
-		double rightForearmTransform = kSkeleton.getRightArmTransform(t, inv_t);
-		Float leftArmTransform = (float) kSkeleton.getLeftArmTransform(t, inv_t);
-		double leftForearmTransform = kSkeleton.getLeftArmTransform(t, inv_t);
+		//double betweenHandsTransform = kSkeleton.getBetweenHandsTransform(t, inv_t);
+		//double rightArmTransform = kSkeleton.getRightArmTransform(t, inv_t);
+		//double rightForearmTransform = kSkeleton.getRightArmTransform(t, inv_t);
+		//Float leftArmTransform = (float) kSkeleton.getLeftArmTransform(t, inv_t);
+		//double leftForearmTransform = kSkeleton.getLeftArmTransform(t, inv_t);
 
 		Joint[] myJoint = kSkeleton.getJoints();
-		Joint headJoint = myJoint[KSkeleton.HEAD];
-		Joint neckJoint = myJoint[KSkeleton.NECK];
-		Joint spineShoulderJoint = myJoint[KSkeleton.SPINE_SHOULDER];
+		//Joint headJoint = myJoint[KSkeleton.HEAD];
+		//Joint neckJoint = myJoint[KSkeleton.NECK];
+		//Joint spineShoulderJoint = myJoint[KSkeleton.SPINE_SHOULDER];
 		
 		// Head
 		
@@ -193,101 +193,115 @@ public class Bernard extends Service implements Observer {
 			//bernard.head.rothead.moveTo(90-jointOrientation[4*Skeleton.NECK+3]*120);
 			
 			Vector3f neck = kSkeleton.getBone(KSkeleton.SPINE_SHOULDER, KSkeleton.HEAD);
-			float[] neckAngle = neckJoint.getAbsOrientation().toAngles(null);
+			//float[] neckAngle = neckJoint.getAbsOrientation().toAngles(null);
 			
 			float degrees = Math.round(Math.toDegrees(FastMath.atan2(neck.getY(),neck.getZ())));
 			//System.out.println(kSkeleton.torsoOrientation[1]*90);
-			bernard.head.neck.moveTo(65+(90-degrees)-kSkeleton.torsoOrientation[1]*90);
+			if(bernard.head != null) {
+				bernard.head.neck.moveTo(65+(90-degrees)-kSkeleton.torsoOrientation[1]*90);
+			}
 		}
 		
 		// Left Arm 
 		Joint shoulderLeftJoint = myJoint[KSkeleton.SHOULDER_LEFT];
 		Joint elbowLeftJoint = myJoint[KSkeleton.ELBOW_LEFT];
-		Joint wristLeftJoint = myJoint[KSkeleton.WRIST_LEFT];
-		Joint handLeftJoint = myJoint[KSkeleton.HAND_LEFT];
-		Joint handTipLeftJoint = myJoint[KSkeleton.HAND_TIP_LEFT];
+		//Joint wristLeftJoint = myJoint[KSkeleton.WRIST_LEFT];
+		//Joint handLeftJoint = myJoint[KSkeleton.HAND_LEFT];
+		//Joint handTipLeftJoint = myJoint[KSkeleton.HAND_TIP_LEFT];
 		
 		Quaternion elbowLeftQ = elbowLeftJoint.getAbsOrientation();
 		float[] elbowLeftAngle = elbowLeftQ.toAngles(null);
-		Quaternion wristLeftQ = wristLeftJoint.getAbsOrientation();
-		float[] wristLeftAngle = wristLeftQ.toAngles(null);
-		Quaternion handLeftQ = handLeftJoint.getAbsOrientation();
-		float[] handLeftAngle = handLeftQ.toAngles(null);
+		//Quaternion wristLeftQ = wristLeftJoint.getAbsOrientation();
+		//float[] wristLeftAngle = wristLeftQ.toAngles(null);
+		//Quaternion handLeftQ = handLeftJoint.getAbsOrientation();
+		//float[] handLeftAngle = handLeftQ.toAngles(null);
 		
-		Float wristLeftRotateAngle = wristLeftJoint.getNormalAngle();
+		//Float wristLeftRotateAngle = wristLeftJoint.getNormalAngle();
 		//System.out.println(Math.toDegrees(wristLeftRotateAngle));
 		
 		
 		//Quaternion handLeftQ = handLeftJoint.getAbsOrientation();
 		//float[] handLeftAngle = handLeftQ.toAngles(null);
-		
+		/*
 		Vector3f spineShoulderVec = spineShoulderJoint.getAbsPosition();
 		Vector3f shoulderLeftVec = shoulderLeftJoint.getAbsPosition();
 		Vector3f elbowLeftVec = elbowLeftJoint.getAbsPosition();
 		Vector3f wristLeftVec = wristLeftJoint.getAbsPosition();
 		Vector3f handLeftVec = handLeftJoint.getAbsPosition();
 		Vector3f handTipLeftVec = handTipLeftJoint.getAbsPosition();
-		
-		Vector3f leftShoulder = kSkeleton.getBone(KSkeleton.SPINE_SHOULDER, KSkeleton.SHOULDER_LEFT);
+		*/
+		//Vector3f leftShoulder = kSkeleton.getBone(KSkeleton.SPINE_SHOULDER, KSkeleton.SHOULDER_LEFT);
 		Vector3f leftArm = kSkeleton.getBone(KSkeleton.SHOULDER_LEFT, KSkeleton.ELBOW_LEFT);
 		Vector3f leftForeArm = kSkeleton.getBone(KSkeleton.ELBOW_LEFT, KSkeleton.WRIST_LEFT);
-		Vector3f leftHand = kSkeleton.getBone(KSkeleton.WRIST_LEFT, KSkeleton.HAND_LEFT);
-		Vector3f leftFingers = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.HAND_TIP_LEFT);
-		Vector3f leftThumb = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.THUMB_LEFT);
+		//Vector3f leftHand = kSkeleton.getBone(KSkeleton.WRIST_LEFT, KSkeleton.HAND_LEFT);
+		//Vector3f leftFingers = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.HAND_TIP_LEFT);
+		//Vector3f leftThumb = kSkeleton.getBone(KSkeleton.HAND_LEFT, KSkeleton.THUMB_LEFT);
 		
 		float degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getY(),Math.abs(leftArm.getX()))));
-		bernard.leftArm.omoplate.moveTo(90+degrees);
+		if(bernard.leftArm != null) {
+			bernard.leftArm.omoplate.moveTo(90+degrees);
+		}
 
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(leftArm.getZ(),leftArm.getY())));
 		
-		bernard.leftArm.shoulder.moveTo(degrees>0?degrees-180:degrees+180);
+		if(bernard.leftArm != null) {
+			bernard.leftArm.shoulder.moveTo(degrees>0?degrees-180:degrees+180);
+		}
 		degrees = (float) Math.toDegrees(elbowLeftAngle[1]);
-		bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
-		bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
+		if(bernard.leftArm != null) {
+			bernard.leftArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)+kSkeleton.torsoOrientation[0]*90));
+			bernard.leftArm.bicep.moveTo(Math.round(Math.toDegrees(leftForeArm.angleBetween(leftArm))));
+		}
 		
 		// for wrist, need to use all three rotations
 		
-		degrees = (float) Math.toDegrees(wristLeftRotateAngle);
+		//degrees = (float) Math.toDegrees(wristLeftRotateAngle);
 		//bernard.leftHand.wrist.moveTo(degrees);
 				
 		// Right Arm
 		Joint shoulderRightJoint = myJoint[KSkeleton.SHOULDER_RIGHT];
 		Joint elbowRightJoint = myJoint[KSkeleton.ELBOW_RIGHT];
-		Joint wristRightJoint = myJoint[KSkeleton.WRIST_RIGHT];
-		Joint handRightJoint = myJoint[KSkeleton.HAND_RIGHT];
-		Joint handTipRightJoint = myJoint[KSkeleton.HAND_TIP_LEFT];
+		//Joint wristRightJoint = myJoint[KSkeleton.WRIST_RIGHT];
+		//Joint handRightJoint = myJoint[KSkeleton.HAND_RIGHT];
+		//Joint handTipRightJoint = myJoint[KSkeleton.HAND_TIP_LEFT];
 
-		Quaternion shoulderRightQ = shoulderRightJoint.getAbsOrientation();
+		//Quaternion shoulderRightQ = shoulderRightJoint.getAbsOrientation();
 		Quaternion elbowRightQ = elbowRightJoint.getAbsOrientation();
 		float[] elbowRightAngle = elbowRightQ.toAngles(null);
-		Quaternion wristRightQ = wristRightJoint.getAbsOrientation();
-		float[] wristRightAngle = wristRightQ.toAngles(null);
-		Quaternion wristRightRelativeQ = elbowRightQ.inverseLocal().mult(wristRightQ);
-		float[] wristRightRotateAngle = wristRightRelativeQ.toAngles(null);
-		Quaternion handRightQ = handRightJoint.getAbsOrientation();
-		float[] handRightAngle = handRightQ.toAngles(null);
-		
+		//Quaternion wristRightQ = wristRightJoint.getAbsOrientation();
+		//float[] wristRightAngle = wristRightQ.toAngles(null);
+		//Quaternion wristRightRelativeQ = elbowRightQ.inverseLocal().mult(wristRightQ);
+		//float[] wristRightRotateAngle = wristRightRelativeQ.toAngles(null);
+		//Quaternion handRightQ = handRightJoint.getAbsOrientation();
+		//float[] handRightAngle = handRightQ.toAngles(null);
+		/*
 		Vector3f shoulderRightVec = shoulderRightJoint.getAbsPosition();
 		Vector3f elbowRightVec = elbowRightJoint.getAbsPosition();
 		Vector3f wristRightVec = wristRightJoint.getAbsPosition();
 		Vector3f handRightVec = handRightJoint.getAbsPosition();
 		Vector3f handTipRightVec = handTipRightJoint.getAbsPosition();
-		
-		Vector3f rightShoulder = kSkeleton.getBone(KSkeleton.SPINE_SHOULDER, KSkeleton.SHOULDER_RIGHT);
+		*/
+		//Vector3f rightShoulder = kSkeleton.getBone(KSkeleton.SPINE_SHOULDER, KSkeleton.SHOULDER_RIGHT);
 		Vector3f rightArm = kSkeleton.getBone(KSkeleton.SHOULDER_RIGHT, KSkeleton.ELBOW_RIGHT);
 		Vector3f rightForeArm = kSkeleton.getBone(KSkeleton.ELBOW_RIGHT, KSkeleton.WRIST_RIGHT);
-		Vector3f rightHand = kSkeleton.getBone(KSkeleton.WRIST_RIGHT, KSkeleton.HAND_RIGHT);
-		Vector3f rightFingers = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.HAND_TIP_RIGHT);
-		Vector3f rightThumb = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.THUMB_RIGHT);
+		//Vector3f rightHand = kSkeleton.getBone(KSkeleton.WRIST_RIGHT, KSkeleton.HAND_RIGHT);
+		//Vector3f rightFingers = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.HAND_TIP_RIGHT);
+		//Vector3f rightThumb = kSkeleton.getBone(KSkeleton.HAND_RIGHT, KSkeleton.THUMB_RIGHT);
 		
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(rightArm.getY(),Math.abs(rightArm.getX()))));
-		bernard.rightArm.omoplate.moveTo(90+degrees);
+		if(bernard.rightArm != null) {
+			bernard.rightArm.omoplate.moveTo(90+degrees);
+		}
 		degrees = Math.round(Math.toDegrees(FastMath.atan2(rightArm.getZ(),rightArm.getY())));
-		bernard.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		if(bernard.rightArm != null) {
+			bernard.rightArm.shoulder.moveTo(30+(degrees>0?degrees-180:degrees+180));
+		}
 		
 		degrees = (float) -Math.toDegrees(elbowRightAngle[1]);
-		bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
-		bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
+		if(bernard.rightArm != null) {
+			bernard.rightArm.rotate.moveTo(Math.round(((degrees<-90)?360+degrees:degrees)-kSkeleton.torsoOrientation[0]*90));
+			bernard.rightArm.bicep.moveTo(Math.round(Math.toDegrees(rightForeArm.angleBetween(rightArm))));
+		}
 		//degrees = (float) Math.toDegrees(wristRightAngle[1]);
 		//bernard.rightHand.wrist.moveTo(90-degrees);
 		
@@ -295,10 +309,10 @@ public class Bernard extends Service implements Observer {
 		// Body
 		
 		// Torso Upper
-		bernard.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsY()-shoulderRightJoint.getAbsY())/shoulderTransform)));
-		// Torso Mid
-		
-		bernard.torso.midStom.moveTo(90+kSkeleton.torsoOrientation[0]*90);
+		if(bernard.torso != null) {
+			bernard.torso.topStom.moveTo(90+Math.toDegrees(Math.asin(Math.abs(shoulderLeftJoint.getAbsY()-shoulderRightJoint.getAbsY())/shoulderTransform)));
+			bernard.torso.midStom.moveTo(90+kSkeleton.torsoOrientation[0]*90);
+		}
 		// Torso Low
 		//bernard.torso.lowStom.moveTo(90+kSkeleton.torsoOrientation[1]*90);
 		
@@ -317,12 +331,14 @@ public class Bernard extends Service implements Observer {
 	public void faceUser() {
 		Float bernardEyesY = 0.43f;
 		Joint head = kSkeleton.getJoint(KSkeleton.HEAD);
-		Float zDistance = head.getAbsZ();
-		Float height = head.getAbsY();
+		//Float zDistance = head.getAbsZ();
+		//Float height = head.getAbsY();
 		Float neckYAngle = (float) Math.toDegrees(FastMath.atan2(head.getAbsY()-bernardEyesY, head.getAbsZ()));
-		bernard.head.neck.moveTo(neckYAngle+65);
 		Float neckXAngle = (float) Math.toDegrees(FastMath.atan2(head.getAbsX(),head.getAbsZ()));
-		bernard.head.rothead.moveTo(neckXAngle+100);
+		if(bernard.head != null) {
+			bernard.head.neck.moveTo(neckYAngle+bernard.head.neck.getRest());
+			bernard.head.rothead.moveTo(neckXAngle+bernard.head.rothead.getRest());
+		}
 	}
 	
 	public void rollEyes() {
@@ -339,7 +355,9 @@ public class Bernard extends Service implements Observer {
 	}
 	
 	public void playGesture(String ref) throws Exception {
-		currentGesture = new Gesture();
+		if(currentGesture == null){
+			currentGesture = new Gesture();
+		}
 		if(ref == null) {
 			ref = "default";
 		}
@@ -347,6 +365,7 @@ public class Bernard extends Service implements Observer {
 		long startTime = System.currentTimeMillis();
 		for(int i=0;i<currentGesture.duration;i++) {
 			this.kSkeleton = currentGesture.skeletonList.poll();
+			Thread.sleep(50);
 			mapSkeletonToRobot();
 		}
 		long endTime = System.currentTimeMillis();
@@ -358,16 +377,17 @@ public class Bernard extends Service implements Observer {
 		recordingGesture = true;
 		if(currentGesture == null) {
 			currentGesture = new Gesture();
-			currentGesture.setLength(gestureLength);
-			
+			currentGesture.setLength(gestureLength);	
 		}
 		currentGesture.GestureName = name;
 			
 	}
 	
 	public Boolean findGesture(String name){
-		if(currentGesture == null)
-			return false;
+		if(currentGesture == null) {
+			currentGesture = new Gesture();
+			currentGesture.setLength(gestureLength);
+			}
 		return currentGesture.findGesture(name);
 	}
 	

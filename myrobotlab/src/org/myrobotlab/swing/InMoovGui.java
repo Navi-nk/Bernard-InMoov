@@ -66,7 +66,9 @@ public class InMoovGui extends ServiceGui implements ActionListener {
   JButton rightHand = new JButton("start right hand");
   JButton rightArm = new JButton("start right arm");
 
-  JButton head = new JButton("start head");
+  JButton head = new JButton("start right head");
+  
+  JButton torso = new JButton("start right torso");
 
   JButton attachDetach = new JButton("attach");
 
@@ -106,6 +108,7 @@ public class InMoovGui extends ServiceGui implements ActionListener {
     controls.add(head);
     controls.add(rightHand);
     controls.add(rightArm);
+    controls.add(torso);
 
     display.add(controls, BorderLayout.EAST);
     display.add(opencv.display, BorderLayout.CENTER);
@@ -115,7 +118,7 @@ public class InMoovGui extends ServiceGui implements ActionListener {
     rightHand.addActionListener(this);
     rightArm.addActionListener(this);
     head.addActionListener(this);
-  
+    torso.addActionListener(this);
   }
 
   @Override
@@ -130,7 +133,9 @@ public class InMoovGui extends ServiceGui implements ActionListener {
     } else if (o == rightArm) {
       processAction(rightArm, "right", "arm");
     } else if (o == head) {
-      processAction(head, "left", "head");
+      processAction(head, "right", "head");
+    } else if (o == torso) {
+        processAction(torso, "right", "torso");
     } else {
       log.error("unkown event");
     }
@@ -188,7 +193,11 @@ public class InMoovGui extends ServiceGui implements ActionListener {
       log.info(String.format("starting %s %s with port %s", side, part, port));
       String upperPart = Character.toUpperCase(part.charAt(0)) + part.substring(1);
       String upperSide = Character.toUpperCase(side.charAt(0)) + side.substring(1);
-      send(String.format("start%s%s", upperSide, upperPart), port);
+      if(part=="torso" || part=="head") {
+    	  send(String.format("start%s", upperPart), port);
+      } else {
+    	  send(String.format("start%s%s", upperSide, upperPart), port);
+      }
       button.setText(String.format("hide %s %s", side, part));
       return;
     } else if (String.format("hide %s %s", side, part).equals(button.getText())) {

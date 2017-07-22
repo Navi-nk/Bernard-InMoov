@@ -9,7 +9,7 @@ startVirtualBernard=False
 
 #ports for connecting to adruino
 leftPort = "COM3"
-rightPort = "COM91"
+rightPort = "COM4"
 
 #chatbot choice: we have two chatbots built using api.ai and aiml
 #default is api.ai but aiml option is still there for people to explore
@@ -43,7 +43,7 @@ def heardSentence(sentence):
         mouth.speakBlocking("starting conversation mode")
         ear.addTextListener(chatBot)
         kinect.setFacingUser(True)
-        bernard.mouthControl.setmouth(50,120)
+        bernard.mouthControl.setmouth(60,120)
     elif sentence == "stop conversation":
         ear.removeListener("publishText", "chatBot", "onText")
         kinect.setFacingUser(False)
@@ -53,21 +53,28 @@ def heardSentence(sentence):
             fr=opencv.addFilter("fr","FaceRecognizer")
             opencv.setDisplayFilter("fr")
             print("testing")
+            sleep(5)
         print(fr.getLastRecognizedName())
         name=fr.getLastRecognizedName()
+        if name == "None":
+            mouth.speakBlocking("Sorry could not recognize you")
+        else:
+            sleep(3)
         ear.addTextListener(chatBot) 
         chatBot.getParsedRespose(chatBot.getAIResponse(name))
     elif sentence == "start introduction":
-        mouth.speakBlocking("who is this standing infront of me?")
+        ear.removeListener("publishText", "chatBot", "onText")
+        mouth.speakBlocking("who is this standing in front of me?")
         recognize = True
     elif recognize == True:
+        ear.removeListener("publishText", "chatBot", "onText")
         global fr
         if fr is None:
             fr=opencv.addFilter("fr","FaceRecognizer")
             opencv.setDisplayFilter("fr")
         fr.setTrainName(sentence)
         fr.setModeTrain()
-        sleep(5)
+        sleep(20)
         fr.setModeRecognize()
         mouth.speakBlocking("Learning done")
         recognize = False
@@ -77,6 +84,7 @@ def heardSentence(sentence):
     elif sentence == "stop imitation":
         #mouth.speakBlocking("Stopping Imitation mode")
         kinect.setRobotImitation(False)
+        bernard.restAll()
     elif sentence == "start facing user":
         #mouth.speakBlocking("Starting Facing User Mode")
         kinect.setFacingUser(True)
@@ -89,9 +97,9 @@ def heardSentence(sentence):
         gestureRecord=True
     elif gestureRecord == True:
         kinect.recordGesture(sentence)
-        sleep(4)
+        sleep(8)
         mouth.speakBlocking("Gesture Recording Done")
-        gestureRecord == False
+        gestureRecord = False
     elif sentence == "play gesture":
         ear.removeListener("publishText", "chatBot", "onText")
         mouth.speakBlocking("what gesture should i play?")
@@ -104,12 +112,22 @@ def heardSentence(sentence):
         gesturePlay = False
     elif sentence == "roll eyes":
         rollEyes()
+    elif sentence == "relax":
+        bernard.restAll()
     
 
 
 #create bernard
 def createBernard():
-    bernard.startAll(leftPort, rightPort)
+    #bernard.startAll(leftPort, rightPort)
+    #bernard.startRightHand(rightPort)
+    bernard.startMouth()
+    bernard.startMouthControl(leftPort)
+    bernard.startEar()
+    #bernard.startRightArm(rightPort)
+    #bernard.startLeftArm(leftPort)
+    bernard.startHead(leftPort)
+    #bernard.startTorso(leftPort)
     ear.addListener("publishText", python.name, "heardSentence")
     chatBot.configureAIBot(apiKey)
     chatBot.addTextListener(mouth)

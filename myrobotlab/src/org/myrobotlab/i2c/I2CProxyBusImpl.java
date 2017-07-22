@@ -21,13 +21,11 @@ public class I2CProxyBusImpl implements I2CBus {
   }
 
   // New in pi4j 1.1
-  @Override
   public int getFileDescriptor() {
     // TODO Auto-generated method stub
     return 0;
   }
 
-  @Override
   public String getFileName() {
     // TODO Auto-generated method stub
     return null;

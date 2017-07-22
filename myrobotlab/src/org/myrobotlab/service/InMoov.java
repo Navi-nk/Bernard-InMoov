@@ -872,10 +872,12 @@ public class InMoov extends Service {
 	      head.rest();
 	    }
 	    if (rightHand != null) {
-	      rightHand.rest();
+	    	restRightHand();
+	    	//rightHand.rest();
 	    }
 	    if (leftHand != null) {
-	      leftHand.rest();
+	    	restLeftHand();
+	    	//leftHand.rest();
 	    }
 	    if (rightArm != null) {
 	    	restRightArm();
@@ -1060,16 +1062,16 @@ public class InMoov extends Service {
   public void startAll(String leftPort, String rightPort) throws Exception {
     // TODO add vision
     startMouth();
-    startHead(leftPort);
+    //startHead(leftPort);
     startEar();
 
-    startMouthControl(leftPort);
+    //startMouthControl(leftPort);
 
-    startLeftHand(leftPort);
-    startRightHand(rightPort);
-    startLeftArm(leftPort);
+    //startLeftHand(leftPort);
+    //startRightHand(rightPort);
+    //startLeftArm(leftPort);
     startRightArm(rightPort);
-    startTorso(leftPort);
+    //startTorso(leftPort);
 
     //startHeadTracking(leftPort, 12, 13);
     //startEyesTracking(leftPort, 22, 24);
@@ -1209,9 +1211,13 @@ public class InMoov extends Service {
 //added by Navi
   public void restLeftArm(){
 	  leftArm.bicep.moveTo(0);
-	    leftArm.rotate.moveTo(90);
-	    leftArm.shoulder.moveTo(13);
-	    leftArm.omoplate.moveTo(10);
+	  leftArm.rotate.moveTo(90);
+	  leftArm.shoulder.moveTo(13);
+	  leftArm.omoplate.moveTo(10);
+	  //leftArm.bicep.moveTo(0);
+	  //leftArm.rotate.moveTo(90);
+	  //leftArm.shoulder.moveTo(10);
+	  //leftArm.omoplate.moveTo(0);
   }
 
 
@@ -1222,6 +1228,16 @@ public class InMoov extends Service {
   public InMoovHand startLeftHand(String port, String type) throws Exception {
     leftHand = startHand(LEFT, port, type);
     return leftHand;
+  }
+  
+  // Added by Jacob
+  public void restLeftHand() {
+	  leftHand.thumb.moveTo(180);
+	  leftHand.index.moveTo(180);
+	  leftHand.majeure.moveTo(180);
+	  leftHand.ringFinger.moveTo(180);
+	  leftHand.pinky.moveTo(180);
+	  leftHand.wrist.moveTo(90);
   }
 
   // gestures begin ---------------
@@ -1356,6 +1372,17 @@ public class InMoov extends Service {
     rightHand.pinky.map(0, 180, 180, 0);
     rightHand.pinky.moveTo(2);
     return rightHand;
+  }
+  
+  // Added by Jacob
+  
+  public void restRightHand() {
+	  rightHand.thumb.moveTo(180);
+	  rightHand.index.moveTo(180);
+	  rightHand.majeure.moveTo(180);
+	  rightHand.ringFinger.moveTo(180);
+	  rightHand.pinky.moveTo(2);
+	  rightHand.wrist.moveTo(90);
   }
 
   @Override

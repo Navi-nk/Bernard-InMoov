@@ -184,7 +184,7 @@ public class InMoovHead extends Service {
     attached |= eyeX.isAttached();
     attached |= eyeY.isAttached();
     attached |= jaw.isAttached();
-    attached |= rollNeck.isAttached();
+   // attached |= rollNeck.isAttached();
 
     return attached;
   }

@@ -20,7 +20,7 @@ public class Gesture implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	// Default duration of Gesture
-	public int duration=30;
+	public int duration=200;
 	// List containing skeletons across time
 	public LinkedList<KSkeleton> skeletonList = new LinkedList<KSkeleton>();
 	//public JSONObject storage = new JSONObject();

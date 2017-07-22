@@ -19,7 +19,6 @@ public class I2CProxyDeviceImpl implements I2CDevice {
   }
 
   // New in pi4j 1.1
-  @Override
   public int read(byte[] writeBuffer, int writeOffset, int writeSize, byte[] readBuffer, int readOffset, int readSize) throws IOException {
     return 0;
   }
@@ -44,7 +43,6 @@ public class I2CProxyDeviceImpl implements I2CDevice {
   }
 
   // New in pi4j 1.1
-  @Override
   public void write(int address, byte[] b) throws IOException {
     // TODO Auto-generated method stub
   }
@@ -57,7 +55,6 @@ public class I2CProxyDeviceImpl implements I2CDevice {
   }
 
   // New in pi4j 1.1
-  @Override
   public void write(byte[] b) throws IOException {
     // TODO Auto-generated method stub
   }

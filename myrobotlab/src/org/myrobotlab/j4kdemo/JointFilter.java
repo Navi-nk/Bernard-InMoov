@@ -206,7 +206,7 @@ public class JointFilter {
 			//if (trackingList.peekLast()[jointPosInclusions[i]] != Skeleton.TRACKED) tracked = false;
 			if(method == 1) {
 				for(int j=0;j<3;j++) {
-					joint_positions[j+jointPosInclusions[i]*3] = EWMA1(fxyz[j]);
+					joint_positions[j+jointPosInclusions[i]*3] = EWMA(fxyz[j]);
 				}
 			} else if(method == 2) {
 				Float[] posLevel = new Float[3];
@@ -241,7 +241,7 @@ public class JointFilter {
 					for(int k=0;k<orientationQList.size();k++) {
 						q[i*4+j][k] = orientationQList.get(k).get(i)[j];
 					}
-					joint_orientations[jointQInclusions[i]*4+j] = EWMA1(q[i*4+j]);
+					joint_orientations[jointQInclusions[i]*4+j] = EWMA(q[i*4+j]);
 				}
 			} else if (method == 2){
 				Float[] qLevel = new Float[4];
@@ -337,7 +337,7 @@ public class JointFilter {
 	}
 	
 	//Exponential weighted moving average method
-	public float EWMA1(Float[] data) {
+	public float EWMA(Float[] data) {
 		
 		Float numerator = 0f;
 	    Float denominator = 0f;
